@@ -5,15 +5,33 @@
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         There were problems registering this user.
       </div>
-      <label for="username" class="sr-only">Username</label>
+      <label for="email" class="sr-only">Email</label>
       <input
-        type="text"
-        id="username"
+        type="email"
+        id="email"
         class="form-control"
-        placeholder="Username"
-        v-model="user.username"
+        placeholder="Email"
+        v-model="user.email"
         required
         autofocus
+      />
+      <label for="firstName" class="sr-only">First Name</label>
+      <input
+        type="text"
+        id="firstName"
+        class="form-control"
+        placeholder="First Name"
+        v-model="user.firstName"
+        required
+      />
+      <label for="lastName" class="sr-only">Last Name</label>
+      <input
+        type="lastName"
+        id="lastName"
+        class="form-control"
+        placeholder="Last Name"
+        v-model="user.lastName"
+        required
       />
       <label for="password" class="sr-only">Password</label>
       <input
@@ -32,6 +50,9 @@
         v-model="user.confirmPassword"
         required
       />
+      <input type="radio" v-model="user.role" value="renter">Renter
+      <input type="radio" v-model="user.role" value="maintenance">Maintenance
+      <input type="radio" v-model="user.role" value="landlord">Landlord
       <router-link :to="{ name: 'login' }">
         Have an account?
       </router-link>
@@ -48,10 +69,12 @@ export default {
   data() {
     return {
       user: {
-        username: '',
+        email: '',
+        firstName: '',
+        lastName: '',
         password: '',
         confirmPassword: '',
-        role: 'user',
+        role: 'renter'
       },
       registrationErrors: false,
     };
