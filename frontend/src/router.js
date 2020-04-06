@@ -1,9 +1,12 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import auth from './auth'
-import Home from './views/Home.vue'
-import Login from './views/Login.vue'
-import Register from './views/Register.vue'
+import Router from 'vue-router';
+import auth from './auth';
+import Home from './views/Home.vue';
+import Login from './views/Login.vue';
+import Register from './views/Register.vue';
+import Payment from './views/Payment.vue';
+import Lease from './views/Lease.vue';
+import MaintenanceRequest from './views/MaintenanceRequest.vue';
 
 Vue.use(Router)
 
@@ -44,8 +47,34 @@ const router = new Router({
         requiresAuth: false
       }
     },
+    {
+      path: "/payment",
+      name: "payment",
+      component: Payment,
+      meta: {
+        requiresAuth: true
+      },
+    },
+    {
+    path: "/lease",
+    name: "lease",
+    component: Lease,
+    meta:{
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/maintenance/request",
+    name: "request",
+    component: MaintenanceRequest,
+    meta:{
+      requiresAuth: true
+    }
+  },
+ 
   ]
-})
+}
+)
 
 router.beforeEach((to, from, next) => {
   // Determine if the route requires Authentication

@@ -2,18 +2,27 @@
   <div class="home">
     <h1>Home</h1>
     <nav>
-      <a v-if="true">Renter: Pay Rent</a>
-      <a v-if="true">Renter: Request Maintenance</a>
-      <a v-if="true">Renter: Lease Info/Updates</a>
-      <a v-if="true">Maintenance: View Maintenance Requests</a>
-      <a v-if="true">Maintenance: Request Additional Maintenance</a>
-      <a v-if="true">Landlord: View Tenants/Rent</a>
-      <a v-if="true">Landlord: Assign Renter</a>
-      <a v-if="true">Landlord: Assign Maintenance</a>
-      <a v-if="true">Landlord: Add/Update Properties</a>
-      <a v-if="true">Admin: View Users</a>
+      <div v-if="user.rol=== 'renter' || user.rol==='admin'">
+      <router-link to="/payment">Payment</router-link>
+      <br>
+      <router-link to="/lease">Lease Info</router-link>
+      </div>
+      <router-link :to="{name:'request'}">Maintenance Request</router-link>
+
+      <div v-if="user.rol=== 'maintenance' || user.rol==='admin'">
+      <a>Maintenance: View Maintenance Requests</a>
+      </div>
+      <div v-if="user.rol=== 'landlord' || user.rol==='admin'">
+      <a>Landlord: View Tenants/Rent</a>
+       <a>Landlord: Assign Renter</a>
+       <a>Landlord: Assign Maintenance</a>
+       <a>Landlord: Add/Update Properties</a>
+      </div>
+        <div v-if="user.rol=== 'admin'">
+      <a>Admin: View Users</a>
+        </div>  
     </nav>
-    <p>You must be authenticated to see this. You are logged in as {{user.sub}}.</p>
+    <p>You must be authenticated to see this. You are logged in as {{user.sub}} as a {{user.rol}}.</p>
     <button @click="logout">logout</button>
   </div>
 </template>

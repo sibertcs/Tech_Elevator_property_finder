@@ -119,7 +119,7 @@ public class JdbcUserDao implements UserDao {
 
     private User mapResultToUser(SqlRowSet results) {
         User user = new User();
-        user.setId(results.getLong("id"));
+        user.setId(results.getLong("user_id"));
         user.setEmail(results.getString("email"));
         user.setRole(results.getString("role"));
         return user;
