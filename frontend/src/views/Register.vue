@@ -26,11 +26,20 @@
       />
       <label for="lastName" class="sr-only">Last Name</label>
       <input
-        type="lastName"
+        type="text"
         id="lastName"
         class="form-control"
         placeholder="Last Name"
         v-model="user.lastName"
+        required
+      />
+      <label for="phoneNumber" class="sr-only">Phone #</label>
+      <input
+        type="text"
+        id="phoneNumber"
+        class="form-control"
+        placeholder="Phone #"
+        v-model="user.phoneNumber"
         required
       />
       <label for="password" class="sr-only">Password</label>
@@ -72,6 +81,7 @@ export default {
         email: '',
         firstName: '',
         lastName: '',
+        phoneNumber: '',
         password: '',
         confirmPassword: '',
         role: 'renter'

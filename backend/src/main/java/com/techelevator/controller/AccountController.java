@@ -27,9 +27,9 @@ public class AccountController {
 
     @PostMapping("/login")
     public String login(@RequestBody User user) throws UnauthorizedException {
-        if(auth.signIn(user.getUsername(), user.getPassword())) {
+        if(auth.signIn(user.getEmail(), user.getPassword())) {
             User currentUser = auth.getCurrentUser();
-            return tokenHandler.createToken(user.getUsername(), currentUser.getRole());
+            return tokenHandler.createToken(user.getEmail(), currentUser.getRole());
         } else {
             throw new UnauthorizedException();
         }
@@ -38,7 +38,7 @@ public class AccountController {
 
 
     @PostMapping("/register")
-    public RegistrationResult register(@Valid @RequestBody User user, BindingResult result) {
+    public RegistrationResult register(@RequestBody User user, BindingResult result) {
     	RegistrationResult registrationResult = new RegistrationResult();
     	if(result.hasErrors()) {
             for(ObjectError error : result.getAllErrors()) {
@@ -46,7 +46,7 @@ public class AccountController {
             }
         }
     	else {
-    		auth.register(user.getUsername(), user.getPassword(), user.getRole());
+    		auth.register(user.getEmail(), user.getFirstName(), user.getLastName(), user.getPhoneNumber(), user.getPassword(), user.getRole());
     		registrationResult.setSuccess(true);
     	}
     	return registrationResult;

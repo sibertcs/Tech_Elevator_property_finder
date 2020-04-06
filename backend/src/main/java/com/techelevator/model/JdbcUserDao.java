@@ -37,23 +37,26 @@ public class JdbcUserDao implements UserDao {
      * salted and hashed before being saved. The original password is never
      * stored in the system. We will never have any idea what it is!
      *
-     * @param userName the user name to give the new user
+     * @param email the user name to give the new user
      * @param password the user's password
      * @param role the user's role
      * @return the new user
      */
     @Override
-    public User saveUser(String userName, String password, String role) {
+    public User saveUser(String email, String firstName, String lastName, String phoneNumber, String password, String role) {
         byte[] salt = passwordHasher.generateRandomSalt();
         String hashedPassword = passwordHasher.computeHash(password, salt);
         String saltString = new String(Base64.getEncoder().encode(salt));
         long newId = jdbcTemplate.queryForObject(
-                "INSERT INTO users(username, password, salt, role) VALUES (?, ?, ?, ?) RETURNING id", Long.class,
-                userName, hashedPassword, saltString, role);
+                "INSERT INTO users(email, firstName, lastName, phoneNumber, password, salt, role) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id", Long.class,
+                email, firstName, lastName, phoneNumber, hashedPassword, saltString, role);
 
         User newUser = new User();
         newUser.setId(newId);
-        newUser.setUsername(userName);
+        newUser.setEmail(email);
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        newUser.setPhoneNumber(phoneNumber);
         newUser.setRole(role);
 
         return newUser;
@@ -69,19 +72,19 @@ public class JdbcUserDao implements UserDao {
     }
 
     /**
-     * Look for a user with the given username and password. Since we don't
+     * Look for a user with the given email and password. Since we don't
      * know the password, we will have to get the user's salt from the database,
      * hash the password, and compare that against the hash in the database.
      *
-     * @param userName the user name of the user we are checking
+     * @param email the user name of the user we are checking
      * @param password the password of the user we are checking
      * @return true if the user is found and their password matches
      */
     @Override
-    public User getValidUserWithPassword(String userName, String password) {
-        String sqlSearchForUser = "SELECT * FROM users WHERE UPPER(username) = ?";
+    public User getValidUserWithPassword(String email, String password) {
+        String sqlSearchForUser = "SELECT * FROM users WHERE UPPER(email) = ?";
 
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSearchForUser, userName.toUpperCase());
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSearchForUser, email.toUpperCase());
         if (results.next()) {
             String storedSalt = results.getString("salt");
             String storedPassword = results.getString("password");
@@ -103,7 +106,7 @@ public class JdbcUserDao implements UserDao {
     @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<User>();
-        String sqlSelectAllUsers = "SELECT id, username, role FROM users";
+        String sqlSelectAllUsers = "SELECT id, email, role FROM users";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSelectAllUsers);
 
         while (results.next()) {
@@ -117,15 +120,15 @@ public class JdbcUserDao implements UserDao {
     private User mapResultToUser(SqlRowSet results) {
         User user = new User();
         user.setId(results.getLong("id"));
-        user.setUsername(results.getString("username"));
+        user.setEmail(results.getString("email"));
         user.setRole(results.getString("role"));
         return user;
     }
 
     @Override
-    public User getUserByUsername(String username) {
-        String sqlSelectUserByUsername = "SELECT id, username, role FROM users WHERE username = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSelectUserByUsername, username);
+    public User getUserByEmail(String email) {
+        String sqlSelectUserByEmail = "SELECT id, email, role FROM users WHERE email = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSelectUserByEmail, email);
 
         if (results.next()) {
             return mapResultToUser(results);

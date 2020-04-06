@@ -8,8 +8,15 @@ import javax.validation.constraints.NotBlank;
  * User
  */
 public class User {
-    @NotBlank(message = "Username is required")
-    private String username;
+    @NotBlank(message = "Email is required")
+    private String email;
+    @NotBlank(message = "First name is required")
+    private String firstName;
+    @NotBlank(message = "Last name is required")
+    private String lastName;
+
+	@NotBlank(message = "Phone is required")
+    private String phoneNumber;
 
     @NotBlank(message = "Role is required")
     private String role;
@@ -38,9 +45,32 @@ public class User {
     /**
      * @return the username
      */
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
+    public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
     /**
      * @return the id
@@ -52,7 +82,7 @@ public class User {
     /**
      * @param id the id to set
      */
-    public void setId(long id) {
+    public void setId(final long id) {
         this.id = id;
     }
 
@@ -66,22 +96,22 @@ public class User {
     /**
      * @param role the role to set
      */
-    public void setRole(String role) {
+    public void setRole(final String role) {
         this.role = role;
     }
 
     /**
      * @param username the username to set
      */
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(final String email) {
+        this.email = email;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
-    public void setConfirmPassword(String confirmPassword) {
+    public void setConfirmPassword(final String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
 }

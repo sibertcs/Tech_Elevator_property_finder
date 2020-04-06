@@ -58,7 +58,7 @@ public class RequestAuthProvider implements AuthProvider {
         if (userFromSession == null) {
             return false;
         }
-        User userFromDb = dao.getValidUserWithPassword(userFromSession.getUsername(), existingPassword);
+        User userFromDb = dao.getValidUserWithPassword(userFromSession.getEmail(), existingPassword);
         if (userFromDb != null && userFromDb.getId() == userFromDb.getId()) {
             dao.changePassword(userFromSession, newPassword);
             return true;
@@ -68,8 +68,8 @@ public class RequestAuthProvider implements AuthProvider {
     }
 
     @Override
-    public void register(String username, String password, String role) {
-        dao.saveUser(username, password, role);
+    public void register(String email, String firstName, String lastName, String phoneNumber, String password, String role) {
+        dao.saveUser(email, firstName, lastName, phoneNumber, password, role);
     }
 
     @Override
