@@ -38,7 +38,7 @@ public class AccountController {
 
 
     @PostMapping("/register")
-    public RegistrationResult register(@RequestBody User user, BindingResult result) {
+    public RegistrationResult register(@Valid @RequestBody User user, BindingResult result) {
     	RegistrationResult registrationResult = new RegistrationResult();
     	if(result.hasErrors()) {
             for(ObjectError error : result.getAllErrors()) {
