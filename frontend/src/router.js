@@ -23,125 +23,208 @@ Vue.use(Router)
  * It also is used to detect whether or not a route requires the user to have first authenticated.
  * If the user has not yet authenticated (and needs to) they are redirected to /login
  * If they have (or don't need to) they're allowed to go about their way.
+ * 
+ * Some routes check for the user's role before routing to the requested page.
  */
+let user;
 
 const router = new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: "/login",
-      name: "login",
-      component: Login,
-      meta: {
-        requiresAuth: false
-      }
-    },
-    {
-      path: "/register",
-      name: "register",
-      component: Register,
-      meta: {
-        requiresAuth: false
-      }
-    },
-    {
-      path: "/payment",
-      name: "payment",
-      component: Payment,
-      meta: {
-        requiresAuth: true
-      },
-    },
-    {
-    path: "/lease",
-    name: "lease",
-    component: Lease,
-    meta:{
-      requiresAuth: true
-    }
-  },
-  {
-    path: "/maintenance/request",
-    name: "request",
-    component: MaintenanceRequest,
-    meta:{
-      requiresAuth: true
-    }
-  },
-  {
-    path: "/maintenance/view",
-    name: "view",
-    component: viewMaintenanceRequest,
-    meta:{
-      requiresAuth: true
-    }
-  },
-  {
-    path: "/Landlord/tenants",
-    name: "tenants",
-    component: TenantsAndLandlord,
-    meta:{
-      requiresAuth: true
-    }
-  },
-  {
-    path: "/Landlord/assignRenter",
-    name: "assignRenter",
-    component: AssignRenter,
-    meta:{
-      requiresAuth: true
-    }
-  },
-  {
-    path: "/Landlord/assignMaintenance",
-    name: "assignMaintenance",
-    component: AssignMaintenance,
-    meta:{
-      requiresAuth: true
-    }
-  },
-  {
-    path: "/Landlord/AddOrUpdateProperties",
-    name: "addOrUpdate",
-    component: AddOrUpdateProperties,
-    meta:{
-      requiresAuth: true
-    }
-  },
-  {
-    path: "/Admin/viewUsers",
-    name: "viewUsers",
-    component: viewUsers,
-    meta:{
-      requiresAuth: true
-    }
-  },
- 
-  ]
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: Home,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: "/login",
+            name: "login",
+            component: Login,
+            meta: {
+                requiresAuth: false
+            }
+        },
+        {
+            path: "/register",
+            name: "register",
+            component: Register,
+            meta: {
+                requiresAuth: false
+            }
+        },
+        {
+            path: "/payment",
+            name: "payment",
+            component: Payment,
+            beforeEnter: (to, from, next) => {
+                user = auth.getUser();
+                // If user doesn't have role of 'renter' or 'admin', send to "/"
+                if (user.rol !== 'renter' && user.rol !== 'admin') {
+                    next("/");
+                } else {
+                    // Else let them go to their next destination
+                    next();
+                }
+            },
+            meta: {
+                requiresAuth: true
+            },
+        },
+        {
+            path: "/lease",
+            name: "lease",
+            component: Lease,
+            beforeEnter: (to, from, next) => {
+                user = auth.getUser();
+                // If user doesn't have role of 'renter' or 'admin', send to "/"
+                if (user.rol !== 'renter' && user.rol !== 'admin') {
+                    next("/");
+                } else {
+                    // Else let them go to their next destination
+                    next();
+                }
+            },
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: "/maintenance/request",
+            name: "request",
+            component: MaintenanceRequest,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: "/maintenance/view",
+            name: "view",
+            component: viewMaintenanceRequest,
+            beforeEnter: (to, from, next) => {
+                user = auth.getUser();
+                // If user doesn't have role of 'maintenance' or 'admin', send to "/"
+                if (user.rol !== 'maintenance' && user.rol !== 'admin') {
+                    next("/");
+                } else {
+                    // Else let them go to their next destination
+                    next();
+                }
+            },
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: "/Landlord/tenants",
+            name: "tenants",
+            component: TenantsAndLandlord,
+            beforeEnter: (to, from, next) => {
+                user = auth.getUser();
+                // If user doesn't have role of 'landlord' or 'admin', send to "/"
+                if (user.rol !== 'landlord' && user.rol !== 'admin') {
+                    next("/");
+                } else {
+                    // Else let them go to their next destination
+                    next();
+                }
+            },
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: "/Landlord/assignRenter",
+            name: "assignRenter",
+            component: AssignRenter,
+            beforeEnter: (to, from, next) => {
+                user = auth.getUser();
+                // If user doesn't have role of 'landlord' or 'admin', send to "/"
+                if (user.rol !== 'landlord' && user.rol !== 'admin') {
+                    next("/");
+                } else {
+                    // Else let them go to their next destination
+                    next();
+                }
+            },
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: "/Landlord/assignMaintenance",
+            name: "assignMaintenance",
+            component: AssignMaintenance,
+            beforeEnter: (to, from, next) => {
+                user = auth.getUser();
+                // If user doesn't have role of 'landlord' or 'admin', send to "/"
+                if (user.rol !== 'landlord' && user.rol !== 'admin') {
+                    next("/");
+                } else {
+                    // Else let them go to their next destination
+                    next();
+                }
+            },
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: "/Landlord/AddOrUpdateProperties",
+            name: "addOrUpdate",
+            component: AddOrUpdateProperties,
+            beforeEnter: (to, from, next) => {
+                user = auth.getUser();
+                // If user doesn't have role of 'landlord' or 'admin', send to "/"
+                if (user.rol !== 'landlord' && user.rol !== 'admin') {
+                    next("/");
+                } else {
+                    // Else let them go to their next destination
+                    next();
+                }
+            },
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: "/Admin/viewUsers",
+            name: "viewUsers",
+            component: viewUsers,
+            beforeEnter: (to, from, next) => {
+                user = auth.getUser();
+                // If user doesn't have role of 'admin', send to "/"
+                if (user.rol !== 'admin') {
+                    next("/");
+                } else {
+                    // Else let them go to their next destination
+                    next();
+                }
+            },
+            meta: {
+                requiresAuth: true
+            }
+        },
+
+    ]
 }
 )
 
 router.beforeEach((to, from, next) => {
-  // Determine if the route requires Authentication
-  const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
-  const user = auth.getUser();
+    // Determine if the route requires Authentication
+    const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
+    user = auth.getUser();
 
-  // If it does and they are not logged in, send the user to "/login"
-  if (requiresAuth && !user) {
-    next("/login");
-  } else {
-    // Else let them go to their next destination
-    next();
-  }
+    // If it does and they are not logged in, send the user to "/login"
+    if (requiresAuth && !user) {
+        next("/login");
+    } else {
+        // Else let them go to their next destination
+        next();
+    }
 });
 
 export default router;
