@@ -3,7 +3,7 @@ package com.techelevator.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class rentCycle {
+public class RentCycle {
     private int id;
     private int leaseId;
     private LocalDate startDate;
