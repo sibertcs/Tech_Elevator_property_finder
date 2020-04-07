@@ -1,0 +1,23 @@
+[
+    {
+        "propertyId": "1",
+        "propertyName": "Lisa's Ridge",
+        "landlordEmail": "landlord@gmail.com"
+    },
+    {
+        "propertyId": "2",
+        "propertyName": "The Provident",
+        "landlordEmail": "admin@gmail.com"
+    },
+    {
+        "propertyId": "3",
+        "propertyName": "Hilltop Apartments",
+        "landlordEmail": "admin@gmail.com"
+    },
+    {
+        "propertyId": "4",
+        "propertyName": "The Bradford",
+        "landlordEmail": "landlord@gmail.com"
+    }
+
+]

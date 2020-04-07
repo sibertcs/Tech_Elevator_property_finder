@@ -5,21 +5,25 @@
             <div>
                 <label for="propertyName">Property: </label>
                 <select id="propertyName">  
-                    <!-- Will pull from method to pull only the properties for current Landlord user -->
+                    <!-- shows only the properties for current Landlord user -->
                     <option value="" disabled selected>Select a Property</option>
-                    <option value="1">Lisa's Ridge</option>
-                    <option value="2">The Provident</option>
-                    <option value="6">2251 Washington Ave</option>
-                    <option value="9">Hilltop Apartments</option>
+                    <option v-for="prop in properties" 
+                            :key="prop.propertyId" 
+                            value="prop.propertyId">
+                        {{ prop.propertyName }}
+                    </option>
                 </select>
             </div>
             <div>
                 <label for="unitNumber">Unit: </label>
-                <select id="unitNumber">
-                    <!-- Will pull from method to pull only the Units for the Property selected above -->
+                <select id="unitNumber" v-model="selectedPropertyId">
+                    <!-- shows only the Units for the Property selected above -->
                     <option value="" disabled selected>Select a Unit Number</option>
-                    <option value="2">5633C</option>
-                    <option value="3">5653B</option>
+                    <option v-for="unit in unitsForSelectedProperty" 
+                            :key="unit.unitId" 
+                            value="unit.unitId">
+                        {{ unit.unitNumber }}
+                    </option>
                 </select>
             </div>
             <div>
@@ -59,8 +63,31 @@
 </template>
 
 <script>
-export default {
+import propertyData from '../assets/data/properties.json'
+import unitData from '../assets/data/units.json'
 
+export default {
+    data() {
+        return {
+            allProperties: propertyData,
+            allUnits: unitData,
+            properties: [],
+            selectedPropertyId: ''
+        }
+    },
+    computed: {
+        unitsForSelectedProperty() {
+            return this.allUnits.filter((unit) => unit.propertyId === this.selectedPropertyId);
+        }
+    },
+    methods: {
+        getPropertiesForLandlord(email) {
+            this.properties = this.allProperties.filter((prop) => prop.landlordEmail === email);
+        }
+    },
+    created() {
+        this.getPropertiesForLandlord(this.$route.meta.user.sub);
+    }
 }
 </script>
 

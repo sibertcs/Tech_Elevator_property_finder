@@ -26,7 +26,7 @@ Vue.use(Router)
  * 
  * Some routes check for the user's role before routing to the requested page.
  */
-let user;
+let user = auth.getUser();
 
 const router = new Router({
     mode: 'history',
@@ -151,7 +151,8 @@ const router = new Router({
                 }
             },
             meta: {
-                requiresAuth: true
+                requiresAuth: true,
+                user: user
             }
         },
         {
