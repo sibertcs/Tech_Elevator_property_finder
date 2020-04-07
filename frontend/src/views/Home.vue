@@ -10,16 +10,16 @@
       <router-link :to="{name:'request'}">Maintenance Request</router-link>
 
       <div v-if="user.rol=== 'maintenance' || user.rol==='admin'">
-      <a>Maintenance: View Maintenance Requests</a>
+      <router-link :to="{name:'view'}">View Maintenance Requests</router-link>
       </div>
       <div v-if="user.rol=== 'landlord' || user.rol==='admin'">
-      <a>Landlord: View Tenants/Rent</a>
-       <a>Landlord: Assign Renter</a>
-       <a>Landlord: Assign Maintenance</a>
-       <a>Landlord: Add/Update Properties</a>
+      <router-link :to="{name: 'tenants'}">View Tenants/Landlord</router-link>
+       <router-link :to="{name: 'assignRenter'}"> Assign Renter</router-link>
+       <router-link :to="{name: 'assignMaintenance'}"> Assign Maintenance</router-link>
+       <router-link :to="{name: 'addOrUpdate'}"> Add/Update Properties</router-link>
       </div>
         <div v-if="user.rol=== 'admin'">
-      <a>Admin: View Users</a>
+      <router-link :to="{name: 'viewUsers'}"> View Users</router-link>
         </div>  
     </nav>
     <p>You must be authenticated to see this. You are logged in as {{user.sub}} as a {{user.rol}}.</p>

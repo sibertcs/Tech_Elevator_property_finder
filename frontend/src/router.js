@@ -7,6 +7,12 @@ import Register from './views/Register.vue';
 import Payment from './views/Payment.vue';
 import Lease from './views/Lease.vue';
 import MaintenanceRequest from './views/MaintenanceRequest.vue';
+import viewMaintenanceRequest from './views/ViewMaintenanceRequests.vue';
+import TenantsAndLandlord from './views/TenantsAndLandlord.vue';
+import AssignRenter from './views/AssignRenter.vue';
+import AssignMaintenance from './views/AssignMaintenance';
+import AddOrUpdateProperties from './views/AddOrUpdateProperties.vue';
+import viewUsers from './views/ViewUsers.vue';
 
 Vue.use(Router)
 
@@ -67,6 +73,54 @@ const router = new Router({
     path: "/maintenance/request",
     name: "request",
     component: MaintenanceRequest,
+    meta:{
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/maintenance/view",
+    name: "view",
+    component: viewMaintenanceRequest,
+    meta:{
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/Landlord/tenants",
+    name: "tenants",
+    component: TenantsAndLandlord,
+    meta:{
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/Landlord/assignRenter",
+    name: "assignRenter",
+    component: AssignRenter,
+    meta:{
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/Landlord/assignMaintenance",
+    name: "assignMaintenance",
+    component: AssignMaintenance,
+    meta:{
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/Landlord/AddOrUpdateProperties",
+    name: "addOrUpdate",
+    component: AddOrUpdateProperties,
+    meta:{
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/Admin/viewUsers",
+    name: "viewUsers",
+    component: viewUsers,
     meta:{
       requiresAuth: true
     }
