@@ -1,5 +1,5 @@
 package com.techelevator.model;
 
-public interface UnitDao {
+public interface RentDao {
 
 }
