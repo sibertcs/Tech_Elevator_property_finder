@@ -35,7 +35,7 @@
         <option>Employee 2!!! </option>
         <option>Employee 3!!! </option>
          </select>
-         <input type="submit">
+         <button type="submit">submit</button>
       </form>
 
     
