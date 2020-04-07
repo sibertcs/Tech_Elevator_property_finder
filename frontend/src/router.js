@@ -9,7 +9,7 @@ import Lease from './views/Lease.vue';
 import MaintenanceRequest from './views/MaintenanceRequest.vue';
 import viewMaintenanceRequest from './views/ViewMaintenanceRequests.vue';
 import TenantsAndLandlord from './views/TenantsAndLandlord.vue';
-import AssignRenter from './views/AssignRenter.vue';
+import CreateLease from './views/CreateLease.vue';
 import AssignMaintenance from './views/AssignMaintenance';
 import AddOrUpdateProperties from './views/AddOrUpdateProperties.vue';
 import viewUsers from './views/ViewUsers.vue';
@@ -137,9 +137,9 @@ const router = new Router({
             }
         },
         {
-            path: "/Landlord/assignRenter",
-            name: "assignRenter",
-            component: AssignRenter,
+            path: "/Landlord/create-lease",
+            name: "createLease",
+            component: CreateLease,
             beforeEnter: (to, from, next) => {
                 user = auth.getUser();
                 // If user doesn't have role of 'landlord' or 'admin', send to "/"
