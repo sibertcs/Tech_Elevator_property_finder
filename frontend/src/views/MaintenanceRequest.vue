@@ -19,7 +19,7 @@
         <option>Medium</option>
         <option>High</option>
       </select>
-      <button type="submit" v-bind:disabled="!isValidForm">Submit Request </button>
+      <button type="submit" v-bind:disabled="!isValidForm" v-on:click="createRequest">Submit Request  </button>
     </form>
   </div>
 </template>
