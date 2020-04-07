@@ -26,6 +26,7 @@ CREATE TABLE users (
 
 CREATE TABLE property (
   property_id serial PRIMARY KEY,
+  landlord_id integer NOT NULL,
   street_address varchar(255) NOT NULL UNIQUE,
   city varchar(255) NOT NULL,
   state varchar(255) NOT NULL,
@@ -33,7 +34,8 @@ CREATE TABLE property (
   property_name varchar(255),
   photo_path varchar(255) NOT NULL,
   location varchar(255) NOT NULL,
-  CHECK (location IN ('Downtown', 'East Side', 'West Side', 'North Side', 'NKY'))
+  CHECK (location IN ('Downtown', 'East Side', 'West Side', 'North Side', 'NKY')),
+  CONSTRAINT property_fk_landlord_id FOREIGN KEY(landlord_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE unit ( 

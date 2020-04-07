@@ -1,19 +1,32 @@
 <template>
   <div>
     <h1>this is where you add or update properties</h1>
-    <input v-model="newProperty" type="radio" :value="true">Add New Property
-    <input v-model="newProperty" type="radio" :value="false">Update Existing Property
-
+    <input @click="currentProperty = {
+                    address: '',
+                    name: '',
+                    location: '',
+                    units: []
+                  }" 
+    v-model="newProperty" type="radio" :value="true">Add New Property
+    <input @click="currentProperty = {
+                    address: '',
+                    name: '',
+                    location: '',
+                    units: []
+                  }" 
+    v-model="newProperty" type="radio" :value="false">Update Existing Property
+    <br>
+    <br>
     <div>
       <form v-if="newProperty">
         <label for="address">Address</label>
-        <input type="text">
-
+        <input type="text" v-model="currentProperty.address">
+        
         <label for="name">Name (If Applicable)</label>
-        <input type="text">
+        <input type="text" v-model="currentProperty.name">
 
         <label for="location">Location</label>
-        <select>
+        <select v-model="currentProperty.location">
           <option>Dowtown</option>
           <option>East Side</option>
           <option>West Side</option>
@@ -21,57 +34,70 @@
           <option>NKY</option>
         </select>
         <br>
+        <br>
         <label for="newUnit">Add Unit</label>
-        <input type="text" placeholder="Unit #">
-        <input type="text" placeholder="Bed Count">
-        <input type="text" placeholder="Bath Count">
-        <input type="text" placeholder="Rent $">
-        <input type="text" placeholder="SqFt">
+        <input type="text" placeholder="Unit #" v-model="newUnit.number">
+        <input type="text" placeholder="Bed Count" v-model="newUnit.bedCount">
+        <input type="text" placeholder="Bath Count" v-model="newUnit.bathCount">
+        <input type="text" placeholder="Rent $" v-model="newUnit.price">
+        <input type="text" placeholder="SqFt" v-model="newUnit.sqft">
+        <button type="submit" @click.prevent="addUnit">Add Unit</button>
 
       </form>
       <form v-if="!newProperty">
         <label for="property">Select Property</label>
-        <select v-model="updatePropId">
-          <option :value="1">Building 1!!!</option>
-          <option :value="2">Building 2!!!</option>
-          <option :value="3">Building 3!!!</option>
+        <select v-model="updatePropId" @change="existingProp">
+          <option :value="'Building 1!!!'">Building 1!!!</option>
+          <option :value="'Building 2!!!'">Building 2!!!</option>
+          <option :value="'Building 3!!!'">Building 3!!!</option>
         </select>
+        <br>
+        <br>
         <div v-if="updatePropId !== ''">
           <label for="address">Address</label>
-          <input type="text">
+          <input type="text" v-model="currentProperty.address">
 
           <label for="name">Name (If Applicable)</label>
-          <input type="text">
+          <input type="text" v-model="currentProperty.name">
 
           <label for="location">Location</label>
-          <select>
+          <select v-model="currentProperty.location">
             <option>Dowtown</option>
             <option>East Side</option>
             <option>West Side</option>
             <option>North Side</option>
             <option>NKY</option>
           </select>
+          <br>
+          <br>
+          <label for="newUnit">Add Unit</label>
+          <input type="text" placeholder="Unit #" v-model="newUnit.number">
+          <input type="text" placeholder="Bed Count" v-model="newUnit.bedCount">
+          <input type="text" placeholder="Bath Count" v-model="newUnit.bathCount">
+          <input type="text" placeholder="Rent $" v-model="newUnit.price">
+          <input type="text" placeholder="SqFt" v-model="newUnit.sqft">
+          <button type="submit" @click.prevent="addUnit">Add Unit</button>
         </div>
       </form>
+      <br>
       <table>
           <tr>
-            <th>Unit #</th>
+            <th>Unit Number</th>
             <th>Bed Count</th>
             <th>Bath Count</th>
             <th>Rent Price</th>
-            <th>SqFt</th>
+            <th>Square Footage</th>
           </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr v-for="unit in currentProperty.units" :key="unit.sqft">
+            <td>#{{unit.number}}</td>
+            <td>{{unit.bedCount}} bed</td>
+            <td>{{unit.bathCount}} bath</td>
+            <td>${{unit.price}}</td>
+            <td>{{unit.sqft}} sqft</td>
           </tr>
         </table>
     </div>
-
+    <button @click.prevent="submitProperty" type="submit">{{newProperty? 'Add' : 'Update'}} Property</button>  
   </div>
 </template>
 
@@ -85,16 +111,58 @@ export default {
         address: '',
         name: '',
         location: '',
+        units: []
+      },
+      newUnit: {
+        number: '',
+        bedCount: '',
+        bathCount: '',
+        price: '',
+        sqft: ''
+      }
+    }
+  },
+  methods: {
+    existingProp() {
+      this.currentProperty = {
+        address: '123 abc ave.',
+        name: this.updatePropId,
+        location: 'Downtown',
         units: [
           {
-            number: '',
-            bedCount: '',
-            bathCount: '',
-            price: '',
-            sqft: '',
-            quantity: ''
+            number: '1',
+            bedCount: '2',
+            bathCount: '2',
+            price: '1075',
+            sqft: '988'
+          },
+          {
+            number: '2',
+            bedCount: '2',
+            bathCount: '2',
+            price: '1025',
+            sqft: '1100'
+          },
+          {
+            number: '3',
+            bedCount: '1',
+            bathCount: '1',
+            price: '750',
+            sqft: '678'
           }
         ]
+      }
+    },
+    addUnit() {
+      let addedUnit = Object.assign({}, this.newUnit);
+      this.currentProperty.units.push(addedUnit);
+      console.log('new unit!');
+    },
+    submitProperty() {
+      if(this.newProperty) {
+        console.log('Send POST:' + JSON.stringify(this.currentProperty));
+      } else {
+        console.log('Send PUT' + JSON.stringify(this.currentProperty))
       }
     }
   }
@@ -102,5 +170,9 @@ export default {
 </script>
 
 <style>
-
+  table th,
+  table td {
+    border: 1px solid black;
+    padding: 5px;
+  }
 </style>
