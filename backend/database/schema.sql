@@ -96,7 +96,7 @@ CREATE TABLE payment (
   payment_id serial PRIMARY KEY,
   rent_cycle_id integer NOT NULL,
   amount_paid decimal NOT NULL,
-  last_date_paid date NOT NULL,
+  date_paid date NOT NULL,
   CONSTRAINT payments_fk_rent_cycle_id FOREIGN KEY(rent_cycle_id) REFERENCES rent_cycle(rent_cycle_id)
 );
 
