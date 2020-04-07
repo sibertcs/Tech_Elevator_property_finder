@@ -1,17 +1,28 @@
 package com.techelevator.model;
 
+import java.time.LocalDate;
+
 public class MaintenanceRequest {
 
     private int requestId;
     private int unitId;
     private int requestUserId;
     private String requestDesc;
-    private int urgency;
+    private int priority;
+    private LocalDate dateRequested;
     private int assignedUserId;
     private boolean isCompleted;
 
     public int getRequestId() {
         return requestId;
+    }
+
+    public LocalDate getDateRequested() {
+        return dateRequested;
+    }
+
+    public void setDateRequested(LocalDate dateRequested) {
+        this.dateRequested = dateRequested;
     }
 
     public boolean isCompleted() {
@@ -30,12 +41,12 @@ public class MaintenanceRequest {
         this.assignedUserId = assignedUserId;
     }
 
-    public int getUrgency() {
-        return urgency;
+    public int getPriority() {
+        return priority;
     }
 
-    public void setUrgency(int urgency) {
-        this.urgency = urgency;
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public String getRequestDesc() {
