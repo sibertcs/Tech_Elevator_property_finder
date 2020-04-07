@@ -1,3 +1,4 @@
+package com.techelevator.model;
 
 import java.util.ArrayList;
 import java.util.Base64;
