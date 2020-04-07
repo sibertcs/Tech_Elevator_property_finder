@@ -1,8 +1,9 @@
 <template>
 <div>
   <h1>This is all the Maintenance Requests</h1>
-  <div>
+  <div class= "maintenace-request">
     <table>
+     
       <tr>
         <td>Requesting Resident: </td>
         <td> Resident Name!!!! </td>
@@ -12,7 +13,7 @@
         <td>Unit number!!!! </td>
       </tr>  
       <tr>
-        <td>Urgency: </td>
+        <td>Priority Level: </td>
         <td>Urgency Level!!! </td>
       </tr> 
       <tr>
@@ -27,13 +28,37 @@
         <td>Status: </td>
         <td>isCompleted?!!! </td>
       </tr> 
+       <form>
+      <buttton type="submit">Change status to</buttton>
+      </form>
     </table>  
+    
   </div>  
 </div>
 </template>
 
 <script>
 export default {
+   name: 'view',
+  data(){
+    return {
+      assignMaintenace: {
+        RequestId: '',
+        unitId: '',
+        description: '',
+        status: '',
+        employeeId: '',
+        requestDate: '',
+        priorityLevel: '',
+        residentName: '',
+        role: 'maintenance'
+      }
+    };
+  },
+  methods: {
+    
+   
+  }
 
 }
 </script>
