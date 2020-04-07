@@ -12,7 +12,7 @@
         <label for="name">Name (If Applicable)</label>
         <input type="text">
 
-        <label for="location">Name (If Applicable)</label>
+        <label for="location">Location</label>
         <select>
           <option>Dowtown</option>
           <option>East Side</option>
@@ -43,7 +43,7 @@
           <label for="name">Name (If Applicable)</label>
           <input type="text">
 
-          <label for="location">Name (If Applicable)</label>
+          <label for="location">Location</label>
           <select>
             <option>Dowtown</option>
             <option>East Side</option>
