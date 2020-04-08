@@ -11,7 +11,6 @@
                         {{ prop.propertyName }}
                     </option>
     </select>
-       <button type="submit" id="property">Submit Request</button>
       <table>
         <tr><label for="propertyName">Property Name</label></tr>
           <td>
