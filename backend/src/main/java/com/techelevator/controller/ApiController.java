@@ -1,10 +1,15 @@
 package com.techelevator.controller;
 
+import java.util.List;
+
 import com.techelevator.authentication.AuthProvider;
 import com.techelevator.authentication.UnauthorizedException;
+import com.techelevator.model.Property;
+import com.techelevator.model.PropertyDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +25,9 @@ public class ApiController {
     @Autowired
     private AuthProvider authProvider;
 
+    @Autowired
+    private PropertyDao propertyDao;
+
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String authorizedOnly() throws UnauthorizedException {
         /*
@@ -33,5 +41,10 @@ public class ApiController {
             throw new UnauthorizedException();
         }
         return "Success";
+    }
+
+    @GetMapping("/properties")
+    public List<Property> getAllProperties() {
+        return propertyDao.getAllProperties();
     }
 }

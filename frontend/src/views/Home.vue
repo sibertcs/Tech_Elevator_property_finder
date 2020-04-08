@@ -26,6 +26,7 @@
     </nav>
     <p>You are logged in as {{user.sub}} as a {{user.rol}} and has the id of {{user.id}}.</p>
     <button @click="logout">logout</button>
+    <br>
     <browse-properties/>
   </div>
 </template>
@@ -49,6 +50,14 @@ export default {
     logout() {
       this.$emit('user-logout')
       this.$router.push('/login');
+    },
+    allProps() {
+      return fetch('http://localhost:8080/api/properties')
+        .then((response) => {
+          if(response.ok) {
+            console.log(JSON.stringify(response));
+          }
+        });
     }
   }
 }

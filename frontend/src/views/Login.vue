@@ -30,15 +30,20 @@
       <router-link :to="{ name: 'register' }">Need an account?</router-link>
       <button type="submit">Sign in</button>
     </form>
+    <br>
+    <browse-properties/>
   </div>
 </template>
 
 <script>
 import auth from '../auth';
+import BrowseProperties from '../components/BrowseProperties';
 
 export default {
   name: 'login',
-  components: {},
+  components: {
+    BrowseProperties
+  },
   data() {
     return {
       user: {
