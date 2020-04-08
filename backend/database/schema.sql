@@ -128,11 +128,15 @@ INSERT INTO users (email, first_name, last_name, phone_number, password, salt, r
 
 
 INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location)
-VALUES (1, '630 Vine St', 'Cincinnati', 'OH', '45202', 'The Provident' , '../assets/images/1/photos/', 'Downtown');
-
-INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available)
-VALUES ('unit_number', property_id, bed_count, bath_count, price, sq_ft, is_available)
-
+VALUES (1, '630 Vine St', 'Cincinnati', 'OH', '45202', 'The Provident Apartments' , '../assets/images/1/photos/', 'Downtown');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location)
+VALUES (2, '2251 Washington Ave', 'Cincinnati', 'OH', '45212', '2251 Washington Ave' , '../assets/images/2/photos/', 'East Side');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location)
+VALUES (3, '5601 Viewpointe', 'Cincinnati', 'OH', '45213', 'Hilltop Apartments' , '../assets/images/3/photos/', 'North Side');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location)
+VALUES (4, '1500 Groesbeck Rd', 'Cincinnati', 'OH', '45224', 'The Bradford Apartments' , '../assets/images/4/photos/', 'North Side');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location)
+VALUES (5, '2496 Queen City Ave', 'Cincinnati', 'OH', '45238', 'Lisa Ridge Apartments' , '../assets/images/5/photos/', 'West Side');
 
 
 
