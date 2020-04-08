@@ -8,17 +8,11 @@ import java.time.LocalDate;
 public class Lease {
 
     private int leaseId;
-
     private int userId;
-
     private int unitId;
-
     private LocalDate signedDate;
-
     private int rentLength;
-
     private BigDecimal rentAmount;
-
     private BigDecimal lateFee;
 
     public int getLeaseId() {
