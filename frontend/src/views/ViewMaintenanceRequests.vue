@@ -4,7 +4,6 @@
   <div>Hello {{ user.sub }}</div>
   <div class= "maintenace-request">
 <div class="card border-dark mb-3" style="max-width: 18rem;" v-for="request in requests" :key="request.unitId">
-  <!-- do a v-for to loop through all of the requests -->
   <div class="card-header"> {{ request.residentName}}</div>
   <div class="card-body text-dark">
     <h5 class="card-title">Unit id: {{ request.unitId }}</h5>
