@@ -2,22 +2,45 @@
     {
         "propertyId": "1",
         "propertyName": "Lisa's Ridge",
-        "landlordEmail": "landlord@gmail.com"
+        "landlordEmail": "landlord@gmail.com",
+        "units": [
+            {
+                "bedCount": "1"
+            }
+        ]
     },
     {
         "propertyId": "2",
         "propertyName": "The Provident",
-        "landlordEmail": "admin@gmail.com"
+        "landlordEmail": "admin@gmail.com",
+        "units": [
+            {
+                "bedCount": "2"
+            }
+        ]
     },
     {
         "propertyId": "3",
         "propertyName": "Hilltop Apartments",
-        "landlordEmail": "admin@gmail.com"
+        "landlordEmail": "admin@gmail.com",
+        "units": [
+            {
+                "bedCount": "3"
+            }
+        ]
     },
     {
         "propertyId": "4",
         "propertyName": "The Bradford",
-        "landlordEmail": "landlord@gmail.com"
+        "landlordEmail": "landlord@gmail.com",
+        "units": [
+            {
+                "bedCount": "3"
+            },
+            {
+                "bedCount": "4"
+            }
+        ]
     }
 
 ]

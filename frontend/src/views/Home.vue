@@ -23,15 +23,20 @@
     </nav>
     <p>You must be authenticated to see this. You are logged in as {{user.sub}} as a {{user.rol}} and has the id of {{user.id}}.</p>
     <button @click="logout">logout</button>
+    <browse-properties/>
   </div>
 </template>
 
 <script>
+import BrowseProperties from '../components/BrowseProperties';
 
 export default {
   name: 'home',
   props: {
     user: Object
+  },
+  components: {
+    BrowseProperties
   },
   data() {
     return {
