@@ -5,7 +5,6 @@ DROP TABLE IF EXISTS payment;
 DROP TABLE IF EXISTS rent_cycle;
 DROP TABLE IF EXISTS lease;
 DROP TABLE IF EXISTS property_feature;
-DROP TABLE IF EXISTS property_landlord;
 DROP TABLE IF EXISTS feature;
 DROP TABLE IF EXISTS unit;
 DROP TABLE IF EXISTS property;
@@ -127,23 +126,21 @@ INSERT INTO users (email, first_name, last_name, phone_number, password, salt, r
 INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('maintenance_3@gmail.com', 'Maint', 'Three', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'maintenance');
 
 
-INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location)
-VALUES (1, '630 Vine St', 'Cincinnati', 'OH', '45202', 'The Provident Apartments' , '../assets/images/1/photos/', 'Downtown');
-INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location)
-VALUES (2, '2251 Washington Ave', 'Cincinnati', 'OH', '45212', '2251 Washington Ave' , '../assets/images/2/photos/', 'East Side');
-INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location)
-VALUES (3, '5601 Viewpointe', 'Cincinnati', 'OH', '45213', 'Hilltop Apartments' , '../assets/images/3/photos/', 'North Side');
-INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location)
-VALUES (4, '1500 Groesbeck Rd', 'Cincinnati', 'OH', '45224', 'The Bradford Apartments' , '../assets/images/4/photos/', 'North Side');
-INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location)
-VALUES (5, '2496 Queen City Ave', 'Cincinnati', 'OH', '45238', 'Lisa Ridge Apartments' , '../assets/images/5/photos/', 'West Side');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (4, '630 Vine St', 'Cincinnati', 'OH', '45202', 'The Provident Apartments' , '../assets/images/1/photos/', 'Downtown');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (5, '2251 Washington Ave', 'Cincinnati', 'OH', '45212', '2251 Washington Ave' , '../assets/images/2/photos/', 'East Side');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (6, '5601 Viewpointe', 'Cincinnati', 'OH', '45213', 'Hilltop Apartments' , '../assets/images/3/photos/', 'North Side');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (6, '1500 Groesbeck Rd', 'Cincinnati', 'OH', '45224', 'The Bradford Apartments' , '../assets/images/4/photos/', 'North Side');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (5, '2496 Queen City Ave', 'Cincinnati', 'OH', '45238', 'Lisa Ridge Apartments' , '../assets/images/5/photos/', 'West Side');
 
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('0211', 1, 0, 1, 1040, 430, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('0220', 1, 1, 1, 1410, 650, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('1001', 1, 2, 2, 2145, 1052, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('2', 2, 3, 1, 1395, 1400, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('5633C', 3, 2, 2, 1429, 1171, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('5653B', 3, 2, 2, 1279, 1033, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('511', 4, 1, 1, 710, 525, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('621', 4, 0, 1, 475, 425, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('2486-02', 5, 2, 1, 760, 705, true);
 
 
 COMMIT TRANSACTION;
-
-
-
-
-SELECT * FROM users;
-
