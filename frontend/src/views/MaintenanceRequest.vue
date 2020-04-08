@@ -6,9 +6,12 @@
       <input type="hidden" id="unitId" name="unitId" value="unitId !!!"/>
       <label for="unit">Select Your Unit Number </label>
         <select id="unit" v-model="maintenanceRequest.unitId">
-        <option>Unit 1!!! </option>
-        <option>Unit 2!!! </option>
-        <option>Unit 3!!! </option>
+          <option value="" disabled selected>Select a Unit Number</option>
+        <option v-for="unit in allUnits"
+                  :key="unit.unitId"
+                  :value="unit.unitId">
+                  {{unit.unitNumber}}
+        </option>
          </select>
       <label for="details">Details</label>
       <textarea id="details"  rows="3" v-model="maintenanceRequest.requestDesc"></textarea>
@@ -25,14 +28,21 @@
 </template>
 
 <script>
+import unitData from '../assets/data/units.json'
+
+
 export default {
+  props: {
+    user: Object
+  },
  data (){
    return {
+     allUnits: unitData,
      maintenanceRequest:{
        unitId: "",
        requestDesc: "",
        priority: "",
-       requestUserId: "userId !!!",
+       requestUserId: this.user.id
 
      }
      };
@@ -57,6 +67,7 @@ export default {
      }
    },
    computed: {
+    
      isValidForm(){
        return (
        this.maintenanceRequest.unitId != "" &&
