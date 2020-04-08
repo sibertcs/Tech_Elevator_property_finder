@@ -21,6 +21,7 @@
       <table>
         <tr><label for="tenants">Current Tenants</label></tr>
         <td>
+          <v-for></v-for>
         </td>
       </table>
     </div>
