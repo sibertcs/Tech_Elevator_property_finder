@@ -5,7 +5,7 @@
       <label for="propertyName">Property: </label>
     <select id="propertyName" v-model="selectedPropertyId" @change="getTenantsProperty(selectedPropertyId)">
       <option value="" disabled selected>Select a Property</option>
-            <option v-for="prop in properties" 
+            <option v-for="prop in allProperties" 
                             :key="prop.propertyId" 
                             :value="prop.propertyId">
                         {{ prop.propertyName }}
