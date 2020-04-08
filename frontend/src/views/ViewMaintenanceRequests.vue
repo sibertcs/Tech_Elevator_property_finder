@@ -3,15 +3,15 @@
   <h1>This is all the Maintenance Requests</h1>
   <div>Hello {{ user.sub }}</div>
   <div class= "maintenace-request">
-<div class="card border-dark mb-3" style="max-width: 18rem;">
+<div class="card border-dark mb-3" style="max-width: 18rem;" v-for="request in requests" :key="request.unitId">
   <!-- do a v-for to loop through all of the requests -->
-  <div class="card-header">Resident Name!!!!</div>
+  <div class="card-header"> {{ request.residentName}}</div>
   <div class="card-body text-dark">
-    <h5 class="card-title">Unit: Unit number!!!!</h5>
-    <p class="card-text">Urgency Level!!! </p>
-    <p class="card-text">Request Date: Date!!!</p>
-    <p class="card-text">description: description!!!</p>
-    <p class="card-text">Status: isCompleted?!!!</p>
+    <h5 class="card-title">Unit id: {{ request.unitId }}</h5>
+    <p class="card-text">{{ request.priorityLevel }}</p>
+    <p class="card-text">{{ request.requestDate}}</p>
+    <p class="card-text">{{ request.description }}</p>
+    <p class="card-text">{{ request.status }}</p>
   </div>
 </div>
     
@@ -30,25 +30,30 @@ export default {
    name: 'view',
   data(){
     return {
-      assignedRequests: maintenanceRequest,
-      assignMaintenace: {
+      requests: maintenanceRequest,
+      assignedProperties: [],
+      selectedEmployeeId: '',
+      viewMaintenace: {
         RequestId: '',
         unitId: '',
         description: '',
         status: '',
-        employeeId: '',
         requestDate: '',
         priorityLevel: '',
         residentName: '',
         role: 'maintenance'
       }
-    };
+    }
   },
-  methods: {
-    
-   
-  }
 
+methods: {
+  getMaintenanceRequestsForEmployee(employeeId){
+    this.assignedProperties = this.requests.filter((req) => req.employeeId === employeeId)
+  }
+},
+created(){
+  this.getMaintenanceRequestsForEmployee(this.user.employeeId)
+}
 }
 </script>
 

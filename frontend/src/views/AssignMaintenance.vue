@@ -12,7 +12,7 @@
   <!-- do a v-for to loop through all of the requests -->
   <div class="card-header">{{ request.residentName }}</div>
   <div class="card-body text-dark">
-    <h5 class="card-title">{{ request.unitId }}</h5>
+    <h5 class="card-title">Unit id: {{ request.unitId }}</h5>
     <p class="card-text">{{ request.priorityLevel }} </p>
     <p class="card-text">{{ request.requestDate}}</p>
     <p class="card-text">{{ request.description }}</p>
@@ -87,31 +87,24 @@ export default {
         residentName: '',
         role: 'landlord'
       },
-      assignmentErrors: false,
+      assignmentErrors: true,
     };
   },
    methods: {
-    //  assignment(){
-    //    fetch('${process.env.VUE_APP_REMOTE_API}/assignMaintenance', {
+      assignment(){
+        console.log(JSON.stringify(this.maintenanceRequest));
+    //    fetch(this.apiURL, {
     //     method: 'POST',
-    //      headers: {
-    //       Accept: ''
-    //      },
-    //      body: JSON.stringify(this.maintenanceRequest),
+    //      headers: {'Content-Type': 'maintenanceRequests/json'},
+    //      body: JSON.stringify(this.)
     //    })
     //    .then((response) => {
     //      if (response.ok) {
+    //        this.assignmentErrors = false
     //        return (response.JSON());
     //      } else {
     //        this.assignmentErrors = true;
     //        throw 'Assignment returned: ' + response.status;
-    //      }
-    //    }) 
-    //    .then ((parsedData) => {
-    //      if (parsedData.success) {
-    //        this.$router.push({ path: '/AssignMaintenance', query: { registration: 'success'} });
-    //      } else {
-    //        this.assignmentErrors = true;
     //      }
     //    })
     //    .catch((err) => console.log(err));
@@ -121,9 +114,9 @@ export default {
      //this is where I want to call the DAO to assign the requestID to the employee
   // }
 
- };
+ }
  
-
+}
 </script>
 
 <style>
