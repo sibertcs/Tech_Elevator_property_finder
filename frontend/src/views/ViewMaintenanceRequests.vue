@@ -1,6 +1,7 @@
 <template>
 <div>
   <h1>This is all the Maintenance Requests</h1>
+  <div>Hello {{ user.sub }}</div>
   <div class= "maintenace-request">
 <div class="card border-dark mb-3" style="max-width: 18rem;">
   <!-- do a v-for to loop through all of the requests -->
@@ -19,10 +20,17 @@
 </template>
 
 <script>
+
+import maintenanceRequest from '../assets/data/maintenance.json'
+
 export default {
+  props: {
+    user: Object
+  },
    name: 'view',
   data(){
     return {
+      assignedRequests: maintenanceRequest,
       assignMaintenace: {
         RequestId: '',
         unitId: '',

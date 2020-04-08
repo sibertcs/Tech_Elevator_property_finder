@@ -2,20 +2,21 @@
  <!-- make request_id in maintenance and array in the DAO  -->
 <div>
   <h1>this is the page to assign maintenance</h1>
+  <div>Hello {{ user.sub }}</div>
   <div class= "maintenance-request-assignment">
       <div class="alert alert-success" role="alert" v-if="this.$route.query.assignment">
         This request has been successfully assigned.
       </div> 
   
-<div class="card border-dark mb-3" style="max-width: 18rem;">
+<div class="card border-dark mb-3" style="max-width: 18rem;" v-for="request in allRequests" :key="request.unitId">
   <!-- do a v-for to loop through all of the requests -->
-  <div class="card-header">Resident Name!!!!</div>
+  <div class="card-header">{{ request.residentName }}</div>
   <div class="card-body text-dark">
-    <h5 class="card-title">Unit: Unit number!!!!</h5>
-    <p class="card-text">Urgency Level!!! </p>
-    <p class="card-text">Request Date: Date!!!</p>
-    <p class="card-text">description: description!!!</p>
-    <p class="card-text">Status: isCompleted?!!!</p>
+    <h5 class="card-title">{{ request.unitId }}</h5>
+    <p class="card-text">{{ request.priorityLevel }} </p>
+    <p class="card-text">{{ request.requestDate}}</p>
+    <p class="card-text">{{ request.description }}</p>
+    <p class="card-text">{{ request.status }}</p>
   </div>
 </div>
 <form>
@@ -64,10 +65,17 @@
 </template>
 
 <script>
+
+import maintenanceRequest from '../assets/data/maintenance.json'
+
 export default {
+  props: {
+    user: Object
+  },
   name: 'assign',
   data(){
     return {
+      allRequests: maintenanceRequest,
       assignMaintenace: {
         requestId: '',
         unitId: '',
@@ -83,31 +91,31 @@ export default {
     };
   },
    methods: {
-     assignment(){
-       fetch('${process.env.VUE_APP_REMOTE_API}/assignMaintenance', {
-        method: 'POST',
-         headers: {
-          Accept: ''
-         },
-         body: JSON.stringify(this.maintenanceRequest),
-       })
-       .then((response) => {
-         if (response.ok) {
-           return (response.JSON());
-         } else {
-           this.assignmentErrors = true;
-           throw 'Assignment returned: ' + response.status;
-         }
-       }) 
-       .then ((parsedData) => {
-         if (parsedData.success) {
-           this.$router.push({ path: '/AssignMaintenance', query: { registration: 'success'} });
-         } else {
-           this.assignmentErrors = true;
-         }
-       })
-       .catch((err) => console.log(err));
-     },
+    //  assignment(){
+    //    fetch('${process.env.VUE_APP_REMOTE_API}/assignMaintenance', {
+    //     method: 'POST',
+    //      headers: {
+    //       Accept: ''
+    //      },
+    //      body: JSON.stringify(this.maintenanceRequest),
+    //    })
+    //    .then((response) => {
+    //      if (response.ok) {
+    //        return (response.JSON());
+    //      } else {
+    //        this.assignmentErrors = true;
+    //        throw 'Assignment returned: ' + response.status;
+    //      }
+    //    }) 
+    //    .then ((parsedData) => {
+    //      if (parsedData.success) {
+    //        this.$router.push({ path: '/AssignMaintenance', query: { registration: 'success'} });
+    //      } else {
+    //        this.assignmentErrors = true;
+    //      }
+    //    })
+    //    .catch((err) => console.log(err));
+    //  },
    },
   //  assignMaintenaceRequest( employeeId, requestId){
      //this is where I want to call the DAO to assign the requestID to the employee
