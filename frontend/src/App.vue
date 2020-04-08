@@ -4,6 +4,19 @@
   
       <router-link to="/">Home</router-link>
     </div>
-    <router-view/>
+    <router-view :user="user"/>
   </div>
 </template>
+
+<script>
+import auth from './auth.js'
+
+export default {
+  name: 'home',
+  data() {
+    return {
+      user: auth.getUser()
+    }
+  }
+}
+</script>

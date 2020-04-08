@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>this is where you add or update properties</h1>
+    <p>You are logged in as {{user.sub}} as a {{user.rol}} and has the id of {{user.id}}.</p>
     <input @click="currentProperty = {
                     address: '',
                     name: '',
@@ -103,6 +104,9 @@
 
 <script>
 export default {
+  props: {
+    user: Object
+  },
   data() {
     return {
       newProperty: true,
