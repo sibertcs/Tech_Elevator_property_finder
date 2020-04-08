@@ -12,8 +12,11 @@
       </div>
       <div v-if="user.rol=== 'landlord' || user.rol==='admin'">
         <router-link :to="{name: 'tenants'}">View Tenants/Landlord</router-link>
+        <br>
         <router-link :to="{name: 'createLease'}"> Create Lease</router-link>
+        <br>
         <router-link :to="{name: 'assignMaintenance'}"> Assign Maintenance</router-link>
+        <br>
         <router-link :to="{name: 'addOrUpdate'}"> Add/Update Properties</router-link>
       </div>
       <div v-if="user.rol=== 'admin'">
