@@ -69,7 +69,7 @@ CREATE TABLE property_feature (
   feature_id integer,
   CONSTRAINT property_feature_pk PRIMARY KEY(property_id, feature_id),
   CONSTRAINT prop_feature_fk_prop_id FOREIGN KEY(property_id) REFERENCES property(property_id),
-  CONSTRAINT prop_feature_fk_feautre_id FOREIGN KEY(feature_id) REFERENCES feature(feature_id)
+  CONSTRAINT prop_feature_fk_feature_id FOREIGN KEY(feature_id) REFERENCES feature(feature_id)
 );
 
 CREATE TABLE lease (
@@ -98,7 +98,7 @@ CREATE TABLE payment (
   payment_id serial PRIMARY KEY,
   rent_cycle_id integer NOT NULL,
   amount_paid decimal NOT NULL,
-  date_paid date NOT NULL,
+  date_paid timestamp NOT NULL,
   CONSTRAINT payments_fk_rent_cycle_id FOREIGN KEY(rent_cycle_id) REFERENCES rent_cycle(rent_cycle_id)
 );
 
@@ -108,7 +108,7 @@ CREATE TABLE maintenance_request (
   request_user_id integer NOT NULL,     
   request_desc varchar(1000) NOT NULL,     
   urgency integer NOT NULL,
-  date_requested date NOT NULL,     
+  date_requested timestamp NOT NULL,     
   assigned_user_id integer,     
   is_completed boolean NOT NULL default(false),     
   CONSTRAINT fk_maintenance_requests_unit FOREIGN KEY(unit_id) REFERENCES unit(unit_id), 
