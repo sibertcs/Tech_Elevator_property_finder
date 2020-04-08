@@ -137,4 +137,5 @@ COMMIT TRANSACTION;
 
 
 SELECT * FROM users;
+SELECT * FROM property;
 

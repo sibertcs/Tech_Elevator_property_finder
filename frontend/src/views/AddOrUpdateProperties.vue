@@ -89,12 +89,13 @@
             <th>Rent Price</th>
             <th>Square Footage</th>
           </tr>
-          <tr v-for="unit in currentProperty.units" :key="unit.sqft">
+          <tr v-for="unit in currentProperty.units" :key="unit.id">
             <td>#{{unit.number}}</td>
             <td>{{unit.bedCount}} bed</td>
             <td>{{unit.bathCount}} bath</td>
             <td>${{unit.price}}</td>
             <td>{{unit.sqft}} sqft</td>
+            <button @click.prevent="removeUnit(unit.id)">Delete Unit</button>
           </tr>
         </table>
     </div>
@@ -117,7 +118,9 @@ export default {
         location: '',
         units: []
       },
+      unitId: 1,
       newUnit: {
+        id: this.unitId,
         number: '',
         bedCount: '',
         bathCount: '',
@@ -134,6 +137,7 @@ export default {
         location: 'Downtown',
         units: [
           {
+            id: 100,
             number: '1',
             bedCount: '2',
             bathCount: '2',
@@ -141,6 +145,7 @@ export default {
             sqft: '988'
           },
           {
+            id: 101,
             number: '2',
             bedCount: '2',
             bathCount: '2',
@@ -148,6 +153,7 @@ export default {
             sqft: '1100'
           },
           {
+            id: 102,
             number: '3',
             bedCount: '1',
             bathCount: '1',
@@ -160,6 +166,9 @@ export default {
     addUnit() {
       let addedUnit = Object.assign({}, this.newUnit);
       this.currentProperty.units.push(addedUnit);
+      this.unitId++;
+      this.newUnit.id = this.unitId;
+      this.newUnit.number++;
       console.log('new unit!');
     },
     submitProperty() {
@@ -168,6 +177,11 @@ export default {
       } else {
         console.log('Send PUT' + JSON.stringify(this.currentProperty))
       }
+    },
+    removeUnit(id) {
+      this.currentProperty.units = this.currentProperty.units.filter(u => {
+        return u.id !== id;
+      });
     }
   }
 }
