@@ -50,18 +50,9 @@ CREATE TABLE unit (
   CONSTRAINT unit_fk_property_id FOREIGN KEY(property_id) REFERENCES property(property_id) 
 );
 
-
 CREATE TABLE feature (
   feature_id serial PRIMARY KEY,
   feature_name varchar(255) NOT NULL
-);
-
-CREATE TABLE property_landlord (
-  property_id integer,
-  user_id integer,
-  CONSTRAINT property_landlord_pk PRIMARY KEY(property_id, user_id),
-  CONSTRAINT property_landlord_fk_property_id FOREIGN KEY(property_id) REFERENCES property(property_id),
-  CONSTRAINT property_landlord_fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE property_feature (
@@ -80,8 +71,10 @@ CREATE TABLE lease (
   rent_length integer NOT NULL,
   rent_amount decimal NOT NULL,
   late_fee decimal NOT NULL,
+  status varchar(255) NOT NULL,
   CONSTRAINT lease_fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id),
-  CONSTRAINT lease_fk_unit_id FOREIGN KEY(unit_id) REFERENCES unit(unit_id)
+  CONSTRAINT lease_fk_unit_id FOREIGN KEY(unit_id) REFERENCES unit(unit_id),
+  CHECK (status IN ('Active', 'Expired', 'Terminated')),
 );
 
 CREATE TABLE rent_cycle (
