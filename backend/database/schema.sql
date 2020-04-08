@@ -74,7 +74,7 @@ CREATE TABLE lease (
   status varchar(255) NOT NULL,
   CONSTRAINT lease_fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id),
   CONSTRAINT lease_fk_unit_id FOREIGN KEY(unit_id) REFERENCES unit(unit_id),
-  CHECK (status IN ('Active', 'Expired', 'Terminated')),
+  CHECK (status IN ('Active', 'Expired', 'Terminated'))
 );
 
 CREATE TABLE rent_cycle (
