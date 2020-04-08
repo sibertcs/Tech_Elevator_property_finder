@@ -3,30 +3,35 @@
         "userId": "1",
         "email": "angie@gmail.com",
         "firstName": "Angie",
-        "lastName": "Auel"
+        "lastName": "Auel",
+        "propertyId": "4"
     },
     {
         "userId": "2",
         "email": "drew@gmail.com",
         "firstName": "Drew",
-        "lastName": "Cook"
+        "lastName": "Cook",
+        "propertyId": "1"
     },
     {
         "userId": "3",
         "email": "becca@gmail.com",
         "firstName": "Becca",
-        "lastName": "Fox"
+        "lastName": "Fox",
+        "propertyId": "1"
     },
     {
         "userId": "4",
         "email": "zach@gmail.com",
         "firstName": "Zach",
-        "lastName": "Kenney"
+        "lastName": "Kenney",
+        "propertyId": "1"
     },
     {
         "userId": "5",
         "email": "evan@gmail.com",
         "firstName": "Evan",
-        "lastName": "White"
+        "lastName": "White",
+        "propertyId" : "4"
     }
 ]
