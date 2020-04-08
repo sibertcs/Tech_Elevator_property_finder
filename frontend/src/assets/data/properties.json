@@ -2,43 +2,52 @@
     {
         "propertyId": "1",
         "propertyName": "Lisa's Ridge",
+        "location": "Downtown",
         "landlordEmail": "landlord@gmail.com",
         "units": [
             {
-                "bedCount": "1"
+                "bedCount": 1,
+                "rent": 750
             }
         ]
     },
     {
         "propertyId": "2",
         "propertyName": "The Provident",
+        "location": "East Side",
         "landlordEmail": "admin@gmail.com",
         "units": [
             {
-                "bedCount": "2"
+                "bedCount": 2,
+                "rent": 1100
             }
         ]
     },
     {
         "propertyId": "3",
         "propertyName": "Hilltop Apartments",
+        "location": "West Side",
         "landlordEmail": "admin@gmail.com",
         "units": [
             {
-                "bedCount": "3"
+                "bedCount": 3,
+                "rent": 1500
             }
         ]
     },
     {
         "propertyId": "4",
         "propertyName": "The Bradford",
+        "location": "NKY",
         "landlordEmail": "landlord@gmail.com",
         "units": [
             {
-                "bedCount": "3"
+                "bedCount": 3,
+                "rent": "1600"
             },
             {
-                "bedCount": "4"
+                "bedCount": 4,
+                "rent": "2000"
             }
         ]
     }
