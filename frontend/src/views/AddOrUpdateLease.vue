@@ -159,6 +159,7 @@ export default {
         createLease() {
             console.log(JSON.stringify(this.lease));
             this.successfulPost = true;
+            this.resetValues();
             /*  fetch(this.apiURL, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json' },
