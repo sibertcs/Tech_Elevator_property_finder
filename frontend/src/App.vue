@@ -4,7 +4,7 @@
   
       <router-link to="/">Home</router-link>
     </div>
-    <router-view :user="user" @user-logout="logout"/>
+    <router-view :user="user" @user-logout="logout" @user-login="login"/>
   </div>
 </template>
 
@@ -21,6 +21,9 @@ export default {
   methods: {
     logout() {
       auth.logout();
+    },
+    login() {
+      this.user = auth.getUser();
     }
   }
 }

@@ -1,6 +1,7 @@
 <template>
     <div id="create-lease">
         <h1> Create a lease to assign renters to a property:</h1>
+        <div>Hello {{ user.sub }}</div>
         <form>
             <div>
                 <label for="propertyName">Property: </label>
@@ -70,6 +71,9 @@ import unitData from '../assets/data/units.json'
 import renterData from '../assets/data/renters.json'
 
 export default {
+    props: {
+        user: Object
+    },
     data() {
         return {
             allProperties: propertyData,
@@ -133,7 +137,7 @@ export default {
         }
     },
     created() {
-        this.getPropertiesForLandlord(this.$route.meta.user.sub);
+        this.getPropertiesForLandlord(this.user.sub);
     }
 }
 </script>
