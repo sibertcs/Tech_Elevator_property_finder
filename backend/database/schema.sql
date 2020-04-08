@@ -127,7 +127,14 @@ VALUES ('maintenance@gmail.com', 'maintenance', 'maintenance', '1234567890', 'nR
 
 INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role)
 VALUES ('landlord@gmail.com', 'landlord', 'landlord', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'landlord');
+
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location)
+VALUES ('1', '123 Main Street', 'Cincinnati', 'OH', '45073', 'Lisa Ridge' , '/630VineSt-01.jpg', 'Downtown');
+
 COMMIT TRANSACTION;
+
+
+
 
 SELECT * FROM users;
 
