@@ -37,7 +37,7 @@
     </form>
     <div>
         <div v-for="property in shownProperties" :key="property.propertyId">
-           <h3>{{property.propertyName}}</h3> 
+           <h3>{{property.propertyName}} @ {{property.address}}</h3> 
         </div>    
     </div>    
   </div>
@@ -61,7 +61,11 @@ export default {
     methods: {
         search() {
             console.log('searching');
-            this.shownProperties = this.allProperties.filter(p => p.propertyName.includes(this.textSearch));
+            this.shownProperties = this.allProperties.filter(p => {
+                let nameAndAddress = p.propertyName + p.address;
+                nameAndAddress = nameAndAddress.toLowerCase();
+                return nameAndAddress.includes(this.textSearch.toLowerCase())
+            });
         },
         filter() {
             console.log('filtering');
