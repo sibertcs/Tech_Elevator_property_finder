@@ -22,6 +22,9 @@
         <td v-for="tenant in selectedRenters" :key="tenant.userId">
           {{tenant.firstName}}
         </td>
+        <tr>
+          <td v-for="tenant in selectedRenters" :key="tenant.userId">{{tenant.rentStatus}}</td>
+        </tr>
       </table>
     </div>
   </div>

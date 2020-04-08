@@ -4,21 +4,24 @@
         "email": "angie@gmail.com",
         "firstName": "Angie",
         "lastName": "Auel",
-        "propertyId": "4"
+        "propertyId": "4",
+        "rentStatus": "paid"
     },
     {
         "userId": "2",
         "email": "drew@gmail.com",
         "firstName": "Drew",
         "lastName": "Cook",
-        "propertyId": "1"
+        "propertyId": "1",
+        "rentStatus": "overdue"
     },
     {
         "userId": "3",
         "email": "becca@gmail.com",
         "firstName": "Becca",
         "lastName": "Fox",
-        "propertyId": "1"
+        "propertyId": "1",
+        "rentStatus": "overdue"
     },
     {
         "userId": "4",
@@ -32,6 +35,7 @@
         "email": "evan@gmail.com",
         "firstName": "Evan",
         "lastName": "White",
-        "propertyId" : "4"
+        "propertyId" : "4",
+        "rentStatus": "not paid"
     }
 ]
