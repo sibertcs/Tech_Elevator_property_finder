@@ -27,18 +27,19 @@
 </template>
 
 <script>
-import auth from '@/auth.js'
 
 export default {
   name: 'home',
+  props: {
+    user: Object
+  },
   data() {
     return {
-      user: auth.getUser()
     }
   },
   methods: {
     logout() {
-      auth.logout();
+      this.$emit('user-logout')
       this.$router.push('/login');
     }
   }
