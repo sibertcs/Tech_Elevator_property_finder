@@ -1,54 +1,64 @@
 <template>
+ <!-- make request_id in maintenance and array in the DAO  -->
 <div>
   <h1>this is the page to assign maintenance</h1>
   <div class= "maintenance-request-assignment">
-    <form class= "assign-request">
-    <table>
-      <tr>
-        <td>Requesting Resident: </td>
-        <td> Resident Name!!!! </td>
-      </tr> 
-      <tr>
-        <td>Unit: </td>
-        <td>Unit number!!!! </td>
-      </tr>  
-      <tr>
-        <td>Priority Level: </td>
-        <td>Urgency Level!!! </td>
-      </tr> 
-       <tr>
-        <td>Request Date: </td>
-        <td>Date!!! </td>
-      </tr> 
-      <tr>
-        <td>description: </td>
-        <td>description!!! </td>
-      </tr> 
-      <tr>
-        <td>Assigned to: </td>
-        <td>Maintenance Name!!! </td>
-      </tr> 
-      <tr>
-        <td>Status: </td>
-        <td>isCompleted?!!! </td>
-      </tr>
-      </table>   
-      
-        <label>Assign Maintenance Employee: </label>
+      <div class="alert alert-success" role="alert" v-if="this.$route.query.assignment">
+        This request has been successfully assigned.
+      </div> 
+  
+<div class="card border-dark mb-3" style="max-width: 18rem;">
+  <!-- do a v-for to loop through all of the requests -->
+  <div class="card-header">Resident Name!!!!</div>
+  <div class="card-body text-dark">
+    <h5 class="card-title">Unit: Unit number!!!!</h5>
+    <p class="card-text">Urgency Level!!! </p>
+    <p class="card-text">Request Date: Date!!!</p>
+    <p class="card-text">description: description!!!</p>
+    <p class="card-text">Status: isCompleted?!!!</p>
+  </div>
+</div>
+<form>
+<label>Assign Maintenance Employee: </label>
         <select>
         <option>Employee 1!!! </option>
         <option>Employee 2!!! </option>
         <option>Employee 3!!! </option>
          </select>
-         <button type="submit">Assign</button>
-      </form>
-      <div class="alert alert-success" role="alert" v-if="this.$route.query.assignment">
-        This request has been successfully assigned.
-      </div>
-    
-  </div>  
-  <div class="numberOfAssignments" >
+         <button type="submit" >Assign</button>
+</form>
+<form>
+  <label> Change Status </label>
+      <select>
+        <option>Completed</option>
+        <option>In Progress</option>
+        <option>Incomplete</option>
+         </select>
+         <button type="submit" >Update</button>
+</form>
+</div>
+  <div class="numberOfAssignments">
     Employee name: number of assignments
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">employee Id</th>
+      <th scope="col">employee name</th>
+      <th scope="col">number of requests</th>
+      <th scope="col">phone?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">employee Id</th>
+      <td>employee name</td>
+      <td>number of assignments</td>
+      <td>phone number?</td>
+    </tr>
+  </tbody>
+</table>
+
   </div>
 </div>
 </template>
@@ -59,7 +69,7 @@ export default {
   data(){
     return {
       assignMaintenace: {
-        RequestId: '',
+        requestId: '',
         unitId: '',
         description: '',
         status: '',
@@ -99,8 +109,13 @@ export default {
        .catch((err) => console.log(err));
      },
    },
+  //  assignMaintenaceRequest( employeeId, requestId){
+     //this is where I want to call the DAO to assign the requestID to the employee
+  // }
 
  };
+ 
+
 </script>
 
 <style>
