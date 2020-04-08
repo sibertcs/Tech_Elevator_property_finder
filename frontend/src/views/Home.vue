@@ -13,7 +13,7 @@
       <div v-if="user.rol=== 'landlord' || user.rol==='admin'">
         <router-link :to="{name: 'tenants'}">View Tenants/Landlord</router-link>
         <br>
-        <router-link :to="{name: 'createLease'}"> Create Lease</router-link>
+        <router-link :to="{name: 'addOrUpdateLease'}"> Add/Update Lease</router-link>
         <br>
         <router-link :to="{name: 'assignMaintenance'}"> Assign Maintenance</router-link>
         <br>
@@ -24,7 +24,7 @@
       </div> 
       <router-link :to="{name:'request'}">Maintenance Request</router-link> 
     </nav>
-    <p>You must be authenticated to see this. You are logged in as {{user.sub}} as a {{user.rol}} and has the id of {{user.id}}.</p>
+    <p>You are logged in as {{user.sub}} as a {{user.rol}} and has the id of {{user.id}}.</p>
     <button @click="logout">logout</button>
     <browse-properties/>
   </div>
