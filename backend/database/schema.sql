@@ -50,18 +50,9 @@ CREATE TABLE unit (
   CONSTRAINT unit_fk_property_id FOREIGN KEY(property_id) REFERENCES property(property_id) 
 );
 
-
 CREATE TABLE feature (
   feature_id serial PRIMARY KEY,
   feature_name varchar(255) NOT NULL
-);
-
-CREATE TABLE property_landlord (
-  property_id integer,
-  user_id integer,
-  CONSTRAINT property_landlord_pk PRIMARY KEY(property_id, user_id),
-  CONSTRAINT property_landlord_fk_property_id FOREIGN KEY(property_id) REFERENCES property(property_id),
-  CONSTRAINT property_landlord_fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE property_feature (
@@ -73,15 +64,17 @@ CREATE TABLE property_feature (
 );
 
 CREATE TABLE lease (
-  lease_id integer PRIMARY KEY,
+  lease_id serial PRIMARY KEY,
   user_id integer NOT NULL,
   unit_id integer NOT NULL,
   signed_date date NOT NULL,
   rent_length integer NOT NULL,
   rent_amount decimal NOT NULL,
   late_fee decimal NOT NULL,
+  status varchar(255) NOT NULL,
   CONSTRAINT lease_fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id),
-  CONSTRAINT lease_fk_unit_id FOREIGN KEY(unit_id) REFERENCES unit(unit_id)
+  CONSTRAINT lease_fk_unit_id FOREIGN KEY(unit_id) REFERENCES unit(unit_id),
+  CHECK (status IN ('Active', 'Expired', 'Terminated'))
 );
 
 CREATE TABLE rent_cycle (
@@ -155,13 +148,13 @@ INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late
 INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (6, 5, '2020-01-20', 12, 1429, 5, 'Active');
 INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (7, 3, '2020-01-28', 24, 2145, 2, 'Terminated');
 
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) VALUES (8, 5, 'My toilet is clogged.', 1, '2019-10-15', 13, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) VALUES (5, 6, 'My bedroom door will not close all the way.', 3, '2020-02-15', 13, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) VALUES (5, 6, 'There are ants coming in through the bedroom window.', 2, '2020-03-03', 13, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) VALUES (3, 7, 'Lock on main door is broken.', 1, '2020-03-08', 14, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) VALUES (8, 5, 'My toilet is clogged.', 1, '2020-04-01', 14, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) VALUES (5, 6, 'Kitchen sink is clogged.', 1, '2020-04-07', 14, false);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) VALUES (8, 5, 'Air conditioning not working', 2, '2020-04-08', 15, false);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (8, 5, 'My toilet is clogged.', 1, '2019-10-15', 13, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (5, 6, 'My bedroom door will not close all the way.', 3, '2020-02-15', 13, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (5, 6, 'There are ants coming in through the bedroom window.', 2, '2020-03-03', 13, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (3, 7, 'Lock on main door is broken.', 1, '2020-03-08', 14, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (8, 5, 'My toilet is clogged.', 1, '2020-04-01', 14, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (5, 6, 'Kitchen sink is clogged.', 1, '2020-04-07', 14, false);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (8, 5, 'Air conditioning not working', 2, '2020-04-08', 15, false);
 
 INSERT INTO feature (feature_name) VALUES ('Controlled Access');
 INSERT INTO feature (feature_name) VALUES ('Elevator');
@@ -291,5 +284,5 @@ COMMIT TRANSACTION;
 
 
 
-SELECT * FROM property;
+--SELECT * FROM property;
 
