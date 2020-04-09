@@ -284,3 +284,9 @@ COMMIT TRANSACTION;
 
 --SELECT * FROM property;
 
+
+
+SELECT * FROM property;
+
+SELECT * FROM unit;
+

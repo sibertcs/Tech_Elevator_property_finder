@@ -21,10 +21,10 @@
     <div>
       <form v-if="newProperty">
         <label for="address">Address</label>
-        <input type="text" v-model="currentProperty.address">
+        <input type="text" v-model="currentProperty.streetAddress">
         
         <label for="name">Name (If Applicable)</label>
-        <input type="text" v-model="currentProperty.name">
+        <input type="text" v-model="currentProperty.propertyName">
 
         <label for="location">Location</label>
         <select v-model="currentProperty.location">
@@ -37,7 +37,7 @@
         <br>
         <br>
         <label for="newUnit">Add Unit</label>
-        <input type="text" placeholder="Unit #" v-model="newUnit.number">
+        <input type="text" placeholder="Unit #" v-model="newUnit.unitNumber">
         <input type="text" placeholder="Bed Count" v-model="newUnit.bedCount">
         <input type="text" placeholder="Bath Count" v-model="newUnit.bathCount">
         <input type="text" placeholder="Rent $" v-model="newUnit.price">
@@ -47,32 +47,30 @@
       </form>
       <form v-if="!newProperty">
         <label for="property">Select Property</label>
-        <select v-model="updatePropId" @change="existingProp">
-          <option :value="'Building 1!!!'">Building 1!!!</option>
-          <option :value="'Building 2!!!'">Building 2!!!</option>
-          <option :value="'Building 3!!!'">Building 3!!!</option>
+        <select v-model="updatePropId" @change="selectExistingProp">
+          <option v-for="prop in existingProps" :key="prop.propertyId" :value="prop.propertyId">{{prop.streetAddress}}</option>
         </select>
         <br>
         <br>
         <div v-if="updatePropId !== ''">
           <label for="address">Address</label>
-          <input type="text" v-model="currentProperty.address">
+          <input type="text" v-model="currentProperty.streetAddress">
 
           <label for="name">Name (If Applicable)</label>
-          <input type="text" v-model="currentProperty.name">
+          <input type="text" v-model="currentProperty.propertyName">
 
           <label for="location">Location</label>
           <select v-model="currentProperty.location">
-            <option>Dowtown</option>
-            <option>East Side</option>
-            <option>West Side</option>
-            <option>North Side</option>
-            <option>NKY</option>
+            <option value="Downtown">Dowtown</option>
+            <option value="East Side">East Side</option>
+            <option value="West Side">West Side</option>
+            <option value="North Side">North Side</option>
+            <option value="NKY">NKY</option>
           </select>
           <br>
           <br>
           <label for="newUnit">Add Unit</label>
-          <input type="text" placeholder="Unit #" v-model="newUnit.number">
+          <input type="text" placeholder="Unit #" v-model="newUnit.unitNumber">
           <input type="text" placeholder="Bed Count" v-model="newUnit.bedCount">
           <input type="text" placeholder="Bath Count" v-model="newUnit.bathCount">
           <input type="text" placeholder="Rent $" v-model="newUnit.price">
@@ -90,12 +88,12 @@
             <th>Square Footage</th>
           </tr>
           <tr v-for="unit in currentProperty.units" :key="unit.id">
-            <td>#{{unit.number}}</td>
+            <td>#{{unit.unitNumber}}</td>
             <td>{{unit.bedCount}} bed</td>
             <td>{{unit.bathCount}} bath</td>
             <td>${{unit.price}}</td>
             <td>{{unit.sqft}} sqft</td>
-            <button @click.prevent="removeUnit(unit.id)">Delete Unit</button>
+            <button @click.prevent="removeUnit(unit.unitId)">Delete Unit</button>
           </tr>
         </table>
     </div>
@@ -104,6 +102,8 @@
 </template>
 
 <script>
+import auth from '../auth';
+
 export default {
   props: {
     user: Object
@@ -113,76 +113,100 @@ export default {
       newProperty: true,
       updatePropId: '',
       currentProperty: {
-        address: '',
-        name: '',
+        landlordId: this.user.id,
+        streetAddress: '',
+        city: 'Cincinnati',
+        state: 'Ohio',
+        zipCode: '45208',
+        propertyName: '',
+        photoPath: '',
         location: '',
         units: []
       },
       unitId: 1,
       newUnit: {
-        id: this.unitId,
-        number: '',
+        unitId: this.unitId,
+        unitNumber: '',
         bedCount: '',
         bathCount: '',
         price: '',
-        sqft: ''
-      }
+        sqft: '',
+        isAvailable: true
+      },
+      existingProps: {}
     }
   },
   methods: {
-    existingProp() {
-      this.currentProperty = {
-        address: '123 abc ave.',
-        name: this.updatePropId,
-        location: 'Downtown',
-        units: [
-          {
-            id: 100,
-            number: '1',
-            bedCount: '2',
-            bathCount: '2',
-            price: '1075',
-            sqft: '988'
-          },
-          {
-            id: 101,
-            number: '2',
-            bedCount: '2',
-            bathCount: '2',
-            price: '1025',
-            sqft: '1100'
-          },
-          {
-            id: 102,
-            number: '3',
-            bedCount: '1',
-            bathCount: '1',
-            price: '750',
-            sqft: '678'
-          }
-        ]
-      }
+    selectExistingProp() {
+      this.existingProps.forEach((p) => {
+        if(p.propertyId == this.updatePropId) {
+          this.currentProperty = p;
+        }
+      });
     },
     addUnit() {
       let addedUnit = Object.assign({}, this.newUnit);
       this.currentProperty.units.push(addedUnit);
       this.unitId++;
       this.newUnit.id = this.unitId;
-      this.newUnit.number++;
+      this.newUnit.unitNumber++;
       console.log('new unit!');
     },
     submitProperty() {
       if(this.newProperty) {
-        console.log('Send POST:' + JSON.stringify(this.currentProperty));
+        return fetch("http://localhost:8080/api/propertiesnew", {
+          method: 'POST',
+          headers: {
+            Authorization: 'Bearer ' + auth.getToken(),
+            'Content-Type': 'application/json'
+          },
+          credentials: 'same-origin',
+          body: JSON.stringify(this.currentProperty)
+        })
+          .then(() => {
+            console.log('New Property and Units created!');
+            this.loadProperties();
+          })
       } else {
-        console.log('Send PUT' + JSON.stringify(this.currentProperty))
+        return fetch("http://localhost:8080/api/propertiesupdate", {
+          method: 'PUT',
+          headers: {
+            Authorization: 'Bearer ' + auth.getToken(),
+            'Content-Type': 'application/json'
+          },
+          credentials: 'same-origin',
+          body: JSON.stringify(this.currentProperty)
+        })
+          .then(() => {
+            console.log('Updated');
+            this.loadProperties();
+          })
       }
     },
     removeUnit(id) {
       this.currentProperty.units = this.currentProperty.units.filter(u => {
-        return u.id !== id;
+        return u.unitId !== id;
       });
+    },
+    loadProperties() {
+      fetch('http://localhost:8080/api/properties/' + this.user.id, {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + auth.getToken()
+        },
+        credentials: 'same-origin'
+      })
+      .then (response => {
+              if(response.ok) {
+                  return response.json();
+              }
+          }).then(responseData => {
+              this.existingProps = responseData;
+          });
     }
+  },
+  created() {
+    this.loadProperties();
   }
 }
 </script>

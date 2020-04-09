@@ -1,10 +1,6 @@
 package com.techelevator.model;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
-
-import org.apache.tomcat.jni.Local;
 
 public interface RentDao {
 

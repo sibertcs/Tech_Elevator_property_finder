@@ -1,5 +1,6 @@
 package com.techelevator.model;
 
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
-
+    
     private JdbcTemplate jdbcTemplate;
 
     @Autowired

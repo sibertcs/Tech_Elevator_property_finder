@@ -49,7 +49,6 @@ export default {
     data() {
         return {
             allProperties: [],
-            filteredProperties: [],
             shownProperties: [],
             textSearch: '',
             brFilter: '',
@@ -68,9 +67,9 @@ export default {
         },
         filter() {
             console.log('filtering');
-            this.filteredProperties = this.allProperties;
+            this.shownProperties = this.allProperties;
             if(this.brFilter !== '') {
-                this.filteredProperties = this.filteredProperties.filter(p => {
+                this.shownProperties = this.shownProperties.filter(p => {
                     let result = false;
                     p.units.forEach(u => {
                         if(u.bedCount == this.brFilter) {
@@ -81,7 +80,7 @@ export default {
                 });
             }
             if(this.upperRentFilter !== '') {
-                this.filteredProperties = this.filteredProperties.filter(p => {
+                this.shownProperties = this.shownProperties.filter(p => {
                     let result = false;
                     p.units.forEach(u => {
                         if(u.price <= parseInt(this.upperRentFilter)) {
@@ -92,11 +91,10 @@ export default {
                 });
             }
             if(this.locationFilter !== '') {
-                this.filteredProperties = this.filteredProperties.filter(p => {
+                this.shownProperties = this.shownProperties.filter(p => {
                     return p.location === this.locationFilter;
                 });
             }
-            this.shownProperties = this.filteredProperties;
         }
     },
     created() {
@@ -107,7 +105,6 @@ export default {
             }
         }).then(responseData => {
             this.allProperties = responseData;
-            this.filteredProperties = responseData;
             this.shownProperties = responseData;
         });
     }

@@ -58,11 +58,16 @@ public class ApiController {
         }
         return "Success";
     }
+    // Property Dao Methods
     @GetMapping("/properties")
     public List<Property> getAllProperties() {
         return propertyDao.getAllProperties();
     }
-    @PostMapping("/properties")
+    @GetMapping("/properties/{landlordId}")
+    public List<Property> getLandlordsProperties(@PathVariable int landlordId) {
+        return propertyDao.getPropertiesByLandlord(landlordId);
+    }
+    @PostMapping("/propertiesnew")
     public boolean addNewProperty(@RequestBody Property newProperty) {
         return propertyDao.addNewProperty(newProperty);
     }
@@ -107,4 +112,8 @@ public class ApiController {
 
     /**************** LEASE CONTROLLER METHODS ****************/    
 
+    @PutMapping("/propertiesupdate")
+    public boolean displayUpdateExistingProperty(@RequestBody Property updatedProperty) {
+        return propertyDao.updateExistingProperty(updatedProperty);
+    }
 }
