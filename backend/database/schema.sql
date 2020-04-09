@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS payment;
 DROP TABLE IF EXISTS rent_cycle;
 DROP TABLE IF EXISTS lease;
 DROP TABLE IF EXISTS property_feature;
+DROP TABLE IF EXISTS property_landlord;
 DROP TABLE IF EXISTS feature;
 DROP TABLE IF EXISTS unit;
 DROP TABLE IF EXISTS property;
@@ -141,25 +142,18 @@ INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft,
 INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('621', 4, 0, 1, 475, 425, false);
 INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('2486-02', 5, 2, 1, 760, 705, true);
 
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (5, 8, '2019-06-15', 6, 525, 10, 'Expired');
+INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (5, 8, '2019-09-15', 3, 525, 10, 'Expired');
 INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (5, 8, '2019-12-15', 12, 475, 5, 'Active');
 INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (6, 5, '2020-01-20', 12, 1429, 5, 'Active');
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (7, 3, '2020-02-02', 24, 2145, 2, 'Terminated');
+INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (7, 3, '2020-01-28', 24, 2145, 2, 'Terminated');
 
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) 
-VALUES (8, 5, 'My toilet is clogged.', 1, '2019-08-15', 13, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) 
-VALUES (5, 6, 'My bedroom door will not close all the way.', 3, '2020-02-15', 13, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) 
-VALUES (5, 6, 'There are ants coming in through the bedroom window.', 2, '2020-03-03', 13, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) 
-VALUES (3, 7, 'Lock on main door is broken.', 1, '2020-03-08', 14, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) 
-VALUES (8, 5, 'My toilet is clogged.', 1, '2020-04-01', 14, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) 
-VALUES (5, 6, 'Kitchen sink is clogged.', 1, '2020-04-07', 14, false);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) 
-VALUES (8, 5, 'Air conditioning not working', 2, '2020-04-08', 15, false);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) VALUES (8, 5, 'My toilet is clogged.', 1, '2019-10-15', 13, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) VALUES (5, 6, 'My bedroom door will not close all the way.', 3, '2020-02-15', 13, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) VALUES (5, 6, 'There are ants coming in through the bedroom window.', 2, '2020-03-03', 13, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) VALUES (3, 7, 'Lock on main door is broken.', 1, '2020-03-08', 14, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) VALUES (8, 5, 'My toilet is clogged.', 1, '2020-04-01', 14, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) VALUES (5, 6, 'Kitchen sink is clogged.', 1, '2020-04-07', 14, false);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, urgency, date_requested, assigned_user_id, is_completed) VALUES (8, 5, 'Air conditioning not working', 2, '2020-04-08', 15, false);
 
 INSERT INTO feature (feature_name) VALUES ('Controlled Access');
 INSERT INTO feature (feature_name) VALUES ('Elevator');
@@ -180,12 +174,112 @@ INSERT INTO feature (feature_name) VALUES ('Oven/Range');
 INSERT INTO feature (feature_name) VALUES ('Patio or Deck');
 INSERT INTO feature (feature_name) VALUES ('Refrigerator/Freezer');
 INSERT INTO feature (feature_name) VALUES ('Security System');
+INSERT INTO feature (feature_name) VALUES ('W/D Hookup');
 
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 1);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 2);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 3);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 4);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 5);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 6);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 7);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 8);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 9);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 10);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 11);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 12);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 13);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 14);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 15);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 16);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 17);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 18);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 19);
+INSERT INTO property_feature (property_id, feature_id) VALUES (1, 20);
+
+INSERT INTO property_feature (property_id, feature_id) VALUES (2, 3);
+INSERT INTO property_feature (property_id, feature_id) VALUES (2, 7);
+INSERT INTO property_feature (property_id, feature_id) VALUES (2, 9);
+INSERT INTO property_feature (property_id, feature_id) VALUES (2, 13);
+INSERT INTO property_feature (property_id, feature_id) VALUES (2, 14);
+INSERT INTO property_feature (property_id, feature_id) VALUES (2, 16);
+INSERT INTO property_feature (property_id, feature_id) VALUES (2, 17);
+INSERT INTO property_feature (property_id, feature_id) VALUES (2, 18);
+
+INSERT INTO property_feature (property_id, feature_id) VALUES (3, 5);
+INSERT INTO property_feature (property_id, feature_id) VALUES (3, 6);
+INSERT INTO property_feature (property_id, feature_id) VALUES (3, 7);
+INSERT INTO property_feature (property_id, feature_id) VALUES (3, 8);
+INSERT INTO property_feature (property_id, feature_id) VALUES (3, 11);
+INSERT INTO property_feature (property_id, feature_id) VALUES (3, 12);
+INSERT INTO property_feature (property_id, feature_id) VALUES (3, 13);
+INSERT INTO property_feature (property_id, feature_id) VALUES (3, 14);
+INSERT INTO property_feature (property_id, feature_id) VALUES (3, 16);
+INSERT INTO property_feature (property_id, feature_id) VALUES (3, 17);
+INSERT INTO property_feature (property_id, feature_id) VALUES (3, 18);
+
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 1);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 3);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 4);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 5);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 6);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 7);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 8);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 9);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 10);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 11);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 12);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 13);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 14);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 15);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 16);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 18);
+INSERT INTO property_feature (property_id, feature_id) VALUES (4, 19);
+
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 1);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 3);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 5);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 6);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 7);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 8);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 9);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 10);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 11);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 12);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 13);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 14);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 15);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 16);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 17);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 18);
+INSERT INTO property_feature (property_id, feature_id) VALUES (5, 19);
+
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (1, '2019-10-01', 525, '2019-10-31', 'Paid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (1, '2019-11-01', 525, '2019-11-30', 'Paid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (1, '2019-12-01', 525, '2019-12-31', 'Paid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (2, '2020-01-01', 475, '2020-01-31', 'Paid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (2, '2020-02-01', 475, '2020-02-29', 'Paid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (3, '2020-02-01', 1429, '2020-02-29', 'Paid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (4, '2020-02-01', 2145, '2020-02-29', 'Overdue');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (2, '2020-03-01', 475, '2020-03-31', 'Overdue');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (3, '2020-03-01', 1429, '2020-03-31', 'Paid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (4, '2020-03-01', 2145, '2020-03-31', 'Overdue');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (2, '2020-04-01', 475, '2020-04-30', 'Unpaid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (3, '2020-04-01', 1429, '2020-04-30', 'Unpaid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (4, '2020-04-01', 2145, '2020-04-30', 'Unpaid');
+
+INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (1, 525, '2019-10-31 12:00:00');
+INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (2, 525, '2019-11-30 12:00:00');
+INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (3, 525, '2019-12-31 12:00:00');
+INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (4, 475, '2020-01-31 12:00:00');
+INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (5, 475, '2020-02-29 12:00:00');
+INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (6, 1429, '2020-02-29 12:00:00');
+INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (9, 1429, '2020-03-31 12:00:00');
 
 
 COMMIT TRANSACTION;
 
 
-SELECT * FROM users;
-SELECT * FROM property;
+-- SELECT * FROM users;
+-- SELECT * FROM property;
 
