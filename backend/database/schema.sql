@@ -152,7 +152,6 @@ VALUES (7, 3, '2020-02-02', 24, 2145, 2, 'Terminated');
 
 
 COMMIT TRANSACTION;
-<<<<<<< HEAD
 
 
 
@@ -160,5 +159,3 @@ COMMIT TRANSACTION;
 SELECT * FROM users;
 SELECT * FROM property;
 
-=======
->>>>>>> fbbc9dca4f7e09c4bc812766d2932069f22ed75c

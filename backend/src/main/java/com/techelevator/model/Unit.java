@@ -7,6 +7,7 @@ public class Unit {
     private int unitId;
     private String unitNumber;
     private int propertyId;
+    private int bedCount;
     private double bathCount;
     private BigDecimal price;
     private int sqFt;
@@ -43,7 +44,13 @@ public class Unit {
     public double getBathCount() {
         return bathCount;
     }
+    public int getBedCount() {
+        return bedCount;
+    }
 
+    public void setBedCount(int bedCount) {
+        this.bedCount = bedCount;
+    }
     public void setBathCount(double bathCount) {
         this.bathCount = bathCount;
     }

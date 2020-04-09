@@ -25,9 +25,13 @@ public class ApiController {
     @Autowired
     private AuthProvider authProvider;
 
-    @Autowired
     private PropertyDao propertyDao;
 
+    @Autowired
+	public ApiController(PropertyDao propertyDao) {
+		this.propertyDao = propertyDao;
+    }
+    
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String authorizedOnly() throws UnauthorizedException {
         /*
@@ -42,7 +46,6 @@ public class ApiController {
         }
         return "Success";
     }
-
     @GetMapping("/properties")
     public List<Property> getAllProperties() {
         return propertyDao.getAllProperties();

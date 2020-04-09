@@ -37,21 +37,20 @@
     </form>
     <div>
         <div v-for="property in shownProperties" :key="property.propertyId">
-           <h3>{{property.propertyName}} @ {{property.address}}</h3> 
+           <h3>{{property.propertyName}} @ {{property.streetAddress}}</h3> 
         </div>    
     </div>    
   </div>
 </template>
 
 <script>
-import propertyData from '../assets/data/properties.json';
-
+// import auth from '../auth';
 export default {
     data() {
         return {
-            allProperties: propertyData,
-            filteredProperties: propertyData,
-            shownProperties: propertyData,
+            allProperties: [],
+            filteredProperties: [],
+            shownProperties: [],
             textSearch: '',
             brFilter: '',
             upperRentFilter: '',
@@ -62,7 +61,7 @@ export default {
         search() {
             console.log('searching');
             this.shownProperties = this.allProperties.filter(p => {
-                let nameAndAddress = p.propertyName + p.address;
+                let nameAndAddress = p.propertyName + p.streetAddress;
                 nameAndAddress = nameAndAddress.toLowerCase();
                 return nameAndAddress.includes(this.textSearch.toLowerCase())
             });
@@ -85,7 +84,7 @@ export default {
                 this.filteredProperties = this.filteredProperties.filter(p => {
                     let result = false;
                     p.units.forEach(u => {
-                        if(u.rent <= parseInt(this.upperRentFilter)) {
+                        if(u.price <= parseInt(this.upperRentFilter)) {
                             result = true;
                         }
                     });
@@ -99,6 +98,18 @@ export default {
             }
             this.shownProperties = this.filteredProperties;
         }
+    },
+    created() {
+        fetch('http://localhost:8080/api/properties')
+        .then (response => {
+            if(response.ok) {
+                return response.json();
+            }
+        }).then(responseData => {
+            this.allProperties = responseData;
+            this.filteredProperties = responseData;
+            this.shownProperties = responseData;
+        });
     }
 
 }

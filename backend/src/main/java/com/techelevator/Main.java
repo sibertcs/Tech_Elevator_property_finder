@@ -35,6 +35,7 @@ public class Main implements WebMvcConfigurer {
 		exceptions.add("/register");
 		exceptions.add("/login");
 		exceptions.add("/error");
+		exceptions.add("/api/properties");
 		return new JwtAuthInterceptor(exceptions);
 	}
 	

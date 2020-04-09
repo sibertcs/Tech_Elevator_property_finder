@@ -1,5 +1,7 @@
 package com.techelevator.model;
 
+import java.util.List;
+
 public class Property {
 
     private int propertyId;
@@ -11,11 +13,11 @@ public class Property {
     private String propertyName;
     private String photoPath;
     private String location;
+    private List<Unit> units;
 
     public int getPropertyId() {
         return propertyId;
     }
-
     public int getLandlordId() {
         return landlordId;
     }
@@ -83,6 +85,12 @@ public class Property {
     public void setLocation(String location) {
         this.location = location;
     }
+    public List<Unit> getUnits() {
+        return units;
+    }
 
+    public void setUnits(List<Unit> units) {
+        this.units = units;
+    }
     
 }
