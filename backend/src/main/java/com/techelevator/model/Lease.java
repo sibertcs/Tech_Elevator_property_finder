@@ -3,8 +3,6 @@ package com.techelevator.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-
-
 public class Lease {
 
     private int leaseId;
@@ -14,9 +12,23 @@ public class Lease {
     private int rentLength;
     private BigDecimal rentAmount;
     private BigDecimal lateFee;
+    private String status;
+
+    @Override
+    public String toString() {
+        return leaseId + " " + userId + " " + unitId + " " + status;
+    }
 
     public int getLeaseId() {
         return leaseId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public BigDecimal getLateFee() {
