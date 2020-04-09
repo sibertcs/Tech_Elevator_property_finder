@@ -6,8 +6,11 @@ import com.techelevator.authentication.AuthProvider;
 import com.techelevator.authentication.UnauthorizedException;
 import com.techelevator.model.Lease;
 import com.techelevator.model.LeaseDao;
+import com.techelevator.model.Payment;
 import com.techelevator.model.Property;
 import com.techelevator.model.PropertyDao;
+import com.techelevator.model.RentCycle;
+import com.techelevator.model.RentDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,6 +41,9 @@ public class ApiController {
     private LeaseDao leaseDao;
 
     private PropertyDao propertyDao;
+
+    @Autowired
+    private RentDao rentDao;
 
     @Autowired
 	public ApiController(PropertyDao propertyDao) {
@@ -116,4 +122,47 @@ public class ApiController {
     public boolean displayUpdateExistingProperty(@RequestBody Property updatedProperty) {
         return propertyDao.updateExistingProperty(updatedProperty);
     }
+
+
+    /*******  RENT CONTROLLER METHODS ************/
+
+    @GetMapping("/rent")
+    public List<RentCycle> getAllRent(){
+        return rentDao.getAllRent();
+    }
+
+    @GetMapping("/payments")
+    public List<Payment> getAllPayments(){
+        return rentDao.getAllPayments();
+    }
+
+    @PostMapping("/rent")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createRentCycle(@RequestBody RentCycle rentCycle){
+        rentDao.createRentCycle(rentCycle);
+    }
+
+    @PostMapping("/payments")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createPayment(@RequestBody Payment payment){
+        rentDao.createPayment(payment);
+    }
+
+    // @PutMapping("/rent/{rentCycleId}")
+    // public void updateRentCycle(@PathVariable int rentCycleId, @RequestBody RentCycle rentCycle){
+    //     if(rentDao.get)
+    // }
+
+    @GetMapping("/rent/{leaseId}")
+    public RentCycle gerRentByLeaseId(@PathVariable int leaseId){
+        return rentDao.getRentByLeaseId(leaseId);
+    }
+
+    @GetMapping("/payments/{rentCycleId}")
+    public List<Payment> getPaymentsByRentCycleId(@PathVariable int rentCycleId){
+        return rentDao.getPaymentsByRentCycleId(rentCycleId);
+    }
+
+
+    /******** RENT CONTROLLER METHODS **********/
 }
