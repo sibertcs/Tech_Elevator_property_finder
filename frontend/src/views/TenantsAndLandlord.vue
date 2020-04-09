@@ -3,9 +3,9 @@
     <h1>Renters And Status</h1>
     <div>
       <label for="propertyName">Property: </label>
-    <select id="propertyName" v-model="selectedPropertyId" @change="getTenantsProperty(selectedPropertyId)">
+    <select id="propertyName" v-model="selectedPropertyId">
       <option value="" disabled selected>Select a Property</option>
-            <option v-for="prop in allProperties" 
+            <option v-for="prop in properties" 
                             :key="prop.propertyId" 
                             :value="prop.propertyId">
                         {{ prop.propertyName }}
@@ -19,11 +19,11 @@
       </table>
       <table>
         <tr><label for="tenants">Current Tenants</label></tr>
-        <td v-for="tenant in selectedRenters" :key="tenant.userId">
+        <td v-for="tenant in getTenantsProperty()" :key="tenant.userId">
           {{tenant.firstName}}
         </td>
         <tr>
-          <td v-for="tenant in selectedRenters" :key="tenant.userId">{{tenant.rentStatus}}</td>
+          <td class = "" v-for="tenant in getTenantsProperty()" :key="tenant.userId">{{tenant.rentStatus}}</td> 
         </tr>
       </table>
     </div>
@@ -50,11 +50,11 @@ data () {
 },
  methods: {
         getPropertiesForLandlord(email) {
-            this.properties = this.allProperties.filter((prop) => prop.landLordEmail === email);
+            this.properties = this.allProperties.filter((prop) => prop.landlordEmail === email);
         },
-        getTenantsProperty(id) {
-          this.selectedRenters = this.allRenters.filter((tenant) => tenant.propertyId === id);
-        } 
+        getTenantsProperty() {
+          return this.allRenters.filter((tenant) => tenant.propertyId === this.selectedPropertyId);
+        }
  },
    created() {
         this.getPropertiesForLandlord(this.user.sub);
