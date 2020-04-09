@@ -116,7 +116,7 @@ CREATE TABLE maintenance_request (
   CONSTRAINT fk_maintenance_requests_assigned FOREIGN KEY(assigned_user_id) REFERENCES users(user_id)
 );
 
-<<<<<<< Updated upstream
+
 INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('admin@gmail.com', 'admin', 'admin', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'admin');
 INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('renter@gmail.com', 'renter', 'renter', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
 INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('maintenance@gmail.com', 'maintenance', 'maintenance', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'maintenance');
@@ -243,7 +243,6 @@ INSERT INTO property_feature (property_id, feature_id) VALUES (4, 15);
 INSERT INTO property_feature (property_id, feature_id) VALUES (4, 16);
 INSERT INTO property_feature (property_id, feature_id) VALUES (4, 18);
 INSERT INTO property_feature (property_id, feature_id) VALUES (4, 19);
->>>>>>> 2cb327b6314c95b4cdc0cdf43b7b9314c4100680
 
 INSERT INTO property_feature (property_id, feature_id) VALUES (5, 1);
 INSERT INTO property_feature (property_id, feature_id) VALUES (5, 3);
@@ -284,22 +283,8 @@ INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (4, 475, '202
 INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (5, 475, '2020-02-29 12:00:00');
 INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (6, 1429, '2020-02-29 12:00:00');
 INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (9, 1429, '2020-03-31 12:00:00');
-=======
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role)
-VALUES ('admin@gmail.com', 'admin', 'admin', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'admin');
 
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role)
-VALUES ('renter@gmail.com', 'renter', 'renter', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
->>>>>>> Stashed changes
 
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role)
-VALUES ('maintenance@gmail.com', 'maintenance', 'maintenance', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'maintenance');
-
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role)
-VALUES ('landlord@gmail.com', 'landlord', 'landlord', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'landlord');
-
-INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location)
-VALUES ('1', '123 Main Street', 'Cincinnati', 'OH', '45073', 'Lisa Ridge' , '/630VineSt-01.jpg', 'Downtown');
 
 COMMIT TRANSACTION;
 
