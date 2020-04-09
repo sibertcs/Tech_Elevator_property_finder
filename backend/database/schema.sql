@@ -279,7 +279,10 @@ INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (6, 1429, '20
 INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (9, 1429, '2020-03-31 12:00:00');
 
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 COMMIT TRANSACTION;
 
 --SELECT * FROM property;
