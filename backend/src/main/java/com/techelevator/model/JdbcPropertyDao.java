@@ -58,5 +58,19 @@ public List<Property> getAllProperties() {
     return allProperties;
 }
 
+    @Override
+    public boolean addNewProperty(Property property) {
+        String sql = "INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) "+
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        Integer propertyId = jdbcTemplate.queryForObject(sql, Integer.class, property.getLandlordId(), property.getStreetAddress(), property.getCity(),
+                                    property.getStreetAddress(), property.getZipCode(), property.getPropertyName(), property.getPhotoPath(), property.getLocation());
+        
+        return propertyId != null;
+    }
+    @Override
+    public void addUnitsByProperty(int propertyId, List<Unit> units) {
+        String sql = "INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?);";
 
+    }
 }
