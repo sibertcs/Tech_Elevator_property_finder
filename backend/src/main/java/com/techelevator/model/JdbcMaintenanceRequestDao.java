@@ -7,6 +7,9 @@ import java.util.List;
 import javax.sql.DataSource;
 
 
+import com.techelevator.Main;
+
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -50,4 +53,10 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
         request.getPriority(), LocalDateTime.now());
     }
 
+    @Override
+    public void updateRequest(MaintenanceRequest request){
+        String sqlUpdate = "UPDATE maintenance_request SET assigned_user_id = ?, isCompleted = ?  " +
+        "WHERE request_id = ?;";
+        jdbcTemplate.update(sqlUpdate, request.getAssignedUserId(), request.getRequestId(), request.isCompleted());
+    }
 }
