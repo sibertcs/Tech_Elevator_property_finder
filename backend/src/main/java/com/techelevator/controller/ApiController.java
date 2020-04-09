@@ -4,17 +4,24 @@ import java.util.List;
 
 import com.techelevator.authentication.AuthProvider;
 import com.techelevator.authentication.UnauthorizedException;
+import com.techelevator.model.Lease;
+import com.techelevator.model.LeaseDao;
 import com.techelevator.model.Property;
 import com.techelevator.model.PropertyDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 /**
  * ApiController
@@ -26,6 +33,9 @@ public class ApiController {
 
     @Autowired
     private AuthProvider authProvider;
+
+    @Autowired
+    private LeaseDao leaseDao;
 
     private PropertyDao propertyDao;
 
@@ -56,4 +66,45 @@ public class ApiController {
     public boolean addNewProperty(@RequestBody Property newProperty) {
         return propertyDao.addNewProperty(newProperty);
     }
+
+
+
+
+    /**************** LEASE CONTROLLER METHODS ****************/
+
+    @GetMapping("/leases")
+    public List<Lease> getAllLeases() {
+        return leaseDao.getAllLeases();
+    }
+    @GetMapping("/leases/landlord/{landlordUserId}")
+    public List<Lease> getLeasesForLandlord(@PathVariable int landlordUserId) {
+        return leaseDao.getLeasesForLandlord(landlordUserId);
+    }
+    @GetMapping("/leases/renter/{renterUserId}")
+    public List<Lease> getLeasesForRenter(@PathVariable int renterUserId) {
+        return leaseDao.getLeasesForRenter(renterUserId);
+    }
+    @GetMapping("/leases/{leaseId}")
+    public Lease getLeaseById(@PathVariable int leaseId) {
+        return leaseDao.getLeaseById(leaseId);
+    }
+
+    @PostMapping("/leases")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createNewLease(@RequestBody Lease newLease) {
+        leaseDao.createLease(newLease);
+    }
+    @PutMapping("/leases/{leaseId}")
+    public void updateLease(@PathVariable int leaseId, @RequestBody Lease updatedLease) {
+        if (leaseDao.getLeaseById(leaseId) == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        updatedLease.setLeaseId(leaseId);
+        leaseDao.updateLease(updatedLease);
+    }
+
+
+
+    /**************** LEASE CONTROLLER METHODS ****************/    
+
 }

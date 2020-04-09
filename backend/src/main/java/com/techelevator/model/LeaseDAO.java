@@ -1,7 +1,5 @@
 package com.techelevator.model;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 public interface LeaseDao {
@@ -14,7 +12,7 @@ public interface LeaseDao {
 
     public Lease getLeaseById(int leaseId);
 
-    public void createLease(int userId, int unitId, LocalDate signedDate, int rentLength, BigDecimal rentAmount, BigDecimal lateFee, String status);
+    public void createLease(Lease newLease);
     
 	public void updateLease(Lease lease);
     
