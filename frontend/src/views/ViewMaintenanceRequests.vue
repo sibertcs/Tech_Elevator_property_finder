@@ -12,8 +12,17 @@
     <p class="card-text">{{ request.description }}</p>
     <p class="card-text">{{ request.status }}</p>
   </div>
+   <form>
+  <label> Change Status </label>
+      <select>
+        <option>Completed</option>
+        <option>In Progress</option>
+        <option>Incomplete</option>
+         </select>
+         <button type="submit" >Update</button>
+</form>
 </div>
-    
+   
   </div>  
 </div>
 </template>
