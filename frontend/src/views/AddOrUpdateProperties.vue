@@ -28,7 +28,7 @@
 
         <label for="location">Location</label>
         <select v-model="currentProperty.location">
-          <option>Dowtown</option>
+          <option>Downtown</option>
           <option>East Side</option>
           <option>West Side</option>
           <option>North Side</option>
@@ -74,7 +74,7 @@
           <input type="text" placeholder="Bed Count" v-model="newUnit.bedCount">
           <input type="text" placeholder="Bath Count" v-model="newUnit.bathCount">
           <input type="text" placeholder="Rent $" v-model="newUnit.price">
-          <input type="text" placeholder="SqFt" v-model="newUnit.sqft">
+          <input type="text" placeholder="SqFt" v-model="newUnit.sqFt">
           <button type="submit" @click.prevent="addUnit">Add Unit</button>
         </div>
       </form>
@@ -92,8 +92,8 @@
             <td>{{unit.bedCount}} bed</td>
             <td>{{unit.bathCount}} bath</td>
             <td>${{unit.price}}</td>
-            <td>{{unit.sqft}} sqft</td>
-            <button @click.prevent="removeUnit(unit.unitId)">Delete Unit</button>
+            <td>{{unit.sqFt}} sqft</td>
+            <button v-if="unit.available" @click.prevent="removeUnit(unit.unitId)">Delete Unit</button>
           </tr>
         </table>
     </div>
@@ -130,8 +130,8 @@ export default {
         bedCount: '',
         bathCount: '',
         price: '',
-        sqft: '',
-        isAvailable: true
+        sqFt: '',
+        available: true
       },
       existingProps: {}
     }
