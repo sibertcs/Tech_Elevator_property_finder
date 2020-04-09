@@ -94,20 +94,19 @@ class JdbcLeaseDao implements LeaseDao {
     }
     
     @Override
-    public void createLease(int userId, 
-                               int unitId, 
-                               LocalDate signedDate, 
-                               int rentLength, 
-                               BigDecimal rentAmount, 
-                               BigDecimal lateFee,
-                               String status) {
+    public void createLease(Lease newLease) {
         String sql = "INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING lease_id;";
-        jdbcTemplate.update(sql, userId, unitId, signedDate, rentLength, rentAmount, lateFee, status);
-
+        jdbcTemplate.update(sql, newLease.getUserId(), 
+                                    newLease.getUnitId(), 
+                                    newLease.getSignedDate(),
+                                    newLease.getRentLength(),
+                                    newLease.getRentAmount(),
+                                    newLease.getLateFee(),
+                                    newLease.getStatus());
         // Update unit 'is_available' to false
         sql = "UPDATE unit SET is_available = false WHERE unit_id = ?;";
-        jdbcTemplate.update(sql, unitId);
+        jdbcTemplate.update(sql, newLease.getUnitId());
     }
     
     @Override
