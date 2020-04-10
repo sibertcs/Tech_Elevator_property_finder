@@ -95,6 +95,10 @@ public class ApiController {
     public boolean addNewProperty(@RequestBody Property newProperty) {
         return propertyDao.addNewProperty(newProperty);
     }
+    @PutMapping("/properties/update")
+    public boolean displayUpdateExistingProperty(@RequestBody Property updatedProperty) {
+        return propertyDao.updateExistingProperty(updatedProperty);
+    }
     /**************** PROPERTY CONTROLLER METHODS ****************/
 
     /**************** UNIT CONTROLLER METHODS ****************/
@@ -140,11 +144,6 @@ public class ApiController {
 
 
     /**************** LEASE CONTROLLER METHODS ****************/    
-
-    @PutMapping("/propertiesupdate")
-    public boolean displayUpdateExistingProperty(@RequestBody Property updatedProperty) {
-        return propertyDao.updateExistingProperty(updatedProperty);
-    }
 
 
     /*******  RENT CONTROLLER METHODS ************/
