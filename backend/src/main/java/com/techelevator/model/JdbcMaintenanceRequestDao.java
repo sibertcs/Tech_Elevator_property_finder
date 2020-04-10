@@ -56,8 +56,30 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
 
     @Override
     public void updateRequest(MaintenanceRequest request){
-        String sqlUpdate = "UPDATE maintenance_request SET assigned_user_id = ?, isCompleted = ?  " +
+        String sqlUpdate = "UPDATE maintenance_request SET assigned_user_id = ?, priority = ?, is_completed = ?  " +
         "WHERE request_id = ?;";
-        jdbcTemplate.update(sqlUpdate, request.getAssignedUserId(), request.getRequestId(), request.isCompleted());
+        jdbcTemplate.update(sqlUpdate, request.getAssignedUserId(), request.getPriority(), request.isCompleted(), request.getRequestId());
+    }
+
+    @Override
+    public List<MaintenanceRequest> getAllRequestsByEmployeeId(int employeeId){
+        String sql = "SELECT request_id, unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed "
+        + "FROM maintenance_request "
+        + "WHERE assigned_user_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, employeeId);
+        List<MaintenanceRequest> requests = new ArrayList<>();
+        while (results.next()) {
+            MaintenanceRequest req = new MaintenanceRequest();
+            req.setRequestId(results.getInt("request_id"));
+            req.setUnitId(results.getInt("unit_id"));
+            req.setRequestUserId(results.getInt("request_user_id"));
+            req.setRequestDesc(results.getString("request_desc"));
+            req.setPriority(results.getInt("priority"));
+            req.setDateRequested(results.getDate("date_requested").toLocalDate());
+            req.setAssignedUserId(results.getInt("assigned_user_id"));
+            req.setCompleted(results.getBoolean("is_completed"));
+            requests.add(req);
+        }
+        return requests;
     }
 }

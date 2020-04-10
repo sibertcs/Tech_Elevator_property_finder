@@ -96,6 +96,11 @@ public class JdbcPropertyDao implements PropertyDao {
         return portfolio;
     }
 
+    // @Override
+    // public Property getPropertyByUnit(Unit unit) {
+        
+    // }
+
     @Override
     public boolean addNewProperty(Property property) {
         String sql = "INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) "+

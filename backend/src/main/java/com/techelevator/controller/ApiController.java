@@ -13,6 +13,8 @@ import com.techelevator.model.Property;
 import com.techelevator.model.PropertyDao;
 import com.techelevator.model.RentCycle;
 import com.techelevator.model.RentDao;
+import com.techelevator.model.Unit;
+import com.techelevator.model.UnitDao;
 import com.techelevator.model.User;
 import com.techelevator.model.UserDao;
 
@@ -48,6 +50,9 @@ public class ApiController {
     private PropertyDao propertyDao;
 
     @Autowired
+    private UnitDao unitDao;
+
+    @Autowired
     private RentDao rentDao;
 
     @Autowired
@@ -70,22 +75,38 @@ public class ApiController {
         }
         return "Success";
     }
-    // Property Dao Methods
+    /**************** USER CONTROLLER METHODS ****************/
+    @GetMapping("/users")
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
+    }
+    /**************** USER CONTROLLER METHODS ****************/
+
+    /**************** PROPERTY CONTROLLER METHODS ****************/
     @GetMapping("/properties")
     public List<Property> getAllProperties() {
         return propertyDao.getAllProperties();
     }
-    @GetMapping("/properties/{landlordId}")
+    @GetMapping("/properties/landlord/{landlordId}")
     public List<Property> getLandlordsProperties(@PathVariable int landlordId) {
         return propertyDao.getPropertiesByLandlord(landlordId);
     }
-    @PostMapping("/propertiesnew")
+    @PostMapping("/properties/new")
     public boolean addNewProperty(@RequestBody Property newProperty) {
         return propertyDao.addNewProperty(newProperty);
     }
+    @PutMapping("/properties/update")
+    public boolean displayUpdateExistingProperty(@RequestBody Property updatedProperty) {
+        return propertyDao.updateExistingProperty(updatedProperty);
+    }
+    /**************** PROPERTY CONTROLLER METHODS ****************/
 
-
-
+    /**************** UNIT CONTROLLER METHODS ****************/
+    @GetMapping("/unit/renter/{renterId}")
+    public List<Unit> getUnitByRenter(@PathVariable int renterId) {
+        return unitDao.getUnitByRenter(renterId);
+    }
+    /**************** UNIT CONTROLLER METHODS ****************/
 
     /**************** LEASE CONTROLLER METHODS ****************/
 
@@ -124,39 +145,36 @@ public class ApiController {
 
     /**************** LEASE CONTROLLER METHODS ****************/    
 
-    @PutMapping("/propertiesupdate")
-    public boolean displayUpdateExistingProperty(@RequestBody Property updatedProperty) {
-        return propertyDao.updateExistingProperty(updatedProperty);
-    }
-
 
     /*******  RENT CONTROLLER METHODS ************/
 
-    // successfully tested in postman
+   
     @GetMapping("/rent")
     public List<RentCycle> getAllRent(){
         return rentDao.getAllRent();
     }
 
-    // successfully tested in postman
+   
     @GetMapping("/payments")
     public List<Payment> getAllPayments(){
         return rentDao.getAllPayments();
     }
 
-    // not working yet
+    
     @PostMapping("/rent")
     @ResponseStatus(HttpStatus.CREATED)
     public void createRentCycle(@RequestBody RentCycle rentCycle){
         rentDao.createRentCycle(rentCycle);
     }
 
+    
     @PostMapping("/payments")
     @ResponseStatus(HttpStatus.CREATED)
     public void createPayment(@RequestBody Payment payment){
         rentDao.createPayment(payment);
     }
 
+    
      @PutMapping("/rent/{rentCycleId}")
      public void updateRentCycle(@PathVariable int rentCycleId, @RequestBody RentCycle rentCycle){
          if(rentDao.getRentCycleById(rentCycleId) == null){
@@ -166,13 +184,13 @@ public class ApiController {
          rentDao.updateRentCycle(rentCycle);
      }
 
-     // successfully tested in postman
+     
     @GetMapping("/rent/{leaseId}")
     public RentCycle gerRentByLeaseId(@PathVariable int leaseId){
         return rentDao.getRentByLeaseId(leaseId);
     }
 
-    // successfully tested in postman
+   
     @GetMapping("/payments/{rentCycleId}")
     public List<Payment> getPaymentsByRentCycleId(@PathVariable int rentCycleId){
         return rentDao.getPaymentsByRentCycleId(rentCycleId);
@@ -183,24 +201,30 @@ public class ApiController {
 
 
     /******** MAINTENANCE CONTROLLER METHODS **********/
+
+    //works in postman
     @PostMapping("/maintenance/request")
     @ResponseStatus(HttpStatus.CREATED)
     public void createRequest (@RequestBody MaintenanceRequest request){
         maintReqDao.createRequest(request);
     }
-
+    //works in postman
     @PutMapping("/Landlord/assignMaintenance")
     public void updateRequest(MaintenanceRequest request){
         maintReqDao.updateRequest(request);
     }
-
+    //works in postman
     @GetMapping("/Landlord/assignMaintenance")
     public List<MaintenanceRequest> getAllRequests(){
         return maintReqDao.getAllRequests();
     }
-    @GetMapping("/renters")
-    public List<User> getAllRenters() {
-        return userDao.getAllRenters();
+
+    @GetMapping("/maintenance/{employeeId}")
+    public List<MaintenanceRequest> getAllRequestsByEmployeeId(@PathVariable int employeeId){
+        return maintReqDao.getAllRequestsByEmployeeId(employeeId);
     }
+
+
+   
 
 }

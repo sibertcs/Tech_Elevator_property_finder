@@ -3,6 +3,9 @@ package com.techelevator.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -10,7 +13,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class JdbcUnitDao implements UnitDao {
 
-private JdbcTemplate jdbcTemplate;
+    
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public JdbcUnitDao(DataSource datasource){
+        this.jdbcTemplate = new JdbcTemplate(datasource);
+    }
 //     @Override
 //     public List<Unit> getAllUnits() {
 //         String sql = "SELECT unit_id, unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available FROM unit;";
@@ -27,7 +36,7 @@ private JdbcTemplate jdbcTemplate;
     @Override
     public List<Unit> getUnitByRenter(int userId) {
         List<Unit> unitByRenter = new ArrayList<Unit>();
-        String sql = "SELECT unit_id, unit_number, property_id, bed_count, bath_count, price, sq_ft FROM unit LEFT JOIN lease ON lease.unit_id = unit.unit_id WHERE user_id = ?;";
+        String sql = "SELECT unit.unit_id, unit_number, property_id, bed_count, bath_count, price, sq_ft FROM unit LEFT JOIN lease ON lease.unit_id = unit.unit_id WHERE user_id = ?;";
         SqlRowSet unitResults = jdbcTemplate.queryForRowSet(sql, userId);
         while (unitResults.next()) {
             Unit u = new Unit();
