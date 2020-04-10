@@ -96,10 +96,24 @@ public class JdbcPropertyDao implements PropertyDao {
         return portfolio;
     }
 
-    // @Override
-    // public Property getPropertyByUnit(Unit unit) {
-        
-    // }
+    @Override
+    public Property getPropertyById(int id) {
+        String propertySearchSql = "SELECT * FROM property WHERE property_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(propertySearchSql, id);
+        Property prop = new Property();
+        if (results.next()){
+            prop.setPropertyId(results.getInt("property_id"));
+            prop.setLandlordId(results.getInt("landlord_id"));
+            prop.setStreetAddress(results.getString("street_address"));
+            prop.setCity(results.getString("city"));
+            prop.setState(results.getString("state"));
+            prop.setZipCode(results.getString("zip_code"));
+            prop.setPropertyName(results.getString("property_name"));
+            prop.setPhotoPath(results.getString("photo_path"));
+            prop.setLocation(results.getString("location"));
+        }
+        return prop;
+    }
 
     @Override
     public boolean addNewProperty(Property property) {

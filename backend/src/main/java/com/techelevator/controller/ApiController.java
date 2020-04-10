@@ -99,6 +99,10 @@ public class ApiController {
     public boolean displayUpdateExistingProperty(@RequestBody Property updatedProperty) {
         return propertyDao.updateExistingProperty(updatedProperty);
     }
+    @GetMapping("/property/{propertyId}")
+    public Property getPropertyById(@PathVariable int propertyId) {
+        return propertyDao.getPropertyById(propertyId);
+    }
     /**************** PROPERTY CONTROLLER METHODS ****************/
 
     /**************** UNIT CONTROLLER METHODS ****************/

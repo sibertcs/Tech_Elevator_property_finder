@@ -85,7 +85,7 @@ class JdbcLeaseDao implements LeaseDao {
                     + "JOIN users ON lease.user_id = users.user_id "
                     + "JOIN unit ON lease.unit_id = unit.unit_id "
                     + "JOIN property ON unit.property_id = property.property_id "
-                    + "WHERE user_id = ?;";
+                    + "WHERE users.user_id = ?;";
         SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, renterUserId);
         
         List<Lease> renterLeases = new ArrayList<Lease>();
