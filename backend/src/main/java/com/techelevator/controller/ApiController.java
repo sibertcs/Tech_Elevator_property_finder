@@ -6,6 +6,8 @@ import com.techelevator.authentication.AuthProvider;
 import com.techelevator.authentication.UnauthorizedException;
 import com.techelevator.model.Lease;
 import com.techelevator.model.LeaseDao;
+import com.techelevator.model.MaintenanceRequest;
+import com.techelevator.model.MaintenanceRequestDao;
 import com.techelevator.model.Payment;
 import com.techelevator.model.Property;
 import com.techelevator.model.PropertyDao;
@@ -44,6 +46,9 @@ public class ApiController {
 
     @Autowired
     private RentDao rentDao;
+
+    @Autowired
+    private MaintenanceRequestDao maintReqDao;
 
     @Autowired
 	public ApiController(PropertyDao propertyDao) {
@@ -174,4 +179,24 @@ public class ApiController {
 
 
     /******** RENT CONTROLLER METHODS **********/
+
+
+    /******** MAINTENANCE CONTROLLER METHODS **********/
+    @PostMapping("/maintenance/request")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createRequest (@RequestBody MaintenanceRequest request){
+        maintReqDao.createRequest(request);
+    }
+
+    @PutMapping("/Landlord/assignMaintenance")
+    public void updateRequest(MaintenanceRequest request){
+        maintReqDao.updateRequest(request);
+    }
+
+    @GetMapping("/Landlord/assignMaintenance")
+    public List<MaintenanceRequest> getAllRequests(){
+        return maintReqDao.getAllRequests();
+    }
+
+
 }
