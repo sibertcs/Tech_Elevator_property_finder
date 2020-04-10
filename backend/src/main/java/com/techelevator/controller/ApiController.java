@@ -13,8 +13,6 @@ import com.techelevator.model.Property;
 import com.techelevator.model.PropertyDao;
 import com.techelevator.model.RentCycle;
 import com.techelevator.model.RentDao;
-import com.techelevator.model.User;
-import com.techelevator.model.UserDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -44,7 +42,6 @@ public class ApiController {
     @Autowired
     private LeaseDao leaseDao;
 
-    @Autowired
     private PropertyDao propertyDao;
 
     @Autowired
@@ -54,7 +51,9 @@ public class ApiController {
     private MaintenanceRequestDao maintReqDao;
 
     @Autowired
-	private UserDao userDao;
+	public ApiController(PropertyDao propertyDao) {
+		this.propertyDao = propertyDao;
+    }
     
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String authorizedOnly() throws UnauthorizedException {
@@ -132,31 +131,33 @@ public class ApiController {
 
     /*******  RENT CONTROLLER METHODS ************/
 
-    // successfully tested in postman
+   
     @GetMapping("/rent")
     public List<RentCycle> getAllRent(){
         return rentDao.getAllRent();
     }
 
-    // successfully tested in postman
+   
     @GetMapping("/payments")
     public List<Payment> getAllPayments(){
         return rentDao.getAllPayments();
     }
 
-    // not working yet
+    
     @PostMapping("/rent")
     @ResponseStatus(HttpStatus.CREATED)
     public void createRentCycle(@RequestBody RentCycle rentCycle){
         rentDao.createRentCycle(rentCycle);
     }
 
+    
     @PostMapping("/payments")
     @ResponseStatus(HttpStatus.CREATED)
     public void createPayment(@RequestBody Payment payment){
         rentDao.createPayment(payment);
     }
 
+    
      @PutMapping("/rent/{rentCycleId}")
      public void updateRentCycle(@PathVariable int rentCycleId, @RequestBody RentCycle rentCycle){
          if(rentDao.getRentCycleById(rentCycleId) == null){
@@ -166,13 +167,13 @@ public class ApiController {
          rentDao.updateRentCycle(rentCycle);
      }
 
-     // successfully tested in postman
+     
     @GetMapping("/rent/{leaseId}")
     public RentCycle gerRentByLeaseId(@PathVariable int leaseId){
         return rentDao.getRentByLeaseId(leaseId);
     }
 
-    // successfully tested in postman
+   
     @GetMapping("/payments/{rentCycleId}")
     public List<Payment> getPaymentsByRentCycleId(@PathVariable int rentCycleId){
         return rentDao.getPaymentsByRentCycleId(rentCycleId);
@@ -198,9 +199,10 @@ public class ApiController {
     public List<MaintenanceRequest> getAllRequests(){
         return maintReqDao.getAllRequests();
     }
-    @GetMapping("/renters")
-    public List<User> getAllRenters() {
-        return userDao.getAllRenters();
+
+    @GetMapping("/maintenance/{employeeId}")
+    public List<MaintenanceRequest> getAllRequestsByEmployeeId(@PathVariable int employeeId){
+        return maintReqDao.getAllRequestsByEmployeeId(employeeId);
     }
 
 }
