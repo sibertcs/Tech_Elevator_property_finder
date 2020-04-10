@@ -9,7 +9,7 @@
                        checked
                        v-model="newLease"
                        :value="true"
-                       @click="resetValues"
+                       @click="resetLeaseValues"
                 /> Add New Lease
                 <input type="radio"
                        name="addOrUpdate"
@@ -19,22 +19,8 @@
                 /> Update Existing Lease
             </div>
             <br/>
-            <!-- !!!! shows only when user selected 'Update Existing Lease' above !!!! -->
-            <div v-show="!newLease">
-                <label for="leaseSelection">Existing Leases: </label>
-                <select id="leaseSelection" v-model="selectedLeaseId" @change="getSelectedLease">  
-                    <!-- shows only the leases for current Landlord user -->
-                    <option value="" disabled selected>Select a Lease</option>
-                    <option v-for="lease in leasesForLandlord" 
-                            :key="lease.leaseId" 
-                            :value="lease.leaseId">
-                        {{ `${lease.propertyName} - Unit ${lease.unitNumber}` }}
-                    </option>
-                </select>
-            </div>
 
-            <!-- !!!! shows only when user selected 'Add New Lease' above !!!! -->
-            <div v-show="newLease">
+            <div>
                 <label for="propertyName">Property: </label>
                 <select id="propertyName" v-model="selectedPropertyId">  
                     <!-- shows only the properties for current Landlord user -->
@@ -46,9 +32,10 @@
                     </option>
                 </select>
             </div>
-            <div v-show="newLease">
+            <div>
                 <label for="unitNumber">Unit: </label>
-                <select id="unitNumber" v-model="lease.unitId">
+                <select id="unitNumber" v-model="lease.unitId" 
+                        @change="getLeasesForUnit(lease.unitId)">
                     <!-- shows only the Units for the Property selected above -->
                     <option value="" disabled selected>Select a Unit Number</option>
                     <option v-for="unit in getUnitsForSelectedProperty" 
@@ -66,8 +53,8 @@
                     <!-- shows all Renter users -->
                     <option value="" disabled selected>Select a Renter Name</option>
                     <option v-for="renter in allRenters"
-                            :key="renter.userId"
-                            :value="renter.userId">
+                            :key="renter.id"
+                            :value="renter.id">
                         {{ `${renter.lastName}, ${renter.firstName} (${renter.email})` }}
                     </option>
                 </select>
@@ -106,33 +93,29 @@
 <script>
 import auth from '../auth';
 
-import renterData from '../assets/data/renters.json'
-import leaseData from '../assets/data/leases.json'
-
 export default {
     props: {
         user: Object
     },
     data() {
         return {
-            allRenters: renterData,
-            allLeases: leaseData,
             newLease: true,
             propertiesForLandlord: [],
             selectedPropertyId: '',
+            allRenters: [],
             leasesForLandlord: [],
             selectedLeaseId: '',
             lease: {
                 leaseId: '',
                 userId: '',
                 unitId: '',
-                unitNumber: '',
                 signedDate: '',
                 rentLength: '',
                 rentAmount: '',
-                lateFee: ''
+                lateFee: '',
+                status: 'Active'
             },
-            successfulPost: false,
+            successfulPost: false
         }
     },
     computed: {
@@ -157,64 +140,65 @@ export default {
         }
     },
     methods: {
-        getPropertiesForLandlord(id) {
-            fetch('http://localhost:8080/api/properties/'+id, {
+        getPropertiesForLandlord() {
+            fetch('http://localhost:8080/api/properties/'+this.user.id, {
                 method: 'GET',
                 headers: { Authorization: 'Bearer ' + auth.getToken() },
                 credentials: 'same-origin'
             }).then (response => { if(response.ok) { return response.json(); }
                 }).then(responseData => { this.propertiesForLandlord = responseData; });
         },
+        getAllRenters() {
+            fetch('http://localhost:8080/api/renters', {
+                method: 'GET',
+                headers: { Authorization: 'Bearer ' + auth.getToken() },
+                credentials: 'same-origin'
+            }).then (response => { if(response.ok) { return response.json(); }
+                }).then(responseData => { this.allRenters = responseData; });
+        },
         createLease() {
             console.log(JSON.stringify(this.lease));
-            this.successfulPost = true;
-            this.resetValues();
-            /*  fetch(this.apiURL, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json' },
-                    body: JSON.stringify(this.lease)
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            this.successfulPost = true;
-                            this.resetLeaseValues();
-                        }
-                    })
-                    .catch(err => console.error(err));
-             */
+            fetch('http://localhost:8080/api/leases', {
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + auth.getToken(),
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'same-origin',
+                body: JSON.stringify(this.lease)
+            }).then(response => {
+                if (response.ok) {
+                    this.successfulPost = true;
+                    this.resetLeaseValues();
+                }
+            }).catch(err => console.error(err));
         },
-        resetValues() {
+        resetLeaseValues() {
             this.lease.userId = '';
             this.lease.unitId = '';
             this.lease.signedDate = '';
             this.lease.rentLength = '';
             this.lease.rentAmount = '';
             this.lease.lateFee = '';
+            this.lease.status = 'Active';
+            this.getPropertiesForLandlord(this.user.id);
         },
-        getExistingLeases() {
-            this.resetValues();
-            this.leasesForLandlord = this.allLeases.filter((lease) => lease.landlordEmail === this.user.sub);
+        getLeasesForUnit(unitId) {
+            this.resetLeaseValues();
+            fetch('http://localhost:8080/api/leases/unit/'+unitId, {
+                method: 'GET',
+                headers: { Authorization: 'Bearer ' + auth.getToken() },
+                credentials: 'same-origin'
+            }).then (response => { if(response.ok) { return response.json(); }
+                }).then(responseData => { this.leasesForLandlord = responseData; });
         },
         getSelectedLease() {
-        /*
-            let selectedLease = this.leasesForLandlord.filter((lease) => lease.id === this.selectedLeaseId)[0];
-            this.lease.userId = selectedLease.userId;
-            this.lease.unitId = selectedLease.unitId;
-            this.lease.signedDate = selectedLease.signedDate;
-            this.lease.rentLength = selectedLease.rentLength;
-            this.lease.rentAmount = selectedLease.rentAmount;
-            this.lease.lateFee = selectedLease.lateFee;
-        */
-            this.lease.userId = '1';
-            this.lease.unitId = '1';
-            this.lease.signedDate = '2020-04-07';
-            this.lease.rentLength = '6';
-            this.lease.rentAmount = '1000';
-            this.lease.lateFee = '5';
+            
         }
     },
     created() {
-        this.getPropertiesForLandlord(this.user.id);
+        this.getPropertiesForLandlord();
+        this.getAllRenters();
     }
 }
 </script>
