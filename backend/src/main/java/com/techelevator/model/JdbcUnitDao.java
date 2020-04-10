@@ -27,7 +27,7 @@ private JdbcTemplate jdbcTemplate;
     @Override
     public List<Unit> getUnitByRenter(int userId) {
         List<Unit> unitByRenter = new ArrayList<Unit>();
-        String sql = "SELECT unit_id, unit_number, property_id, bed_count, bath_count, price, sq_ft FROM unit INNER JOIN lease ON lease.unit_id = unit.unit_id WHERE user_id = ?;";
+        String sql = "SELECT unit_id, unit_number, property_id, bed_count, bath_count, price, sq_ft FROM unit LEFT JOIN lease ON lease.unit_id = unit.unit_id WHERE user_id = ?;";
         SqlRowSet unitResults = jdbcTemplate.queryForRowSet(sql, userId);
         while (unitResults.next()) {
             Unit u = new Unit();
@@ -45,7 +45,7 @@ private JdbcTemplate jdbcTemplate;
     @Override
     public List<User> getRenterByUnit(int unitId) {
         List<User> rentersInUnit = new ArrayList<User>();
-        String sql = "SELECT user_id, email, first_name, last_name, phone_number FROM user INNER JOIN lease ON lease.user_id = user.user_id WHERE unit_id = ?;";
+        String sql = "SELECT user_id, email, first_name, last_name, phone_number FROM user LEFT JOIN lease ON lease.user_id = user.user_id WHERE unit_id = ?;";
         SqlRowSet renterResults = jdbcTemplate.queryForRowSet(sql, unitId);
         while (renterResults.next()) {
             User r = new User();
