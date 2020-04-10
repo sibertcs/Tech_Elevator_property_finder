@@ -51,7 +51,7 @@
                 <select id="unitNumber" v-model="lease.unitId">
                     <!-- shows only the Units for the Property selected above -->
                     <option value="" disabled selected>Select a Unit Number</option>
-                    <option v-for="unit in unitsForSelectedProperty" 
+                    <option v-for="unit in getUnitsForSelectedProperty" 
                             :key="unit.unitId" 
                             :value="unit.unitId">
                         {{ unit.unitNumber }}
@@ -104,8 +104,8 @@
 </template>
 
 <script>
-import propertyData from '../assets/data/properties.json'
-import unitData from '../assets/data/units.json'
+import auth from '../auth';
+
 import renterData from '../assets/data/renters.json'
 import leaseData from '../assets/data/leases.json'
 
@@ -115,13 +115,12 @@ export default {
     },
     data() {
         return {
-            allProperties: propertyData,
-            allUnits: unitData,
             allRenters: renterData,
             allLeases: leaseData,
+            newLease: true,
             propertiesForLandlord: [],
-            leasesForLandlord: [],
             selectedPropertyId: '',
+            leasesForLandlord: [],
             selectedLeaseId: '',
             lease: {
                 leaseId: '',
@@ -134,12 +133,17 @@ export default {
                 lateFee: ''
             },
             successfulPost: false,
-            newLease: true
         }
     },
     computed: {
-        unitsForSelectedProperty() {
-            return this.allUnits.filter((unit) => unit.propertyId === this.selectedPropertyId);
+        getUnitsForSelectedProperty() {
+            let selectedProp = {};
+            this.propertiesForLandlord.forEach((property) => {
+                if (property.propertyId === this.selectedPropertyId) {
+                    selectedProp = property;
+                }
+            });
+            return selectedProp.units;
         },
         isValidForm() {
             return (
@@ -153,8 +157,13 @@ export default {
         }
     },
     methods: {
-        getPropertiesForLandlord(email) {
-            this.propertiesForLandlord = this.allProperties.filter((prop) => prop.landlordEmail === email);
+        getPropertiesForLandlord(id) {
+            fetch('http://localhost:8080/api/properties/'+id, {
+                method: 'GET',
+                headers: { Authorization: 'Bearer ' + auth.getToken() },
+                credentials: 'same-origin'
+            }).then (response => { if(response.ok) { return response.json(); }
+                }).then(responseData => { this.propertiesForLandlord = responseData; });
         },
         createLease() {
             console.log(JSON.stringify(this.lease));
@@ -205,7 +214,7 @@ export default {
         }
     },
     created() {
-        this.getPropertiesForLandlord(this.user.sub);
+        this.getPropertiesForLandlord(this.user.id);
     }
 }
 </script>

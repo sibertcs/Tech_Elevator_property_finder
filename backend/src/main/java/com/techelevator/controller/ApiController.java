@@ -13,6 +13,8 @@ import com.techelevator.model.Property;
 import com.techelevator.model.PropertyDao;
 import com.techelevator.model.RentCycle;
 import com.techelevator.model.RentDao;
+import com.techelevator.model.User;
+import com.techelevator.model.UserDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -42,6 +44,7 @@ public class ApiController {
     @Autowired
     private LeaseDao leaseDao;
 
+    @Autowired
     private PropertyDao propertyDao;
 
     @Autowired
@@ -51,9 +54,7 @@ public class ApiController {
     private MaintenanceRequestDao maintReqDao;
 
     @Autowired
-	public ApiController(PropertyDao propertyDao) {
-		this.propertyDao = propertyDao;
-    }
+	private UserDao userDao;
     
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String authorizedOnly() throws UnauthorizedException {
@@ -197,6 +198,9 @@ public class ApiController {
     public List<MaintenanceRequest> getAllRequests(){
         return maintReqDao.getAllRequests();
     }
-
+    @GetMapping("/renters")
+    public List<User> getAllRenters() {
+        return userDao.getAllRenters();
+    }
 
 }

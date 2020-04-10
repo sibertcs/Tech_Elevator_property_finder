@@ -117,6 +117,24 @@ public class JdbcUserDao implements UserDao {
         return users;
     }
 
+    /**
+     * Get all of the users with role="renter" from the database.
+     * @return a List of user objects
+     */
+    @Override
+    public List<User> getAllRenters() {
+        String sql = "SELECT user_id, email, first_name, last_name, phone_number, role FROM users WHERE role=?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, "renter");
+        
+        List<User> renters = new ArrayList<User>();
+        while (results.next()) {
+            User user = mapResultToUser(results);
+            renters.add(user);
+        }
+        return renters;
+    }
+
+
     private User mapResultToUser(SqlRowSet results) {
         User user = new User();
         user.setId(results.getLong("user_id"));
@@ -140,5 +158,4 @@ public class JdbcUserDao implements UserDao {
             return null;
         }
     }
-
 }
