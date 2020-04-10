@@ -123,7 +123,7 @@ public class JdbcUserDao implements UserDao {
      */
     @Override
     public List<User> getAllRenters() {
-        String sql = "SELECT user_id, email, role FROM users WHERE role=?;";
+        String sql = "SELECT user_id, email, first_name, last_name, phone_number, role FROM users WHERE role=?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, "renter");
         
         List<User> renters = new ArrayList<User>();
