@@ -201,17 +201,19 @@ public class ApiController {
 
 
     /******** MAINTENANCE CONTROLLER METHODS **********/
+
+    //works in postman
     @PostMapping("/maintenance/request")
     @ResponseStatus(HttpStatus.CREATED)
     public void createRequest (@RequestBody MaintenanceRequest request){
         maintReqDao.createRequest(request);
     }
-
+    //works in postman
     @PutMapping("/Landlord/assignMaintenance")
     public void updateRequest(MaintenanceRequest request){
         maintReqDao.updateRequest(request);
     }
-
+    //works in postman
     @GetMapping("/Landlord/assignMaintenance")
     public List<MaintenanceRequest> getAllRequests(){
         return maintReqDao.getAllRequests();
