@@ -1,8 +1,8 @@
-// package com.techelevator.model;
+package com.techelevator.model;
 
-// import java.util.List;
+import java.util.List;
 
-// public interface UnitDao {
+public interface UnitDao { 
 
 //     public List<Unit> getAllUnits();
 
@@ -10,6 +10,8 @@
 
 //     public List<User> getRentersByUnit();
 
+    public List<Unit> getUnitByRenter(int userId);
 
+    public List<User> getRenterByUnit(int unitId);
 
-// }
+ }
