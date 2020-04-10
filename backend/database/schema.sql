@@ -290,4 +290,3 @@ SELECT * FROM property;
 SELECT * FROM unit;
 
 Update unit Set is_available = false WHERE unit_id = 12;
-

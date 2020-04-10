@@ -3,7 +3,7 @@
       <h1>This is the maintenance request page</h1>
      
     <form>
-      <p>Unit: {{user.unitId}}</p>
+      <p>Unit: {{maintenanceRequest.unitId}}</p>
   <!--    <label for="unit">Select Your Unit Number </label>
         <select id="unit" v-model="maintenanceRequest.unitId">
           <option value="" disabled selected>Select a Unit Number</option>
@@ -13,6 +13,8 @@
                   {{unit.unitNumber}}
         </option>
          </select> -->
+      <!-- <input type="hidden" v-model="maintenanceRequest.unitId" :value="unit.unitId">
+      <input type="hidden" v-model="maintenanceRequest.requestUserId" :value="user.userId"> -->
       <label for="details">Details</label>
       <textarea id="details"  rows="3" v-model="maintenanceRequest.requestDesc"></textarea>
       <br>
@@ -22,7 +24,7 @@
         <option value="2">Medium</option>
         <option value="3">High</option>
       </select>
-      <button type="submit" v-bind:disabled="!isValidForm" v-on:click="createRequest">Submit Request  </button>
+      <button type="submit" v-bind:disabled="!isValidForm" v-on:click="createRequest">Submit Request</button>
     </form>
   </div>
 </template>
@@ -40,8 +42,8 @@ export default {
    return {
      allUnits: unitData,
      maintenanceRequest:{
-       unitId: 8,
-      requestUserId: 5,     //  this.user.id should be used. Need another method when unit API methods are made.
+       unitId: "",
+      requestUserId: "",
        requestDesc: "",
        priority: ""
     
@@ -67,7 +69,27 @@ export default {
         })
         .catch(err => console.error(err));
      
-     }
+     },
+         getUnitForUser(id) {
+      fetch("http://localhost:8080/api/unit/renter/"+id, {
+        method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + auth.getToken(),
+            'Content-Type': 'application/json'
+          },
+          credentials: 'same-origin'
+      })
+        .then(response => {
+          if(response.ok){
+            return response.json();
+          }
+        })
+        .then(responseData => {
+          this.maintenanceRequest.requestUserId = responseData[0].unitId;
+          this.maintenanceRequest.unitId = responseData[0].unitId;
+          console.log(responseData[0].unitId);
+        })
+    }
    },
    computed: {
     
@@ -78,6 +100,9 @@ export default {
        this.maintenanceRequest.priority != "" 
        );
      }
+   },
+   created(){
+     this.getUnitForUser(this.user.id);
    }
  };
 </script>
