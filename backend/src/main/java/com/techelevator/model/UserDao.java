@@ -35,6 +35,12 @@ public interface UserDao {
      */
     public List<User> getAllUsers();
 
+    /**
+     * Get all of the users with role="renter" from the database.
+     * @return a List of user objects
+     */
+    public List<User> getAllRenters();
+
     public User getUserByEmail(String email);
 
 }
