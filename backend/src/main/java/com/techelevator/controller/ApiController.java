@@ -13,6 +13,10 @@ import com.techelevator.model.Property;
 import com.techelevator.model.PropertyDao;
 import com.techelevator.model.RentCycle;
 import com.techelevator.model.RentDao;
+import com.techelevator.model.Unit;
+import com.techelevator.model.UnitDao;
+import com.techelevator.model.User;
+import com.techelevator.model.UserDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -42,7 +46,11 @@ public class ApiController {
     @Autowired
     private LeaseDao leaseDao;
 
+    @Autowired
     private PropertyDao propertyDao;
+
+    @Autowired
+    private UnitDao unitDao;
 
     @Autowired
     private RentDao rentDao;
@@ -51,9 +59,7 @@ public class ApiController {
     private MaintenanceRequestDao maintReqDao;
 
     @Autowired
-	public ApiController(PropertyDao propertyDao) {
-		this.propertyDao = propertyDao;
-    }
+	private UserDao userDao;
     
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String authorizedOnly() throws UnauthorizedException {
@@ -69,22 +75,34 @@ public class ApiController {
         }
         return "Success";
     }
-    // Property Dao Methods
+    /**************** USER CONTROLLER METHODS ****************/
+    @GetMapping("/users")
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
+    }
+    /**************** USER CONTROLLER METHODS ****************/
+
+    /**************** PROPERTY CONTROLLER METHODS ****************/
     @GetMapping("/properties")
     public List<Property> getAllProperties() {
         return propertyDao.getAllProperties();
     }
-    @GetMapping("/properties/{landlordId}")
+    @GetMapping("/properties/landlord/{landlordId}")
     public List<Property> getLandlordsProperties(@PathVariable int landlordId) {
         return propertyDao.getPropertiesByLandlord(landlordId);
     }
-    @PostMapping("/propertiesnew")
+    @PostMapping("/properties/new")
     public boolean addNewProperty(@RequestBody Property newProperty) {
         return propertyDao.addNewProperty(newProperty);
     }
+    /**************** PROPERTY CONTROLLER METHODS ****************/
 
-
-
+    /**************** UNIT CONTROLLER METHODS ****************/
+    @GetMapping("/unit/renter/{renterId}")
+    public List<Unit> getUnitByRenter(@PathVariable int renterId) {
+        return unitDao.getUnitByRenter(renterId);
+    }
+    /**************** UNIT CONTROLLER METHODS ****************/
 
     /**************** LEASE CONTROLLER METHODS ****************/
 
@@ -204,5 +222,8 @@ public class ApiController {
     public List<MaintenanceRequest> getAllRequestsByEmployeeId(@PathVariable int employeeId){
         return maintReqDao.getAllRequestsByEmployeeId(employeeId);
     }
+
+
+   
 
 }
