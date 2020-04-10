@@ -126,16 +126,19 @@ public class ApiController {
 
     /*******  RENT CONTROLLER METHODS ************/
 
+    // successfully tested in postman
     @GetMapping("/rent")
     public List<RentCycle> getAllRent(){
         return rentDao.getAllRent();
     }
 
+    // successfully tested in postman
     @GetMapping("/payments")
     public List<Payment> getAllPayments(){
         return rentDao.getAllPayments();
     }
 
+    // not working yet
     @PostMapping("/rent")
     @ResponseStatus(HttpStatus.CREATED)
     public void createRentCycle(@RequestBody RentCycle rentCycle){
@@ -148,16 +151,22 @@ public class ApiController {
         rentDao.createPayment(payment);
     }
 
-    // @PutMapping("/rent/{rentCycleId}")
-    // public void updateRentCycle(@PathVariable int rentCycleId, @RequestBody RentCycle rentCycle){
-    //     if(rentDao.get)
-    // }
+     @PutMapping("/rent/{rentCycleId}")
+     public void updateRentCycle(@PathVariable int rentCycleId, @RequestBody RentCycle rentCycle){
+         if(rentDao.getRentCycleById(rentCycleId) == null){
+         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+         }
+         rentCycle.setId(rentCycleId);
+         rentDao.updateRentCycle(rentCycle);
+     }
 
+     // successfully tested in postman
     @GetMapping("/rent/{leaseId}")
     public RentCycle gerRentByLeaseId(@PathVariable int leaseId){
         return rentDao.getRentByLeaseId(leaseId);
     }
 
+    // successfully tested in postman
     @GetMapping("/payments/{rentCycleId}")
     public List<Payment> getPaymentsByRentCycleId(@PathVariable int rentCycleId){
         return rentDao.getPaymentsByRentCycleId(rentCycleId);

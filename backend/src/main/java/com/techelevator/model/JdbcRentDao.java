@@ -85,7 +85,7 @@ public class JdbcRentDao implements RentDao{
         return rentCycle;
     }
 
-    @Override
+    @Override //passed test sql is good
     public List<Payment> getPaymentsByRentCycleId(int rentCycleId){
         String sql = "SELECT payment_id, rent_cycle_id, amount_paid, date_paid "
         + "FROM payment WHERE rent_cycle_id = ?;";
@@ -96,6 +96,18 @@ public class JdbcRentDao implements RentDao{
             payment.add(mapRowToPayment(results));
         }
         return payment;
+    }
+
+    @Override
+    public RentCycle getRentCycleById( int rentCycleId){
+        String sql = "SELECT rent_cycle_id, lease_id, start_date, balance, due_date, rent_status "
+        + "FROM rent_cycle WHERE rent_cycle_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, rentCycleId);
+        RentCycle rentCycle = new RentCycle();
+        while(results.next()){
+            rentCycle = mapRowToRentCycle(results);
+        }
+        return rentCycle;
     }
 
    private Payment mapRowToPayment(SqlRowSet row){

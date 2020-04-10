@@ -11,4 +11,5 @@ public interface RentDao {
     public void createPayment(Payment payment);
     public RentCycle getRentByLeaseId(int leaseId);
     public List<Payment> getPaymentsByRentCycleId(int rentCycleId);
+    public RentCycle getRentCycleById(int rentCycleId);
 }
