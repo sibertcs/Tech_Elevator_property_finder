@@ -158,4 +158,9 @@ public class JdbcUserDao implements UserDao {
             return null;
         }
     }
+
+    // @Override
+    // public List<User> getUserByProperty(int propId) {
+    //     String sqlUserAndProp = "SELECT first_name FROM user INNER JOIN property ON "
+    // }
 }

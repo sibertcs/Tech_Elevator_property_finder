@@ -34,6 +34,7 @@
 import propertyData from '../assets/data/properties.json'
 import unitData from '../assets/data/units.json'
 import renterData from '../assets/data/renters.json'
+import auth from '../auth';
 export default {
    props: {
     user: Object
@@ -49,12 +50,26 @@ data () {
 }
 },
  methods: {
-        getPropertiesForLandlord(email) {
-            this.properties = this.allProperties.filter((prop) => prop.landlordEmail === email);
+        getPropertiesForLandlord() {
+            fetch('http://localhost:8080/api/properties/landlord/' + this.user.id, {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + auth.getToken()
         },
-        getTenantsProperty() {
-          return this.allRenters.filter((tenant) => tenant.propertyId === this.selectedPropertyId);
-        }
+        credentials: 'same-origin'
+      })
+      .then (response => {
+              if(response.ok) {
+                  return response.json();
+              }
+          }).then(responseData => {
+              this.properties = responseData;
+          });
+        },
+    //this.allRenters.filter((tenant) => tenant.propertyId === this.selectedPropertyId);
+        // getTenantsProperty() {
+        //   return fetch('http://localhost8080/api/lease')
+        // }
  },
    created() {
         this.getPropertiesForLandlord(this.user.sub);

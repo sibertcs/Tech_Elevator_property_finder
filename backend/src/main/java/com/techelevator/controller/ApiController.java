@@ -102,8 +102,13 @@ public class ApiController {
     public List<Unit> getUnitByRenter(@PathVariable int renterId) {
         return unitDao.getUnitByRenter(renterId);
     }
+    @GetMapping("/unit/renter/{unitId}")
+    public List<User> getRenterByUnit(@PathVariable int unitId) {
+        return unitDao.getRenterByUnit(unitId);
+    }
     /**************** UNIT CONTROLLER METHODS ****************/
 
+    
     /**************** LEASE CONTROLLER METHODS ****************/
 
     @GetMapping("/leases")
