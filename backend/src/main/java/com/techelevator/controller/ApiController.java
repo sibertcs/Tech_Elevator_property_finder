@@ -80,7 +80,12 @@ public class ApiController {
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
+    @GetMapping("/users/renters")
+    public List<User> getAllRenters() {
+        return userDao.getAllRenters();
+    }
     /**************** USER CONTROLLER METHODS ****************/
+
 
     /**************** PROPERTY CONTROLLER METHODS ****************/
     @GetMapping("/properties")
@@ -105,12 +110,14 @@ public class ApiController {
     }
     /**************** PROPERTY CONTROLLER METHODS ****************/
 
+
     /**************** UNIT CONTROLLER METHODS ****************/
     @GetMapping("/unit/renter/{renterId}")
     public List<Unit> getUnitByRenter(@PathVariable int renterId) {
         return unitDao.getUnitByRenter(renterId);
     }
     /**************** UNIT CONTROLLER METHODS ****************/
+
 
     /**************** LEASE CONTROLLER METHODS ****************/
 
@@ -144,8 +151,6 @@ public class ApiController {
         updatedLease.setLeaseId(leaseId);
         leaseDao.updateLease(updatedLease);
     }
-
-
 
     /**************** LEASE CONTROLLER METHODS ****************/    
 
