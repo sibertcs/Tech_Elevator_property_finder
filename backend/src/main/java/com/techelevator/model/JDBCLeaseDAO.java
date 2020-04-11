@@ -142,6 +142,11 @@ class JdbcLeaseDao implements LeaseDao {
                                 lease.getLateFee(),
                                 lease.getStatus(),
                                 lease.getLeaseId());
+        // if Terminated, ensure unit 'is_available' is set to true
+        if (lease.getStatus().equals("Terminated")) {
+            sql = "UPDATE unit SET is_available = true WHERE unit_id = ?;";
+            jdbcTemplate.update(sql, lease.getUnitId());
+        }
     }
 
 }
