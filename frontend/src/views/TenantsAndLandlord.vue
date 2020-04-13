@@ -8,7 +8,7 @@
             <option v-for="propName in getUniquePropNames()" 
                             :key="propName" 
                             :value="propName">
-                        {{propName }}
+                        {{propName}}
                     </option>
     </select>
       <table>

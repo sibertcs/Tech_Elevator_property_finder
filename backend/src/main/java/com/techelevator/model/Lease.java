@@ -9,6 +9,7 @@ public class Lease {
     private int userId;
     private int unitId;
     private LocalDate signedDate;
+    private LocalDate startDate;
     private int rentLength;
     private BigDecimal rentAmount;
     private BigDecimal lateFee;
@@ -109,6 +110,14 @@ public class Lease {
         this.signedDate = signedDate;
     }
 
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+    
     public int getUnitId() {
         return unitId;
     }

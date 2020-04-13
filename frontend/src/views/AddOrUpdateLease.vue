@@ -92,7 +92,11 @@
                 </div>
                 <div>
                     <label for="signedDate">Signed Date: </label>
-                    <input type="date" id="signedDate" value="0" v-model="currentLease.signedDate">
+                    <input type="date" id="signedDate" v-model="currentLease.signedDate">
+                </div>
+                <div>
+                    <label for="startDate">Start Date: </label>
+                    <input type="date" id="startDate" v-model="currentLease.startDate">
                 </div>
                 <div>
                     <!-- Landlord can specify any positive integer value -->
@@ -147,6 +151,7 @@ export default {
                 userId: '',
                 unitId: '',
                 signedDate: '',
+                startDate: '',
                 rentLength: '',
                 rentAmount: '',
                 lateFee: '',
