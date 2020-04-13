@@ -7,7 +7,7 @@
         This request has been successfully assigned.
       </div> 
   
-<div class="card border-dark mb-3" style="max-width: 18rem;" v-for="request in allRequests" :key="request.unitId">
+<div class="card border-dark mb-3" style="max-width: 18rem;" v-for="request in allRequests" :key="request.requestId">
   <div class="card-header">Request Id: {{ request.requestId }}</div>
   <div class="card-body text-dark">
     <h5 class="card-title">Unit id: {{ request.unitId }}</h5>
@@ -19,17 +19,16 @@
 
 <form>
 <label>Assign Maintenance Employee: </label>
-        <select v-for="user in allMaintenanceUsers" :key="user.id">
-        <option>{{ user.firstName}} {{ user.lastName}} </option>
+        <select>
+        <option v-for="user in allMaintenanceUsers" :key="user.id">{{ user.firstName }}</option>
          </select>
-         <button type="submit" >Assign</button>
+         <button type="submit" @click="assignMaintenaceEmployee">Assign</button>
 </form>
 <form>
   <label> Change Status </label>
       <select>
-        <option>Completed</option>
-        <option>In Progress</option>
-        <option>Incomplete</option>
+        <option value="true">Completed</option>
+        <option value="false">Incomplete</option>
          </select>
          <button type="submit" >Update</button>
 </form>
@@ -74,16 +73,15 @@ export default {
     return {
       allRequests: [],
       allMaintenanceUsers: [],
-      assignMaintenace: {
-        requestId: '',
-        unitId: '',
-        requestUserId: '',
-        requestDesc: '',
-        isCompleted: '',
-        assignedUserId: '',
-        dateRequested: '',
-        priority: '',
-        role: 'landlord'
+      currentRequest: {
+       requestId: '',
+       unitId: '',
+       requestUserId: '',
+       requestDesc: '',
+       priority: '',
+       dateRequested: '',
+       assignedUserId: '',
+       isCompleted: ''
       },
       assignmentErrors: true,
     };
@@ -105,8 +103,8 @@ export default {
           this.allRequests = responseData;
         })
         .catch(err => console.error(err));
-      }
-   },
+      },
+
    getAllMaintenanceUsers(){
      fetch('http://localhost:8080/api/users/maintenance', {
        method: 'GET',
@@ -120,15 +118,57 @@ export default {
             return response.json();
    }
      }).then(responseData => {
-       this.allMaintenanceUsers =responseData;
+       this.allMaintenanceUsers = responseData;
      })
      .catch(err => console.error(err));
    },
-  //   assignMaintenaceRequest( employeeId, requestId){
-     
-  //  },
+   getCurrentRequest(){
+     this.assignedRequests.forEach((maintenanceRequest) =>{
+     if (maintenanceRequest.requestId == this.currentRequest.requestId){
+       this.currentRequest.requestId = maintenanceRequest.requestId;
+       this.currentRequest.unitId = maintenanceRequest.unitId;
+       this.currentRequest.requestUserId = maintenanceRequest.requestUserId;
+       this.currentRequest.requestDesc = maintenanceRequest.requestDesc;
+       this.currentRequest.priority = maintenanceRequest.priority;
+      this.currentRequest.dateRequested = maintenanceRequest.dateRequested;
+       this.currentRequest.assignedUserId = maintenanceRequest.assignedUserId;
+       this.currentRequest.isCompleted = maintenanceRequest.isCompleted;
+
+   }
+  });
+},
+      assignMaintenaceEmployee() {
+        fetch('http://localhost:8080/api/Landlord/assignMaintenance', {
+          method: 'PUT',
+          headers: {
+            Authorization: 'Bearer ' + auth.getToken()
+          },
+          credentials: 'same-origin',
+          body: JSON.stringify(this.currentRequest)
+        }).then(response => {
+          if(response.ok){
+            this.resetCompleteValue();
+          }
+        }).then(this.getAllRequests())
+        .catch(err => console.error(err));
+        
+      },
+      resetCompleteValue(){
+  this.currentRequest.requestId = ''
+     this.currentRequest.unitId = '';
+       this.currentRequest.requestUserId = '';
+       this.currentRequest.requestDesc = '';
+       this.currentRequest.priority = '';
+       this.currentRequest.dateRequested = '';
+       this.currentRequest.assignedUserId = '';
+       this.currentRequest.isCompleted = true;
+
+       this.viewAllRequests();
+   }
+   },
    created(){
      this.getAllRequests();
+     this.getAllMaintenanceUsers();
    }
 
  }
