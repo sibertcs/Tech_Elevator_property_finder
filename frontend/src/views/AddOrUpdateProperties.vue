@@ -154,7 +154,7 @@ export default {
     },
     submitProperty() {
       if(this.newProperty) {
-        return fetch("http://localhost:8080/api/propertiesnew", {
+        return fetch("http://localhost:8080/api/properties/new", {
           method: 'POST',
           headers: {
             Authorization: 'Bearer ' + auth.getToken(),
@@ -189,7 +189,7 @@ export default {
       });
     },
     loadProperties() {
-      fetch('http://localhost:8080/api/properties/' + this.user.id, {
+      fetch('http://localhost:8080/api/properties/landlord/' + this.user.id, {
         method: 'GET',
         headers: {
           Authorization: 'Bearer ' + auth.getToken()

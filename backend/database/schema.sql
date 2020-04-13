@@ -144,10 +144,10 @@ INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft,
 INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('621', 4, 0, 1, 475, 425, false);
 INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('2486-02', 5, 2, 1, 760, 705, true);
 
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (5, 8, '2019-09-15', 3, 525, 10, 'Expired');
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (5, 8, '2019-12-15', 12, 475, 5, 'Active');
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (6, 5, '2020-01-20', 12, 1429, 5, 'Active');
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (7, 3, '2020-01-28', 24, 2145, 2, 'Terminated');
+INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (2, 8, '2019-09-15', 3, 525, 10, 'Expired');
+INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (2, 8, '2019-12-15', 12, 475, 5, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (7, 5, '2020-01-20', 12, 1429, 5, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (8, 3, '2020-01-28', 24, 2145, 2, 'Terminated');
 
 INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (8, 5, 'My toilet is clogged.', 1, '2019-10-15', 13, true);
 INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (5, 6, 'My bedroom door will not close all the way.', 3, '2020-02-15', 13, true);
@@ -290,4 +290,3 @@ SELECT * FROM property;
 SELECT * FROM unit;
 
 Update unit Set is_available = false WHERE unit_id = 12;
-

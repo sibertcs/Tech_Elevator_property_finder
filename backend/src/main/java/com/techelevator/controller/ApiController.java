@@ -80,7 +80,12 @@ public class ApiController {
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
+    @GetMapping("/users/renters")
+    public List<User> getAllRenters() {
+        return userDao.getAllRenters();
+    }
     /**************** USER CONTROLLER METHODS ****************/
+
 
     /**************** PROPERTY CONTROLLER METHODS ****************/
     @GetMapping("/properties")
@@ -95,7 +100,16 @@ public class ApiController {
     public boolean addNewProperty(@RequestBody Property newProperty) {
         return propertyDao.addNewProperty(newProperty);
     }
+    @PutMapping("/properties/update")
+    public boolean displayUpdateExistingProperty(@RequestBody Property updatedProperty) {
+        return propertyDao.updateExistingProperty(updatedProperty);
+    }
+    @GetMapping("/property/{propertyId}")
+    public Property getPropertyById(@PathVariable int propertyId) {
+        return propertyDao.getPropertyById(propertyId);
+    }
     /**************** PROPERTY CONTROLLER METHODS ****************/
+
 
     /**************** UNIT CONTROLLER METHODS ****************/
     @GetMapping("/unit/renter/{renterId}")
@@ -109,6 +123,7 @@ public class ApiController {
     /**************** UNIT CONTROLLER METHODS ****************/
 
     
+
     /**************** LEASE CONTROLLER METHODS ****************/
 
     @GetMapping("/leases")
@@ -142,14 +157,7 @@ public class ApiController {
         leaseDao.updateLease(updatedLease);
     }
 
-
-
     /**************** LEASE CONTROLLER METHODS ****************/    
-
-    @PutMapping("/propertiesupdate")
-    public boolean displayUpdateExistingProperty(@RequestBody Property updatedProperty) {
-        return propertyDao.updateExistingProperty(updatedProperty);
-    }
 
 
     /*******  RENT CONTROLLER METHODS ************/
@@ -207,17 +215,19 @@ public class ApiController {
 
 
     /******** MAINTENANCE CONTROLLER METHODS **********/
+
+    //works in postman
     @PostMapping("/maintenance/request")
     @ResponseStatus(HttpStatus.CREATED)
     public void createRequest (@RequestBody MaintenanceRequest request){
         maintReqDao.createRequest(request);
     }
-
+    //works in postman
     @PutMapping("/Landlord/assignMaintenance")
     public void updateRequest(MaintenanceRequest request){
         maintReqDao.updateRequest(request);
     }
-
+    //works in postman
     @GetMapping("/Landlord/assignMaintenance")
     public List<MaintenanceRequest> getAllRequests(){
         return maintReqDao.getAllRequests();

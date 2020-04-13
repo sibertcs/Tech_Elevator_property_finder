@@ -1,7 +1,5 @@
 package com.techelevator.model;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,21 +23,31 @@ class JdbcLeaseDao implements LeaseDao {
     private Lease mapRowToLease (SqlRowSet row) {
         Lease newLease = new Lease();
 
-        newLease.setLeaseId(row.getInt("lease_id"));                       // int
-        newLease.setUserId(row.getInt("user_id"));                         // int
-        newLease.setUnitId(row.getInt("unit_id"));                         // int
-        newLease.setSignedDate(row.getDate("signed_date").toLocalDate());  // LocalDate
-        newLease.setRentLength(row.getInt("rent_length"));                 // int
-        newLease.setRentAmount(row.getBigDecimal("rent_amount"));          // BigDecimal
-        newLease.setLateFee(row.getBigDecimal("late_fee"));                // BigDecimal
-        newLease.setStatus(row.getString("status"));                       // String
+        newLease.setLeaseId(row.getInt("lease_id"));
+        newLease.setUserId(row.getInt("user_id"));
+        newLease.setUnitId(row.getInt("unit_id"));
+        newLease.setSignedDate(row.getDate("signed_date").toLocalDate());
+        newLease.setRentLength(row.getInt("rent_length"));
+        newLease.setRentAmount(row.getBigDecimal("rent_amount"));
+        newLease.setLateFee(row.getBigDecimal("late_fee"));
+        newLease.setStatus(row.getString("status"));
+        newLease.setPropertyName(row.getString("property_name"));
+        newLease.setPropertyAddress(row.getString("street_address"));;
+        newLease.setUnitNumber(row.getString("unit_number"));;
+        newLease.setRenterName(row.getString("first_name") + " " + row.getString("last_name"));;
+        newLease.setRenterEmail(row.getString("email"));;
         return newLease;
     }
 
     @Override
     public List<Lease> getAllLeases() {
-        String sql = "SELECT lease_id, user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status "
-        + "FROM lease;";
+        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, status, "
+                    + "lease.user_id, users.email, users.first_name, users.last_name, "
+                    + "lease.unit_id, unit.unit_number, property.property_name, property.street_address "
+                    + "FROM lease "
+                    + "JOIN users ON lease.user_id = users.user_id "
+                    + "JOIN unit ON lease.unit_id = unit.unit_id "
+                    + "JOIN property ON unit.property_id = property.property_id;";
         SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
         
         List<Lease> allLeases = new ArrayList<Lease>();
@@ -48,14 +56,17 @@ class JdbcLeaseDao implements LeaseDao {
         }
         return allLeases;
     }
-    
+
     @Override
     public List<Lease> getLeasesForLandlord(int landlordUserId) {
-        String sql = "SELECT lease_id, lease.user_id, lease.unit_id, signed_date, rent_length, rent_amount, late_fee, status "
-        + "FROM lease "
-        + "JOIN unit ON lease.unit_id = unit.unit_id "
-        + "JOIN property ON unit.property_id = property.property_id "
-        + "WHERE property.landlord_id = ?;";
+        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, status, "
+                    + "lease.user_id, users.email, users.first_name, users.last_name, "
+                    + "lease.unit_id, unit.unit_number, property.property_name, property.street_address "
+                    + "FROM lease "
+                    + "JOIN users ON lease.user_id = users.user_id "
+                    + "JOIN unit ON lease.unit_id = unit.unit_id "
+                    + "JOIN property ON unit.property_id = property.property_id "
+                    + "WHERE property.landlord_id = ?;";
         SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, landlordUserId);
         
         List<Lease> landlordLeases = new ArrayList<Lease>();
@@ -67,9 +78,14 @@ class JdbcLeaseDao implements LeaseDao {
     
     @Override
     public List<Lease> getLeasesForRenter(int renterUserId) {
-        String sql = "SELECT lease_id, user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status "
-        + "FROM lease "
-        + "WHERE user_id = ?;";
+        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, status, "
+                    + "lease.user_id, users.email, users.first_name, users.last_name, "
+                    + "lease.unit_id, unit.unit_number, property.property_name, property.street_address "
+                    + "FROM lease "
+                    + "JOIN users ON lease.user_id = users.user_id "
+                    + "JOIN unit ON lease.unit_id = unit.unit_id "
+                    + "JOIN property ON unit.property_id = property.property_id "
+                    + "WHERE users.user_id = ?;";
         SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, renterUserId);
         
         List<Lease> renterLeases = new ArrayList<Lease>();
@@ -78,11 +94,16 @@ class JdbcLeaseDao implements LeaseDao {
         }
         return renterLeases;
     }
-    
+
     @Override
     public Lease getLeaseById(int leaseId) {
-        String sql = "SELECT lease_id, user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status "
+        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, status, "
+                    + "lease.user_id, users.email, users.first_name, users.last_name, "
+                    + "lease.unit_id, unit.unit_number, property.property_name, property.street_address "
                     + "FROM lease "
+                    + "JOIN users ON lease.user_id = users.user_id "
+                    + "JOIN unit ON lease.unit_id = unit.unit_id "
+                    + "JOIN property ON unit.property_id = property.property_id "
                     + "WHERE lease_id = ?;";
         SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, leaseId);
 
@@ -96,7 +117,7 @@ class JdbcLeaseDao implements LeaseDao {
     @Override
     public void createLease(Lease newLease) {
         String sql = "INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING lease_id;";
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, newLease.getUserId(), 
                                     newLease.getUnitId(), 
                                     newLease.getSignedDate(),
@@ -121,6 +142,11 @@ class JdbcLeaseDao implements LeaseDao {
                                 lease.getLateFee(),
                                 lease.getStatus(),
                                 lease.getLeaseId());
+        // if Terminated, ensure unit 'is_available' is set to true
+        if (lease.getStatus().equals("Terminated")) {
+            sql = "UPDATE unit SET is_available = true WHERE unit_id = ?;";
+            jdbcTemplate.update(sql, lease.getUnitId());
+        }
     }
 
 }

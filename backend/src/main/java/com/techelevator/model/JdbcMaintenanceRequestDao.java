@@ -56,9 +56,9 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
 
     @Override
     public void updateRequest(MaintenanceRequest request){
-        String sqlUpdate = "UPDATE maintenance_request SET assigned_user_id = ?, isCompleted = ?  " +
+        String sqlUpdate = "UPDATE maintenance_request SET assigned_user_id = ?, priority = ?, is_completed = ?  " +
         "WHERE request_id = ?;";
-        jdbcTemplate.update(sqlUpdate, request.getAssignedUserId(), request.getRequestId(), request.isCompleted());
+        jdbcTemplate.update(sqlUpdate, request.getAssignedUserId(), request.getPriority(), request.isCompleted(), request.getRequestId());
     }
 
     @Override

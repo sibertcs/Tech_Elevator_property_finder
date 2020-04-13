@@ -13,10 +13,55 @@ public class Lease {
     private BigDecimal rentAmount;
     private BigDecimal lateFee;
     private String status;
+    private String propertyName;
+    private String propertyAddress;
+    private String unitNumber;
+    private String renterName;
+    private String renterEmail;
 
     @Override
     public String toString() {
         return leaseId + " " + userId + " " + unitId + " " + status;
+    }
+
+    public String getRenterEmail() {
+        return renterEmail;
+    }
+
+    public void setRenterEmail(String renterEmail) {
+        this.renterEmail = renterEmail;
+    }
+
+    public String getRenterName() {
+        return renterName;
+    }
+
+    public void setRenterName(String renterName) {
+        this.renterName = renterName;
+    }
+
+    public String getUnitNumber() {
+        return unitNumber;
+    }
+
+    public void setUnitNumber(String unitNumber) {
+        this.unitNumber = unitNumber;
+    }
+
+    public String getPropertyAddress() {
+        return propertyAddress;
+    }
+
+    public void setPropertyAddress(String propertyAddress) {
+        this.propertyAddress = propertyAddress;
+    }
+
+    public String getPropertyName() {
+        return propertyName;
+    }
+
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
     }
 
     public int getLeaseId() {

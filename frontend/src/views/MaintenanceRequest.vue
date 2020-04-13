@@ -3,32 +3,35 @@
       <h1>This is the maintenance request page</h1>
      
     <form>
-      <input type="hidden" id="unitId" name="unitId" value="unitId !!!"/>
-      <label for="unit">Select Your Unit Number </label>
+      <p>Unit: {{maintenanceRequest.unitId}}</p>
+  <!--    <label for="unit">Select Your Unit Number </label>
         <select id="unit" v-model="maintenanceRequest.unitId">
           <option value="" disabled selected>Select a Unit Number</option>
-        <option v-for="unit in allUnits"
+         <option v-for="unit in allUnits"
                   :key="unit.unitId"
                   :value="unit.unitId">
                   {{unit.unitNumber}}
         </option>
-         </select>
+         </select> -->
+      <!-- <input type="hidden" v-model="maintenanceRequest.unitId" :value="unit.unitId">
+      <input type="hidden" v-model="maintenanceRequest.requestUserId" :value="user.userId"> -->
       <label for="details">Details</label>
       <textarea id="details"  rows="3" v-model="maintenanceRequest.requestDesc"></textarea>
       <br>
       <label for="priority">Priority Level</label>
       <select id="priority" v-model="maintenanceRequest.priority">
-        <option>Low</option>
-        <option>Medium</option>
-        <option>High</option>
+        <option value="1">Low</option>
+        <option value="2">Medium</option>
+        <option value="3">High</option>
       </select>
-      <button type="submit" v-bind:disabled="!isValidForm" v-on:click="createRequest">Submit Request  </button>
+      <button type="submit" v-bind:disabled="!isValidForm" v-on:click="createRequest">Submit Request</button>
     </form>
   </div>
 </template>
 
 <script>
 import unitData from '../assets/data/units.json'
+import auth from '../auth';
 
 
 export default {
@@ -40,21 +43,23 @@ export default {
      allUnits: unitData,
      maintenanceRequest:{
        unitId: "",
+      requestUserId: "",
        requestDesc: "",
-       priority: "",
-       requestUserId: this.user.id
+       priority: ""
+    
 
      }
      };
    },
    methods: {
      createRequest(){
-       console.log('We need a post method to API here to create a maintenance request.');
-  /*      fetch(this.apiURL,{
+       console.log('starting post method...');
+        fetch('http://localhost:8080/api/maintenance/request',{
          method: 'POST',
-         headers: {
-           'Content-Type': 'application/json'
-         },
+        headers: {
+            Authorization: 'Bearer ' + auth.getToken(),
+            'Content-Type': 'application/json'
+          },
          body: JSON.stringify(this.maintenanceRequest)
        })
         .then(response => {
@@ -63,8 +68,28 @@ export default {
           }
         })
         .catch(err => console.error(err));
-     */
-     }
+     
+     },
+         getUnitForUser(id) {
+      fetch("http://localhost:8080/api/unit/renter/"+id, {
+        method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + auth.getToken(),
+            'Content-Type': 'application/json'
+          },
+          credentials: 'same-origin'
+      })
+        .then(response => {
+          if(response.ok){
+            return response.json();
+          }
+        })
+        .then(responseData => {
+          this.maintenanceRequest.requestUserId = responseData[0].unitId;
+          this.maintenanceRequest.unitId = responseData[0].unitId;
+          console.log(responseData[0].unitId);
+        })
+    }
    },
    computed: {
     
@@ -75,6 +100,9 @@ export default {
        this.maintenanceRequest.priority != "" 
        );
      }
+   },
+   created(){
+     this.getUnitForUser(this.user.id);
    }
  };
 </script>

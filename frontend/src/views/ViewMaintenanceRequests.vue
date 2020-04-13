@@ -3,14 +3,14 @@
   <h1>This is all the Maintenance Requests</h1>
   <div>Hello {{ user.sub }}</div>
   <div class= "maintenace-request">
-<div class="card border-dark mb-3" style="max-width: 18rem;" v-for="request in requests" :key="request.unitId">
-  <div class="card-header"> {{ request.residentName}}</div>
+<div class="card border-dark mb-3" style="max-width: 18rem;" v-for="request in assignedRequests" :key="request.RequestId">
+  <div class="card-header"> request Id: {{ request.requestId}}</div>
   <div class="card-body text-dark">
     <h5 class="card-title">Unit id: {{ request.unitId }}</h5>
-    <p class="card-text">{{ request.priorityLevel }}</p>
-    <p class="card-text">{{ request.requestDate}}</p>
-    <p class="card-text">{{ request.description }}</p>
-    <p class="card-text">{{ request.status }}</p>
+    <p class="card-text"> priority level:{{ request.priority }}</p>
+    <p class="card-text">{{ request.dateRequested}}</p>
+    <p class="card-text">{{ request.requestDesc }}</p>
+    <p class="card-text">{{ request.isCompleted }}</p>
   </div>
    <form>
   <label> Change Status </label>
@@ -29,38 +29,40 @@
 
 <script>
 
-import maintenanceRequest from '../assets/data/maintenance.json'
+import auth from '../auth';
 
 export default {
   props: {
     user: Object
   },
-   name: 'view',
   data(){
     return {
-      requests: maintenanceRequest,
-      assignedProperties: [],
-      selectedEmployeeId: '',
-      viewMaintenace: {
-        RequestId: '',
-        unitId: '',
-        description: '',
-        status: '',
-        requestDate: '',
-        priorityLevel: '',
-        residentName: '',
-        role: 'maintenance'
-      }
+      assignedRequests: []
     }
   },
 
 methods: {
-  getMaintenanceRequestsForEmployee(employeeId){
-    this.assignedProperties = this.requests.filter((req) => req.employeeId === employeeId)
+  viewAllRequests(){
+    fetch('http://localhost:8080/api/maintenance/' + this.user.id, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + auth.getToken()
+      },
+      credentials: 'same-origin'
+    })
+    .then(response => {
+      if(response.ok){
+        return response.json();
+      }
+    }).then(responseData => {
+      this.assignedRequests = responseData;
+      
+    })
+    .catch(err => console.error(err));
   }
 },
 created(){
-  this.getMaintenanceRequestsForEmployee(this.user.employeeId)
+  this.viewAllRequests();
 }
 }
 </script>
