@@ -14,7 +14,7 @@
     <p class="card-text">{{ request.priority }} </p>
     <p class="card-text">{{ request.dateRequested}}</p>
     <p class="card-text">{{ request.requestDesc }}</p>
-    <p class="card-text">{{ request.isCompleted }}</p>
+    <p class="card-text">{{ request.completed }}</p>
   </div>
 
 <form>
@@ -24,7 +24,7 @@
          </select>
 
   <label> Change Status </label>
-      <select v-model="maintenanceRequest.isCompleted">
+      <select v-model="maintenanceRequest.completed">
         <option value="true">Completed</option>
         <option value="false">Incomplete</option>
          </select>
@@ -79,10 +79,10 @@ export default {
        priority: '',
        dateRequested: '',
        assignedUserId: '',
-       isCompleted: ''
+       completed: ''
       },
       maintenanceRequest:{
-       isCompleted: "",
+       completed: "",
        assignedUserId: "",
      },
       assignmentErrors: true,
@@ -134,13 +134,13 @@ export default {
        this.currentRequest.priority = maintenanceRequest.priority;
       this.currentRequest.dateRequested = maintenanceRequest.dateRequested;
        this.currentRequest.assignedUserId = maintenanceRequest.assignedUserId;
-       this.currentRequest.isCompleted = maintenanceRequest.isCompleted;
+       this.currentRequest.completed = maintenanceRequest.completed;
 
    }
   });
 },
       editRequest() {
-        fetch('http://localhost:8080/api/Landlord/assignMaintenance' + this.currentRequest.requestId, {
+        fetch('http://localhost:8080/api/Landlord/assignMaintenance', {
           method: 'PUT',
           headers: {
             Authorization: 'Bearer ' + auth.getToken()
@@ -148,7 +148,7 @@ export default {
           credentials: 'same-origin',
           body: JSON.stringify(this.currentRequest)
         }).then(response => {
-          console.log(this.maintenanceRequest.isCompleted);
+          console.log(this.maintenanceRequest.completed);
           if(response.ok){
             this.resetCompleteValue();
           }
@@ -164,7 +164,7 @@ export default {
        this.currentRequest.priority = '';
        this.currentRequest.dateRequested = '';
        this.currentRequest.assignedUserId = '';
-       this.currentRequest.isCompleted = '';
+       this.currentRequest.completed = '';
 
        this.viewAllRequests();
    }

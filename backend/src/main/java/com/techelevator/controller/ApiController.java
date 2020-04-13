@@ -231,8 +231,8 @@ public class ApiController {
         maintReqDao.createRequest(request);
     }
     //works in postman
-    @PutMapping("/Landlord/assignMaintenance/{requestId}")
-    public void updateRequest(MaintenanceRequest request, @PathVariable int requestId){
+    @PutMapping("/Landlord/assignMaintenance")
+    public void updateRequest(@RequestBody MaintenanceRequest request){
         maintReqDao.updateRequest(request);
     }
     @PutMapping("/maintenance/requests")
