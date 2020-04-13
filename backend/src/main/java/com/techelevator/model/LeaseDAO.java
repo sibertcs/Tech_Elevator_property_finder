@@ -1,5 +1,6 @@
 package com.techelevator.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface LeaseDao {
@@ -18,4 +19,5 @@ public interface LeaseDao {
     
 	public void updateLease(Lease lease);
     
+    public void updateRentCycles(int leaseId, BigDecimal overdueBalance);
 }

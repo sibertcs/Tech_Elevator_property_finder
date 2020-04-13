@@ -1,5 +1,6 @@
 package com.techelevator.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ class JdbcLeaseDao implements LeaseDao {
         newLease.setRenterEmail(row.getString("email"));;
 
         String sql = "SELECT rent_status FROM rent_cycle WHERE lease_id = ? AND start_date < ? AND due_date >= ?;";
-        
+
         SqlRowSet row1 = jdbcTemplate.queryForRowSet(sql, row.getInt("lease_id"), LocalDate.now(), LocalDate.now());
         if(row1.next()) {
             newLease.setCurrentRentStatus(row1.getString("rent_status"));
@@ -80,6 +81,7 @@ class JdbcLeaseDao implements LeaseDao {
         List<Lease> landlordLeases = new ArrayList<Lease>();
         while (rows.next()) {
             landlordLeases.add(mapRowToLease(rows));
+            // updateRentCycles(rows.getInt("lease_id"), rows.getInt("overdue_balance"));
         }
         return landlordLeases;
     }
@@ -181,6 +183,24 @@ class JdbcLeaseDao implements LeaseDao {
             sql = "UPDATE unit SET is_available = true WHERE unit_id = ?;";
             jdbcTemplate.update(sql, lease.getUnitId());
         }
+    }
+
+    @Override
+    public void updateRentCycles(int leaseId, BigDecimal overdueBalance) {
+        String sqlRentCycles = "SELECT rent_status, balance FROM rent_cycle " +
+                               "WHERE lease_id = ?;";
+        String sqlOverdueUpdate1 = "UPDATE rent_cycle SET rent_status = 'Overdue' " +
+                                   "WHERE rent_cycle_id = ? AND due_date < ? RETURNING balance;";
+        String sqlOverdueUpdate2 = "UPDATE lease SET overdue_balance = ? "+
+                                "WHERE lease_id = ?;";
+
+        SqlRowSet rows = jdbcTemplate.queryForRowSet(sqlRentCycles, leaseId);
+        while (rows.next()) {
+            if (rows.getString("rent_status").equals("Overdue") == false && rows.getBigDecimal("balance").compareTo(new BigDecimal("0")) == 1) {
+                BigDecimal balance = jdbcTemplate.queryForObject(sqlOverdueUpdate1, BigDecimal.class, rows.getInt("rent_cycle_id"), LocalDate.now());
+                jdbcTemplate.update(sqlOverdueUpdate2, overdueBalance.add(balance), leaseId);
+            }
+        }                           
     }
 
 }
