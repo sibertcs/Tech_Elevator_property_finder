@@ -19,18 +19,16 @@
 
 <form>
 <label>Assign Maintenance Employee: </label>
-        <select>
-        <option v-for="user in allMaintenanceUsers" :key="user.id">{{ user.firstName }}</option>
+        <select v-model="maintenanceRequest.assignedUserId">
+        <option v-for="user in allMaintenanceUsers" :key="user.id" :value="user.id">{{ user.firstName }}</option>
          </select>
-         <button type="submit" @click="assignMaintenaceEmployee">Assign</button>
-</form>
-<form>
+
   <label> Change Status </label>
-      <select>
+      <select v-model="maintenanceRequest.isCompleted">
         <option value="true">Completed</option>
         <option value="false">Incomplete</option>
          </select>
-         <button type="submit" >Update</button>
+         <button type="submit" @click="editRequest">Update</button>
 </form>
 </div>
 </div>
@@ -83,6 +81,10 @@ export default {
        assignedUserId: '',
        isCompleted: ''
       },
+      maintenanceRequest:{
+       isCompleted: "",
+       assignedUserId: "",
+     },
       assignmentErrors: true,
     };
   },
@@ -137,8 +139,8 @@ export default {
    }
   });
 },
-      assignMaintenaceEmployee() {
-        fetch('http://localhost:8080/api/Landlord/assignMaintenance', {
+      editRequest() {
+        fetch('http://localhost:8080/api/Landlord/assignMaintenance' + this.currentRequest.requestId, {
           method: 'PUT',
           headers: {
             Authorization: 'Bearer ' + auth.getToken()
@@ -146,6 +148,7 @@ export default {
           credentials: 'same-origin',
           body: JSON.stringify(this.currentRequest)
         }).then(response => {
+          console.log(this.maintenanceRequest.isCompleted);
           if(response.ok){
             this.resetCompleteValue();
           }
@@ -161,7 +164,7 @@ export default {
        this.currentRequest.priority = '';
        this.currentRequest.dateRequested = '';
        this.currentRequest.assignedUserId = '';
-       this.currentRequest.isCompleted = true;
+       this.currentRequest.isCompleted = '';
 
        this.viewAllRequests();
    }
