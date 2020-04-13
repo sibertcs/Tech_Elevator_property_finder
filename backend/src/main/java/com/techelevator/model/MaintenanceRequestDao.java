@@ -7,6 +7,8 @@ public interface MaintenanceRequestDao {
 public List<MaintenanceRequest> getAllRequests();
 public void createRequest (MaintenanceRequest request);
 public void updateRequest(MaintenanceRequest request);
+public void updateRequestMaint(MaintenanceRequest request);
+
 public List<MaintenanceRequest> getAllRequestsByEmployeeId(int employeeId);
 
 }

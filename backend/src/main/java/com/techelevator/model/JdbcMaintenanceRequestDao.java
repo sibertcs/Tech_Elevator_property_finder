@@ -82,4 +82,11 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
         }
         return requests;
     }
+
+    @Override
+    public void updateRequestMaint(MaintenanceRequest request) {
+        String sqlUpdate = "UPDATE maintenance_request SET priority = ?, is_completed = ? " +
+        "WHERE request_id = ?;";
+        jdbcTemplate.update(sqlUpdate, request.getPriority(), request.isCompleted(), request.getRequestId());
+    }
 }
