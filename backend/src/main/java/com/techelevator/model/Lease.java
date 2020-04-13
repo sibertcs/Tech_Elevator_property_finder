@@ -18,6 +18,7 @@ public class Lease {
     private String unitNumber;
     private String renterName;
     private String renterEmail;
+    private String currentRentStatus;
 
     @Override
     public String toString() {
@@ -126,5 +127,12 @@ public class Lease {
 
     public void setLeaseId(int leaseId) {
         this.leaseId = leaseId;
+    }
+    public String getCurrentRentStatus() {
+        return currentRentStatus;
+    }
+
+    public void setCurrentRentStatus(String currentRentStatus) {
+        this.currentRentStatus = currentRentStatus;
     }
 }

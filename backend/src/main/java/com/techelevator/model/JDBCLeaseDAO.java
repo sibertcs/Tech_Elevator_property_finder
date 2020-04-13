@@ -1,5 +1,6 @@
 package com.techelevator.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,12 @@ class JdbcLeaseDao implements LeaseDao {
         newLease.setUnitNumber(row.getString("unit_number"));;
         newLease.setRenterName(row.getString("first_name") + " " + row.getString("last_name"));;
         newLease.setRenterEmail(row.getString("email"));;
+
+        String sql = "SELECT rent_status FROM rent_cycle WHERE lease_id = ? AND start_date < ? AND due_date >= ?;";
+        SqlRowSet row1 = jdbcTemplate.queryForRowSet(sql, row.getInt("lease_id"), LocalDate.now(), LocalDate.now());
+        if(row1.next()) {
+            newLease.setCurrentRentStatus(row1.getString("rent_status"));
+        }
         return newLease;
     }
 

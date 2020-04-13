@@ -22,7 +22,7 @@
       <div v-if="user.rol=== 'admin'">
         <router-link :to="{name: 'viewUsers'}"> View Users</router-link>
       </div> 
-      <router-link :to="{name:'request'}">Maintenance Request</router-link> 
+      <router-link v-if="user.rol=== 'renter'" :to="{name:'request'}">Maintenance Request</router-link> 
     </nav>
     <p>You are logged in as {{user.sub}} as a {{user.rol}} and has the id of {{user.id}}.</p>
     <button @click="logout">logout</button>

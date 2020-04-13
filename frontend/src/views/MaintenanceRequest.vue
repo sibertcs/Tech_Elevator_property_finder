@@ -3,7 +3,8 @@
       <h1>This is the maintenance request page</h1>
      
     <form>
-      <p>Unit: {{maintenanceRequest.unitId}}</p>
+      <p>Unit: {{userUnitNumber}}</p> 
+      <!-- {{maintenanceRequest.unitId}} -->
   <!--    <label for="unit">Select Your Unit Number </label>
         <select id="unit" v-model="maintenanceRequest.unitId">
           <option value="" disabled selected>Select a Unit Number</option>
@@ -30,7 +31,6 @@
 </template>
 
 <script>
-import unitData from '../assets/data/units.json'
 import auth from '../auth';
 
 
@@ -40,7 +40,7 @@ export default {
   },
  data (){
    return {
-     allUnits: unitData,
+     userUnitNumber: "",
      maintenanceRequest:{
        unitId: "",
       requestUserId: "",
@@ -87,6 +87,7 @@ export default {
         .then(responseData => {
           this.maintenanceRequest.requestUserId = responseData[0].unitId;
           this.maintenanceRequest.unitId = responseData[0].unitId;
+          this.userUnitNumber = responseData[0].unitNumber;
           console.log(responseData[0].unitId);
         })
     }

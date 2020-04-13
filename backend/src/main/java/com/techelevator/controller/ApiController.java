@@ -120,7 +120,7 @@ public class ApiController {
     public List<Unit> getUnitByRenter(@PathVariable int renterId) {
         return unitDao.getUnitByRenter(renterId);
     }
-    @GetMapping("/unit/renter/{unitId}")
+    @GetMapping("/renter/unit/{unitId}")
     public List<User> getRenterByUnit(@PathVariable int unitId) {
         return unitDao.getRenterByUnit(unitId);
     }
