@@ -12,13 +12,19 @@
     <p class="card-text">{{ request.requestDesc }}</p>
     <p class="card-text">{{ request.isCompleted }}</p>
   </div>
-   <form>
+<form>
+      <label for="priority"> Change Priority Level </label>
+      <select id="priority" v-model="currentRequest.priority">
+        <option value="1">Low</option>
+        <option value="2">Medium</option>
+        <option value="3">High</option>
+      </select>
   <label> Change Status </label>
-      <select>
-        <option @click="changeStatus">Completed</option>
+     <select v-model="currentRequest.isCompleted">
+        <option value="true">Completed</option>
+        <option value="false">Incomplete</option>
          </select>
-         <button type="submit" >Update</button>
-</form>
+      <button type="submit" @click="editRequestStatus">Submit</button></form>
 </div>
    
   </div>  
@@ -84,7 +90,7 @@ getCurrentRequest(){
      }
    });
  },
- changeStatus(){
+ editRequestStatus(){
    console.log(JSON.stringify(this.currentRequest));
    fetch('http://localhost:8080/api//Landlord/assignMaintenance', {
      method: 'PUT',
