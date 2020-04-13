@@ -15,6 +15,7 @@
     <p class="card-text">{{ request.dateRequested}}</p>
     <p class="card-text">{{ request.requestDesc }}</p>
     <p class="card-text">{{ request.completed }}</p>
+
   </div>
 
 <form>
@@ -28,7 +29,7 @@
         <option value="true">Completed</option>
         <option value="false">Incomplete</option>
          </select>
-         <button type="submit" @click="editRequest">Update</button>
+         <button type="button" @click="editRequest">Update</button>
 </form>
 </div>
 </div>
@@ -39,17 +40,19 @@
   <thead>
     <tr>
       <th scope="col">employee Id</th>
-      <th scope="col">employee name</th>
+      <th>first name</th>
+      <th>last name</th>
       <th scope="col">number of requests</th>
-      <th scope="col">phone?</th>
+      <th scope="col">phone #</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">employee Id</th>
-      <td>employee name</td>
-      <td>number of assignments</td>
-      <td>phone number?</td>
+    <tr v-for="user in allMaintenanceUsers" :key="user.id">
+      <th scope="row">{{ user.id }}</th>
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName}}
+      <td>{{ }}</td>
+      <td>{{ user.phoneNumber }}</td>
     </tr>
   </tbody>
 </table>
@@ -140,19 +143,20 @@ export default {
   });
 },
       editRequest() {
+        this.maintenanceRequest.completed = this.maintenanceRequest.completed === "true";
         fetch('http://localhost:8080/api/Landlord/assignMaintenance', {
           method: 'PUT',
           headers: {
             Authorization: 'Bearer ' + auth.getToken()
           },
           credentials: 'same-origin',
-          body: JSON.stringify(this.currentRequest)
+          body: JSON.stringify(this.maintenanceRequest)
         }).then(response => {
           console.log(this.maintenanceRequest.completed);
           if(response.ok){
-            this.resetCompleteValue();
+            // this.resetCompleteValue();
           }
-        }).then(this.getAllRequests())
+         }).then(this.getAllRequests())
         .catch(err => console.error(err));
         
       },

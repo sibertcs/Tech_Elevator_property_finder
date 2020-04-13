@@ -11,7 +11,7 @@ public class MaintenanceRequest {
     private int priority;
     private LocalDate dateRequested;
     private int assignedUserId;
-    private boolean isCompleted;
+    private boolean completed;
 
     public int getRequestId() {
         return requestId;
@@ -26,11 +26,11 @@ public class MaintenanceRequest {
     }
 
     public boolean isCompleted() {
-        return isCompleted;
+        return completed;
     }
 
-    public void setCompleted(boolean isCompleted) {
-        this.isCompleted = isCompleted;
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
     public int getAssignedUserId() {
