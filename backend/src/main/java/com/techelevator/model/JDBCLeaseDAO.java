@@ -38,6 +38,7 @@ class JdbcLeaseDao implements LeaseDao {
         newLease.setUnitNumber(row.getString("unit_number"));;
         newLease.setRenterName(row.getString("first_name") + " " + row.getString("last_name"));;
         newLease.setRenterEmail(row.getString("email"));;
+        newLease.setOverdueBalance(row.getBigDecimal("overdue_balance"));
 
         String sql = "SELECT rent_status FROM rent_cycle WHERE lease_id = ? AND start_date < ? AND due_date >= ?;";
 
@@ -68,7 +69,7 @@ class JdbcLeaseDao implements LeaseDao {
 
     @Override
     public List<Lease> getLeasesForLandlord(int landlordUserId) {
-        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, status, "
+        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, overdue_balance, status, "
                     + "lease.user_id, users.email, users.first_name, users.last_name, "
                     + "lease.unit_id, unit.unit_number, property.property_name, property.street_address "
                     + "FROM lease "
@@ -81,7 +82,7 @@ class JdbcLeaseDao implements LeaseDao {
         List<Lease> landlordLeases = new ArrayList<Lease>();
         while (rows.next()) {
             landlordLeases.add(mapRowToLease(rows));
-            // updateRentCycles(rows.getInt("lease_id"), rows.getInt("overdue_balance"));
+            updateRentCycles(rows.getInt("lease_id"), rows.getBigDecimal("overdue_balance"), rows.getBigDecimal("late_fee"));
         }
         return landlordLeases;
     }
@@ -186,8 +187,8 @@ class JdbcLeaseDao implements LeaseDao {
     }
 
     @Override
-    public void updateRentCycles(int leaseId, BigDecimal overdueBalance) {
-        String sqlRentCycles = "SELECT rent_status, balance FROM rent_cycle " +
+    public void updateRentCycles(int leaseId, BigDecimal overdueBalance, BigDecimal lateFee) {
+        String sqlRentCycles = "SELECT rent_cycle_id, rent_status, balance, due_date FROM rent_cycle " +
                                "WHERE lease_id = ?;";
         String sqlOverdueUpdate1 = "UPDATE rent_cycle SET rent_status = 'Overdue' " +
                                    "WHERE rent_cycle_id = ? AND due_date < ? RETURNING balance;";
@@ -196,9 +197,13 @@ class JdbcLeaseDao implements LeaseDao {
 
         SqlRowSet rows = jdbcTemplate.queryForRowSet(sqlRentCycles, leaseId);
         while (rows.next()) {
-            if (rows.getString("rent_status").equals("Overdue") == false && rows.getBigDecimal("balance").compareTo(new BigDecimal("0")) == 1) {
-                BigDecimal balance = jdbcTemplate.queryForObject(sqlOverdueUpdate1, BigDecimal.class, rows.getInt("rent_cycle_id"), LocalDate.now());
-                jdbcTemplate.update(sqlOverdueUpdate2, overdueBalance.add(balance), leaseId);
+            if (rows.getDate("due_date").toLocalDate().compareTo(LocalDate.now()) == -1) {
+                if (rows.getString("rent_status").equals("Overdue") == false && rows.getBigDecimal("balance").compareTo(new BigDecimal("0")) == 1) {
+                    BigDecimal balance = jdbcTemplate.queryForObject(sqlOverdueUpdate1, BigDecimal.class, rows.getInt("rent_cycle_id"), LocalDate.now());
+                    balance = balance.add(balance.multiply(lateFee.divide(new BigDecimal("100"))));
+                    jdbcTemplate.update(sqlOverdueUpdate2, overdueBalance.add(balance), leaseId);
+                    overdueBalance = overdueBalance.add(balance);
+                }
             }
         }                           
     }

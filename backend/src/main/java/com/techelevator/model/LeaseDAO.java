@@ -19,5 +19,5 @@ public interface LeaseDao {
     
 	public void updateLease(Lease lease);
     
-    public void updateRentCycles(int leaseId, BigDecimal overdueBalance);
+    public void updateRentCycles(int leaseId, BigDecimal overdueBalance, BigDecimal lateFee);
 }

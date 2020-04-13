@@ -22,13 +22,13 @@
           <th>Name</th>
           <th>Unit</th>
           <th>Rent Status</th>
+          <th>Overdue Balance</th>
         </tr>
         <tr v-for="lease in getLeasesByProperty()" :key="lease.leaseId">
-        <td>
-          {{lease.renterName}}
-        </td>
+        <td>{{lease.renterName}}</td>
         <td>{{lease.unitNumber}}</td>
         <td>{{lease.currentRentStatus}}</td>
+        <td>{{lease.overdueBalance}}</td>
       </tr>
       </table>
     </div>

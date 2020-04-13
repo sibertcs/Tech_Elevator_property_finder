@@ -13,6 +13,7 @@ public class Lease {
     private int rentLength;
     private BigDecimal rentAmount;
     private BigDecimal lateFee;
+    private BigDecimal overdueBalance;
     private String status;
     private String propertyName;
     private String propertyAddress;
@@ -85,7 +86,13 @@ public class Lease {
     public void setLateFee(BigDecimal lateFee) {
         this.lateFee = lateFee;
     }
+    public BigDecimal getOverdueBalance() {
+        return overdueBalance;
+    }
 
+    public void setOverdueBalance(BigDecimal overdueBalance) {
+        this.overdueBalance = overdueBalance;
+    }
     public BigDecimal getRentAmount() {
         return rentAmount;
     }

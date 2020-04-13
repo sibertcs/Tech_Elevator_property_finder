@@ -5,7 +5,7 @@
 
         <h2>All Existing Leases:</h2>
         <table>
-            <th>Lease #</th><th>Property</th><th>Unit</th><th>Status</th><th>Signed</th><th>Term</th><th>Rent</th><th>Renter</th>
+            <th>Lease #</th><th>Property</th><th>Unit</th><th>Status</th><th>Signed</th><th>Term</th><th>Rent</th><th>Renter</th><th>Overdue Balance</th>
             <tr v-for="lease in leasesForLandlord" :key="lease.leaseId" :value="lease.leaseId">
                 <td>{{ lease.leaseId }}</td>
                 <td>{{ lease.propertyName }}</td>
@@ -15,6 +15,7 @@
                 <td>{{ lease.rentLength }} months</td>
                 <td>${{ lease.rentAmount }}</td>
                 <td>{{ `${lease.renterName} (${lease.renterEmail})` }}</td>
+                <td>{{ lease.overdueBalance }}</td>
             </tr>
         </table>
 
