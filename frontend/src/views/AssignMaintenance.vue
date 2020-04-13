@@ -8,21 +8,19 @@
       </div> 
   
 <div class="card border-dark mb-3" style="max-width: 18rem;" v-for="request in allRequests" :key="request.unitId">
-  <div class="card-header">{{ request.residentName }}</div>
+  <div class="card-header">Request Id: {{ request.requestId }}</div>
   <div class="card-body text-dark">
     <h5 class="card-title">Unit id: {{ request.unitId }}</h5>
-    <p class="card-text">{{ request.priorityLevel }} </p>
-    <p class="card-text">{{ request.requestDate}}</p>
-    <p class="card-text">{{ request.description }}</p>
-    <p class="card-text">{{ request.status }}</p>
+    <p class="card-text">{{ request.priority }} </p>
+    <p class="card-text">{{ request.dateRequested}}</p>
+    <p class="card-text">{{ request.requestDesc }}</p>
+    <p class="card-text">{{ request.isCompleted }}</p>
   </div>
-</div>
+
 <form>
 <label>Assign Maintenance Employee: </label>
-        <select>
-        <option>Employee 1!!! </option>
-        <option>Employee 2!!! </option>
-        <option>Employee 3!!! </option>
+        <select v-for="user in allMaintenanceUsers" :key="user.id">
+        <option>{{ user.firstName}} {{ user.lastName}} </option>
          </select>
          <button type="submit" >Assign</button>
 </form>
@@ -35,6 +33,7 @@
          </select>
          <button type="submit" >Update</button>
 </form>
+</div>
 </div>
   <div class="numberOfAssignments">
     Employee name: number of assignments
@@ -64,7 +63,7 @@
 
 <script>
 
-import maintenanceRequest from '../assets/data/maintenance.json'
+import auth from '../auth';
 
 export default {
   props: {
@@ -73,48 +72,68 @@ export default {
   name: 'assign',
   data(){
     return {
-      allRequests: maintenanceRequest,
+      allRequests: [],
+      allMaintenanceUsers: [],
       assignMaintenace: {
         requestId: '',
         unitId: '',
-        description: '',
-        status: '',
-        employeeId: '',
-        requestDate: '',
-        priorityLevel: '',
-        residentName: '',
+        requestUserId: '',
+        requestDesc: '',
+        isCompleted: '',
+        assignedUserId: '',
+        dateRequested: '',
+        priority: '',
         role: 'landlord'
       },
       assignmentErrors: true,
     };
   },
    methods: {
-      assignment(){
-        console.log(JSON.stringify(this.maintenanceRequest));
-    //    fetch(this.apiURL, {
-    //     method: 'POST',
-    //      headers: {'Content-Type': 'maintenanceRequests/json'},
-    //      body: JSON.stringify(this.)
-    //    })
-    //    .then((response) => {
-    //      if (response.ok) {
-    //        this.assignmentErrors = false
-    //        return (response.JSON());
-    //      } else {
-    //        this.assignmentErrors = true;
-    //        throw 'Assignment returned: ' + response.status;
-    //      }
-    //    })
-    //    .catch((err) => console.log(err));
-    //  },
+      getAllRequests(){
+        fetch('http://localhost:8080/api/Landlord/assignMaintenance', {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + auth.getToken()
+          },
+          credentials: 'same-origin'
+        })
+        .then(response => {
+          if(response.ok){
+            return response.json();
+          }
+        }).then(responseData => {
+          this.allRequests = responseData;
+        })
+        .catch(err => console.error(err));
+      }
    },
-  //  assignMaintenaceRequest( employeeId, requestId){
-     //this is where I want to call the DAO to assign the requestID to the employee
-  // }
+   getAllMaintenanceUsers(){
+     fetch('http://localhost:8080/api/users/maintenance', {
+       method: 'GET',
+       headers: {
+          Authorization: 'Bearer ' + auth.getToken()
+       },
+       credentials: 'same-origin'
+     })
+     .then(response => {
+          if(response.ok){
+            return response.json();
+   }
+     }).then(responseData => {
+       this.allMaintenanceUsers =responseData;
+     })
+     .catch(err => console.error(err));
+   },
+  //   assignMaintenaceRequest( employeeId, requestId){
+     
+  //  },
+   created(){
+     this.getAllRequests();
+   }
 
  }
  
-}
+
 </script>
 
 <style>

@@ -163,4 +163,17 @@ public class JdbcUserDao implements UserDao {
     // public List<User> getUserByProperty(int propId) {
     //     String sqlUserAndProp = "SELECT first_name FROM user INNER JOIN property ON "
     // }
+
+    @Override
+    public List<User> getAllMaintenancUsers(){
+        List<User> allMaintenancUsers = new ArrayList<>();
+        String sql = "SELECT user_id, email, first_name, last_name, phone_number, role FROM users WHERE role = maintenance";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        
+        while(results.next()){
+            User user = mapResultToUser(results);
+            allMaintenancUsers.add(user);
+        }
+        return allMaintenancUsers;
+    }
 }
