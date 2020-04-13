@@ -142,6 +142,10 @@ public class ApiController {
     public List<Lease> getLeasesForRenter(@PathVariable int renterUserId) {
         return leaseDao.getLeasesForRenter(renterUserId);
     }
+    @GetMapping("/leases/active/renter/{renterUserId}")
+    public Lease getCurrentLeaseForRenter(@PathVariable int renterUserId) {
+        return leaseDao.getCurrentLeaseForRenter(renterUserId);
+    }
     @GetMapping("/leases/{leaseId}")
     public Lease getLeaseById(@PathVariable int leaseId) {
         return leaseDao.getLeaseById(leaseId);

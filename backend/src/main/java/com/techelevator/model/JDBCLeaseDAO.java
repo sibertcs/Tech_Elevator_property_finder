@@ -104,6 +104,25 @@ class JdbcLeaseDao implements LeaseDao {
     }
 
     @Override
+    public Lease getCurrentLeaseForRenter(int renterUserId) {
+        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, status, "
+                    + "lease.user_id, users.email, users.first_name, users.last_name, "
+                    + "lease.unit_id, unit.unit_number, property.property_name, property.street_address "
+                    + "FROM lease "
+                    + "JOIN users ON lease.user_id = users.user_id "
+                    + "JOIN unit ON lease.unit_id = unit.unit_id "
+                    + "JOIN property ON unit.property_id = property.property_id "
+                    + "WHERE users.user_id = ? AND lease.status = 'Active';";
+        SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, renterUserId);
+        
+        Lease currentLease = new Lease();
+        while (rows.next()) {
+            currentLease = mapRowToLease(rows);
+        }
+        return currentLease;
+    }
+
+    @Override
     public Lease getLeaseById(int leaseId) {
         String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, status, "
                     + "lease.user_id, users.email, users.first_name, users.last_name, "

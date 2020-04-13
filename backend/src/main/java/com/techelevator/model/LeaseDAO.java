@@ -10,6 +10,8 @@ public interface LeaseDao {
     
     public List<Lease> getLeasesForRenter(int renterUserId);
 
+    public Lease getCurrentLeaseForRenter(int renterUserId);
+
     public Lease getLeaseById(int leaseId);
 
     public void createLease(Lease newLease);
