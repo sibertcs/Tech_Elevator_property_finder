@@ -40,6 +40,10 @@ public class JdbcRentDao implements RentDao{
 
     @Override //passed test sql is good
     public void createPayment(Payment payment){
+        String sqlFindRentCycle = "SELECT rent_cycle_id FROM rent_cycle " +
+                                  "WHERE lease_id = ? AND start_date < ? AND due_date >= ?;";
+        int rentCycleId = jdbcTemplate.queryForObject(sqlFindRentCycle, Integer.class, payment.getLeaseId(), LocalDate.now(), LocalDate.now());
+        payment.setRentCycleId(rentCycleId);                          
         String sqlCreatePayment = "INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) "
         + "VALUES(?, ?, ?);";
         jdbcTemplate.update(sqlCreatePayment, payment.getId(), payment.getRentCycleId(), payment.getAmountPaid(), LocalDate.now());

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 public class Payment {
     private int id;
+    private int leaseId;
     private int rentCycleId;
     private BigDecimal amountPaid;
     private LocalDate datePaid;
@@ -14,6 +15,13 @@ public class Payment {
     }
     public void setId(int id) {
         this.id = id;
+    }
+    public int getLeaseId() {
+        return leaseId;
+    }
+
+    public void setLeaseId(int leaseId) {
+        this.leaseId = leaseId;
     }
     public int getRentCycleId() {
         return rentCycleId;
