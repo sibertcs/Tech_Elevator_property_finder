@@ -15,9 +15,7 @@
    <form>
   <label> Change Status </label>
       <select>
-        <option>Completed</option>
-        <option>In Progress</option>
-        <option>Incomplete</option>
+        <option @click="changeStatus">Completed</option>
          </select>
          <button type="submit" >Update</button>
 </form>
@@ -37,7 +35,17 @@ export default {
   },
   data(){
     return {
-      assignedRequests: []
+      assignedRequests: [],
+       currentRequest: {
+       requestId: '',
+       unitId: '',
+       requestUserId: '',
+       requestDesc: '',
+       priority: '',
+       dateRequested: '',
+       assignedUserId: '',
+       isCompleted: ''
+     }
     }
   },
 
@@ -61,6 +69,51 @@ methods: {
     .catch(err => console.error(err));
   }
 },
+getCurrentRequest(){
+   this.assignedRequests.forEach((maintenanceRequest) =>{
+     if (maintenanceRequest.requestId == this.currentRequest.requestId){
+       this.currentRequest.requestId = maintenanceRequest.requestId;
+       this.currentRequest.unitId = maintenanceRequest.unitId;
+       this.currentRequest.requestUserId = maintenanceRequest.requestUserId;
+       this.currentRequest.requestDesc = maintenanceRequest.requestDesc;
+       this.currentRequest.priority = maintenanceRequest.priority;
+      this.currentRequest.dateRequested = maintenanceRequest.dateRequested;
+       this.currentRequest.assignedUserId = maintenanceRequest.assignedUserId;
+       this.currentRequest.isCompleted = maintenanceRequest.isCompleted;
+
+     }
+   });
+ },
+ changeStatus(){
+   console.log(JSON.stringify(this.currentRequest));
+   fetch('http://localhost:8080/api//Landlord/assignMaintenance', {
+     method: 'PUT',
+     headers: {
+       Authorization: 'Bearer' + auth.getToken(),
+       'Content-Type': 'application/json'
+     },
+     credentials: 'same-origin',
+     body: JSON.stringify(this.currentRequest)
+   }).then(response => {
+     if(response.ok){
+       this.resetCompleteValue();
+     }
+   }).then(this.viewAllRequests())
+   .catch(err => console.error(err));
+ },
+ resetCompleteValue(){
+  this.currentRequest.requestId = ''
+     this.currentRequest.unitId = '';
+       this.currentRequest.requestUserId = '';
+       this.currentRequest.requestDesc = '';
+       this.currentRequest.priority = '';
+       this.currentRequest.dateRequested = '';
+       this.currentRequest.assignedUserId = '';
+       this.currentRequest.isCompleted = true;
+
+       this.viewAllRequests();
+   },
+
 created(){
   this.viewAllRequests();
 }

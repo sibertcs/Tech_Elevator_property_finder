@@ -43,4 +43,6 @@ public interface UserDao {
 
     public User getUserByEmail(String email);
 
+    public List<User> getAllMaintenancUsers();
+
 }

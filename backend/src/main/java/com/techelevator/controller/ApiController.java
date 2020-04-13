@@ -84,6 +84,10 @@ public class ApiController {
     public List<User> getAllRenters() {
         return userDao.getAllRenters();
     }
+    @GetMapping('/users/maintenance')
+    public List<User> getAllMaintenanceUsers(){
+        return userDao.getAllMaintenancUsers();
+    }
     /**************** USER CONTROLLER METHODS ****************/
 
 
