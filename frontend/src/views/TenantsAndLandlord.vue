@@ -3,28 +3,33 @@
     <h1>Renters And Status</h1>
     <div>
       <label for="propertyName">Property: </label>
-    <select id="propertyName" v-model="selectedPropertyId">
+    <select id="propertyName" v-model="selectedPropertyName">
       <option value="" disabled selected>Select a Property</option>
-            <option v-for="prop in properties" 
-                            :key="prop.propertyId" 
-                            :value="prop.propertyId">
-                        {{ prop.propertyName }}
+            <option v-for="propName in getUniquePropNames()" 
+                            :key="propName" 
+                            :value="propName">
+                        {{propName }}
                     </option>
     </select>
       <table>
-        <tr><label for="propertyName">Property Name</label></tr>
+        <tr></tr>
           <td>
             
           </td>
       </table>
       <table>
-        <tr><label for="tenants">Current Tenants</label></tr>
-        <td v-for="tenant in getTenantsProperty()" :key="tenant.userId">
-          {{tenant.firstName}}
-        </td>
         <tr>
-          <td class = "" v-for="tenant in getTenantsProperty()" :key="tenant.userId">{{tenant.rentStatus}}</td> 
+          <th>Name</th>
+          <th>Unit</th>
+          <th>Rent Status</th>
         </tr>
+        <tr v-for="lease in getLeasesByProperty()" :key="lease.leaseId">
+        <td>
+          {{lease.renterName}}
+        </td>
+        <td>{{lease.unitNumber}}</td>
+        <td>{{lease.currentRentStatus}}</td>
+      </tr>
       </table>
     </div>
   </div>
@@ -45,34 +50,45 @@ data () {
             allUnits: unitData,
             allRenters: renterData,
             selectedRenters: [],
-            properties: [],
-            selectedPropertyId: '',
+            leases: [],
+            selectedLeases: [],
+            selectedPropertyName: '',
 }
 },
  methods: {
-        getPropertiesForLandlord() {
-            fetch('http://localhost:8080/api/properties/landlord/' + this.user.id, {
-        method: 'GET',
-        headers: {
-          Authorization: 'Bearer ' + auth.getToken()
-        },
-        credentials: 'same-origin'
-      })
-      .then (response => {
+        getLeasesForLandlord() {
+            fetch('http://localhost:8080/api/leases/landlord/' + this.user.id, {
+              method: 'GET',
+              headers: {
+                Authorization: 'Bearer ' + auth.getToken()
+              },
+              credentials: 'same-origin'
+            })
+            .then (response => {
               if(response.ok) {
                   return response.json();
               }
-          }).then(responseData => {
-              this.properties = responseData;
-          });
+            }).then(responseData => {
+              this.leases = responseData;
+            });
         },
-    //this.allRenters.filter((tenant) => tenant.propertyId === this.selectedPropertyId);
-        // getTenantsProperty() {
-        //   return fetch('http://localhost8080/api/lease')
-        // }
+        getUniquePropNames() {
+          let uniqueNames = [];
+          this.leases.forEach(lease => {
+            if(!uniqueNames.includes(lease.propertyName)){
+              uniqueNames.push(lease.propertyName);
+            }
+          });
+          return uniqueNames;
+        },
+        getLeasesByProperty() {
+          return this.leases.filter(lease => {
+            return lease.propertyName === this.selectedPropertyName; 
+          })
+        }
  },
    created() {
-        this.getPropertiesForLandlord(this.user.sub);
+        this.getLeasesForLandlord(this.user.sub);
     }
  }
 </script>
