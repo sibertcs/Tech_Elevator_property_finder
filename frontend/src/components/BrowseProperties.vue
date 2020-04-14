@@ -50,7 +50,8 @@
         <div v-for="property in shownProperties" :key="property.propertyId">
            <b-collapse class="card" animation="slide">
                 <div slot="trigger" slot-scope="props" class="card-header" role="button">
-                   <p class="card-header-title">{{property.streetAddress}}</p>
+                   <p v-if="property.streetAddress !== property.propertyName" class="card-header-title">{{property.propertyName}} @ {{property.streetAddress}}</p>
+                   <p v-if="property.streetAddress === property.propertyName" class="card-header-title">{{property.streetAddress}}</p>
                    <a class="card-header-icon">
                         <b-icon
                             :icon="props.open ? 'menu-up' : 'menu-down'">
@@ -59,12 +60,24 @@
                 </div>
                 <div class="card-content">
                     <div class="content">
-                        <img :src="require('@/assets/images/properties/' + property.photoPath)">
+                        <img class="property-img" :src="require('@/assets/images/properties/' + property.photoPath)">
+                        <div>
+                            <p>Neighborhood: {{property.location}}</p>
+                            <p>City: {{property.city}}</p>
+                            <p>State: {{property.state}}</p>
+                        </div>
+                        <div>
+                            <p>Units:</p>
+                            <ul v-if="property.units.length > 0">
+                                <li v-for="unit in property.units" :key="unit.unitId">
+                                    <span :class="'available-' + unit.available">#{{unit.unitNumber}}: ({{unit.bedCount}} Bed/ {{unit.bathCount}} Bath) for ${{unit.price}}/mo</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <footer class="card-footer">
-                    <p class="card-footer-item">{{property.streetAddress}}</p>
-                    <a class="card-footer-item">Details</a>
+                    <p class="card-footer-item">Do Something!</p>
                 </footer>
            </b-collapse> 
         </div>    
@@ -165,9 +178,24 @@ export default {
         justify-content: flex-start;
     }
     #properties div {
-        width: 30em;
+        width: 100%;
     }
-    img {
-        width: 80%;
+    .property-img {
+        width: 25%;
     }
+    li {
+        list-style: none;
+    }
+    span.available-false {
+        text-decoration: line-through;
+    }
+    .content:nth-child(n) {
+        width: 30%;
+    }
+    .content {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
 </style>
