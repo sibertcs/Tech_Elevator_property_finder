@@ -23,6 +23,7 @@
         @getPaymentHistory="getPaymentHistory"
         @getRentCycles="getRentCycles"
         :currentLeaseId="currentLeaseId"
+        :user="user"
       />
     </div>
   </div>
