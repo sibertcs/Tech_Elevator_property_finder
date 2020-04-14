@@ -28,7 +28,8 @@
             </b-radio>
        
         </div>
-      <b-button type="is-primary" v-bind:disabled="!isValidForm" v-on:click="createRequest">Submit Request</b-button>
+      <b-button type="is-primary" native-type="submit" v-bind:disabled="!isValidForm" v-on:click="createRequest" @click=toast();
+>Submit Request</b-button>
     </form>
   </div>
 </template>
@@ -53,6 +54,11 @@ export default {
      };
    },
    methods: {
+     toast(){
+      this.$buefy.toast.open({
+        message: 'Maintenance request submitted!',
+        type: 'is-success'})
+     },
      createRequest(){
        console.log('starting post method...');
         fetch('http://localhost:8080/api/maintenance/request',{

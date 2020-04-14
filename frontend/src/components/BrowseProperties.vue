@@ -1,5 +1,6 @@
 <template>
   <div>
+      
     <div id="forms">
         <form id="search">
             <b-field label="Search by Address or Name" label-position="inside">

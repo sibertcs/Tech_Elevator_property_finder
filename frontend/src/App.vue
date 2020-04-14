@@ -16,7 +16,7 @@
           </b-navbar-item>
 
           <b-navbar-item href="#">About Us</b-navbar-item>
-          <div v-if="loggedIn">
+          <div class=navDiv v-if="loggedIn">
             <b-navbar-dropdown label="Options" v-if="user != undefined">
               <div v-if="user != undefined && (user.rol=== 'renter' || user.rol==='admin')">
                 <b-navbar-item href="#">
@@ -44,7 +44,11 @@
                   <router-link :to="{name: 'addOrUpdate'}">Add/Update Properties</router-link>
                 </b-navbar-item>
               </div>
-
+              <div v-if="user.rol=== 'maintenance' || user.rol==='admin'">
+              <b-navbar-item href="#">
+                <router-link :to="{name:'view'}">View Maintenance Requests</router-link>
+              </b-navbar-item>
+      </div>
               <div v-if="user != undefined && user.rol === 'admin'">
                 <b-navbar-item href="#">
                   <router-link :to="{name: 'viewUsers'}">View Users</router-link>
@@ -102,8 +106,14 @@ export default {
 </script>
 
 <style>
-
+.navDiv{
+  margin-top: 6px;
+   margin-bottom: 6px;
+}
 .footer {
   background-color: aqua;
+}
+navbar{
+  fixed-top: true;
 }
 </style>
