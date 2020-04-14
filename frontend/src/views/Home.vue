@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>Home</h1> 
-    <nav>
+  <!--   <nav>
       <div v-if="user.rol=== 'renter' || user.rol==='admin'">
         <router-link to="/payment">Payment</router-link>
         <br>
@@ -23,7 +23,7 @@
         <router-link :to="{name: 'viewUsers'}"> View Users</router-link>
       </div> 
       <router-link v-if="user.rol=== 'renter'" :to="{name:'request'}">Maintenance Request</router-link> 
-    </nav>
+    </nav> -->
     <p>You are logged in as {{user.sub}} as a {{user.rol}} and has the id of {{user.id}}.</p>
     <button @click="logout">logout</button>
     <br>
