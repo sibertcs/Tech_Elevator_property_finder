@@ -1,43 +1,71 @@
 <template>
-  <div>
-    <form>
-        <label for="textSearch">Search by Address or Name</label>
-        <input type="text" id="textSearch" v-model="textSearch">
-        <button @click.prevent="search" type="submit">Search</button>
-    </form>
-    <br>
-    <form>
-        <label for="filterBr">Filter by # of Bedrooms</label>
-        <select id="filterBr" v-model="brFilter">
-            <option value=""></option>
-            <option value="1">1 Br</option>
-            <option value="2">2 Br</option>
-            <option value="3">3 Br</option>
-            <option value="4">4 Br</option>
-        </select>
-        <label for="filterRent">Filter by $ Up To:</label>
-        <select id="filterBr" v-model="upperRentFilter">
-            <option value=""></option>
-            <option value="500">$500/month</option>
-            <option value="750">$750/month</option>
-            <option value="1000">$1000/month</option>
-            <option value="1500">$1500/month</option>
-            <option value="2000">$2000/month</option>
-        </select>
-        <label for="filterLocation">Filter by Location:</label>
-        <select id="filterLocation" v-model="locationFilter">
-            <option value=""></option>
-            <option>Downtown</option>
-            <option>East Side</option>
-            <option>West Side</option>
-            <option>North Side</option>
-            <option>NKY</option>
-        </select>
-        <button @click.prevent="filter" type="submit">Filter</button>
-    </form>
-    <div>
+  <div class="container is-fluid">
+    <div id="forms">
+        <form id="search">
+            <b-field label="Search by Address or Name" label-position="inside">
+                <b-input rounded type="text" id="textSearch" v-model="textSearch" icon="magnify"></b-input>
+                <p class="control">
+                    <b-button @click.prevent="search" type="is-primary" >Search</b-button>
+                </p>
+            </b-field>
+        </form>
+        <br>
+        <form>
+            <div id="filters">
+                <b-field label="Bed Count" label-position="inside">
+                    <b-select id="filterBr" v-model="brFilter">
+                        <option value=""></option>
+                        <option value="1">1 Br</option>
+                        <option value="2">2 Br</option>
+                        <option value="3">3 Br</option>
+                        <option value="4">4 Br</option>
+                    </b-select>
+                </b-field>
+                <b-field label="Max Rent" label-position="inside">
+                    <b-select id="filterBr" v-model="upperRentFilter">
+                        <option value=""></option>
+                        <option value="500">$500/mo</option>
+                        <option value="750">$750/mo</option>
+                        <option value="1000">$1000/mo</option>
+                        <option value="1500">$1500/mo</option>
+                        <option value="2000">$2000/mo</option>
+                    </b-select>
+                </b-field>
+                <b-field label="Neighborhood" label-position="inside">
+                    <b-select @change.prevent="filter" id="filterLocation" v-model="locationFilter">
+                        <option value=""></option>
+                        <option>Downtown</option>
+                        <option>East Side</option>
+                        <option>West Side</option>
+                        <option>North Side</option>
+                        <option>NKY</option>
+                    </b-select>
+                </b-field>
+                </div>
+                <b-button @click.prevent="filter" type="is-primary" expanded>Filter</b-button>
+        </form>
+    </div>
+    <div id="properties">
         <div v-for="property in shownProperties" :key="property.propertyId">
-           <h3>{{property.propertyName}} @ {{property.streetAddress}}</h3> 
+           <b-collapse class="card" animation="slide">
+                <div slot="trigger" slot-scope="props" class="card-header" role="button">
+                   <p class="card-header-title">{{property.streetAddress}}</p>
+                   <a class="card-header-icon">
+                        <b-icon
+                            :icon="props.open ? 'menu-up' : 'menu-down'">
+                        </b-icon>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <div class="content">
+                        <img :src="require('@/assets/images/properties/' + property.photoPath)">
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <p class="card-footer-item">{{property.streetAddress}}</p>
+                    <a class="card-footer-item">Details</a>
+                </footer>
+           </b-collapse> 
         </div>    
     </div>    
   </div>
@@ -53,7 +81,10 @@ export default {
             textSearch: '',
             brFilter: '',
             upperRentFilter: '',
-            locationFilter: ''
+            locationFilter: '',
+            props: {
+                open: true
+            }
         }
     },
     methods: {
@@ -95,6 +126,9 @@ export default {
                     return p.location === this.locationFilter;
                 });
             }
+        },
+        pathToPhoto(photoPath) {
+            return '@/assets/images/properties/' + photoPath;
         }
     },
     created() {
@@ -112,6 +146,27 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+    #forms {
+        width: 25%;
+    }
+    #search {
+        width: 100%;
+    }
+    #filters {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    #properties {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    #properties div {
+        width: 30em;
+    }
+    img {
+        width: 80%;
+    }
 </style>

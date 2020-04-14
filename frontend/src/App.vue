@@ -16,7 +16,7 @@
           </b-navbar-item>
 
           <b-navbar-item href="#">About Us</b-navbar-item>
-          <div v-if="user != undefined">
+          <div v-if="loggedIn">
             <b-navbar-dropdown label="Options" v-if="user != undefined">
               <div v-if="user != undefined && (user.rol=== 'renter' || user.rol==='admin')">
                 <b-navbar-item href="#">
@@ -81,14 +81,17 @@ export default {
   name: "home",
   data() {
     return {
-      user: auth.getUser()
+      user: auth.getUser(),
+      loggedIn: false
     };
   },
   methods: {
     logout() {
       auth.logout();
+      this.loggedIn = false;
     },
     login() {
+      this.loggedIn = true;
       this.user = auth.getUser();
     }
   }
