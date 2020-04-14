@@ -197,19 +197,28 @@ public class ApiController {
     }
 
     
-     @PutMapping("/rent/{rentCycleId}")
-     public void updateRentCycle(@PathVariable int rentCycleId, @RequestBody RentCycle rentCycle){
-         if(rentDao.getRentCycleById(rentCycleId) == null){
-         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-         }
-         rentCycle.setId(rentCycleId);
-         rentDao.updateRentCycle(rentCycle);
-     }
+    @PutMapping("/rent/{rentCycleId}")
+    public void updateRentCycle(@PathVariable int rentCycleId, @RequestBody RentCycle rentCycle){
+        if(rentDao.getRentCycleById(rentCycleId) == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        rentCycle.setId(rentCycleId);
+        rentDao.updateRentCycle(rentCycle);
+    }
 
+    @GetMapping("/payments/lease/{leaseId}")
+    public List<Payment> getAllPaymentsByLeaseId(@PathVariable int leaseId){
+        return rentDao.getAllPaymentsByLeaseId(leaseId);
+    }
      
-    @GetMapping("/rent/{leaseId}")
-    public RentCycle gerRentByLeaseId(@PathVariable int leaseId){
-        return rentDao.getRentByLeaseId(leaseId);
+    @GetMapping("/rent/lease/{leaseId}")
+    public List<RentCycle> getAllRentCyclesByLeaseId(@PathVariable int leaseId){
+        return rentDao.getAllRentCyclesByLeaseId(leaseId);
+    }
+     
+    @GetMapping("/rent/currentlease/{leaseId}")
+    public RentCycle gerCurrentRentByLeaseId(@PathVariable int leaseId){
+        return rentDao.getCurrentRentByLeaseId(leaseId);
     }
 
    

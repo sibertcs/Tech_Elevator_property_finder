@@ -9,7 +9,9 @@ public interface RentDao {
     public void createRentCycle(RentCycle rentCycle);
     public void updateRentCycle(RentCycle rentCycle);
     public void createPayment(Payment payment);
-    public RentCycle getRentByLeaseId(int leaseId);
+    public List<Payment> getAllPaymentsByLeaseId(int leaseId);
+    public List<RentCycle> getAllRentCyclesByLeaseId(int leaseId);
+    public RentCycle getCurrentRentByLeaseId(int leaseId);
     public List<Payment> getPaymentsByRentCycleId(int rentCycleId);
     public RentCycle getRentCycleById(int rentCycleId);
 }

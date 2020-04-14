@@ -51,7 +51,7 @@ class JdbcLeaseDao implements LeaseDao {
 
     @Override
     public List<Lease> getAllLeases() {
-        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, status, "
+        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, overdue_balance, status, "
                     + "lease.user_id, users.email, users.first_name, users.last_name, "
                     + "lease.unit_id, unit.unit_number, property.property_name, property.street_address "
                     + "FROM lease "
@@ -89,7 +89,7 @@ class JdbcLeaseDao implements LeaseDao {
     
     @Override
     public List<Lease> getLeasesForRenter(int renterUserId) {
-        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, status, "
+        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, overdue_balance, status, "
                     + "lease.user_id, users.email, users.first_name, users.last_name, "
                     + "lease.unit_id, unit.unit_number, property.property_name, property.street_address "
                     + "FROM lease "
@@ -108,7 +108,7 @@ class JdbcLeaseDao implements LeaseDao {
 
     @Override
     public Lease getCurrentLeaseForRenter(int renterUserId) {
-        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, status, "
+        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, overdue_balance, status, "
                     + "lease.user_id, users.email, users.first_name, users.last_name, "
                     + "lease.unit_id, unit.unit_number, property.property_name, property.street_address "
                     + "FROM lease "
@@ -127,7 +127,7 @@ class JdbcLeaseDao implements LeaseDao {
 
     @Override
     public Lease getLeaseById(int leaseId) {
-        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, status, "
+        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, overdue_balance, status, "
                     + "lease.user_id, users.email, users.first_name, users.last_name, "
                     + "lease.unit_id, unit.unit_number, property.property_name, property.street_address "
                     + "FROM lease "

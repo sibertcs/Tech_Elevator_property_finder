@@ -1,14 +1,34 @@
 <template>
-  <div class="payment-history">
-      <h1>Payment History</h1>
-      <pre>{{ allPayments }}</pre>
-  </div>
+    <div class="payment-history">
+        <h1>Payment History</h1>
+        <div class="nav">
+            <a href="#" class="back" @click="goToRentCycles">
+                <i class="fas fa-list-ul"></i> View Rent Cycles
+            </a>
+            <a href="#" class="back" @click="goToNewPayment">
+                <i class="fas fa-address-card"></i> Submit New Payment
+            </a>
+        </div>
+        <div class="payments">
+            <table>
+                <th>Date Paid</th>
+                <th>Amount</th>
+                <tr v-for="payment in allPayments" :key="payment.id" :value="payment.id">
+                    <td>{{payment.datePaid}}</td>
+                    <td>{{payment.amountPaid}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </template>
 
 <script>
 import auth from '../auth';
 
 export default {
+    props: {
+        currentLeaseId: Number
+    },
     data() {
         return {
             allPayments: []
@@ -16,13 +36,19 @@ export default {
     },
     methods: {
         getAllPayments() {
-            fetch('http://localhost:8080/api/payments', {
+            fetch('http://localhost:8080/api/payments/lease/'+this.currentLeaseId, {
                 method: 'GET',
                 headers: { Authorization: 'Bearer ' + auth.getToken() },
                 credentials: 'same-origin'
             }).then (response => { if(response.ok) { return response.json(); }
                 }).then(responseData => { this.allPayments = responseData; })
                     .catch(err => console.error(err));
+        },
+        goToRentCycles() {
+            this.$emit("getRentCycles");
+        },
+        goToNewPayment() {
+            this.$emit("newPayment");
         }
     },
     created() {

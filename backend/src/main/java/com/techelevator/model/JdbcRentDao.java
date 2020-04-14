@@ -38,7 +38,7 @@ public class JdbcRentDao implements RentDao{
 
     }
 
-    @Override //passed test sql is good
+    @Override
     public void createPayment(Payment payment){
         String sqlFindRentCycle = "SELECT rent_cycle_id FROM rent_cycle " +
                                   "WHERE lease_id = ? AND start_date < ? AND due_date >= ?;";
@@ -65,8 +65,9 @@ public class JdbcRentDao implements RentDao{
     @Override //passed test sql is good
     public List<Payment> getAllPayments(){
         List<Payment> allPayments = new ArrayList<>();
-        String allPaymentsSql = "SELECT payment_id, rent_cycle_id, amount_paid, date_paid "
-        +  "FROM payment;";
+        String allPaymentsSql = "SELECT payment_id, lease_id, payment.rent_cycle_id, amount_paid, date_paid "
+                                + "FROM payment "
+                                + "JOIN rent_cycle ON payment.rent_cycle_id = rent_cycle.rent_cycle_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(allPaymentsSql);
         while (results.next()){
             allPayments.add(mapRowToPayment(results));
@@ -74,13 +75,40 @@ public class JdbcRentDao implements RentDao{
         return allPayments;
     }
 
+    @Override //passed test sql is good
+    public List<Payment> getAllPaymentsByLeaseId(int leaseId){
+        List<Payment> allPayments = new ArrayList<>();
+        String allPaymentsSql = "SELECT payment_id, rent_cycle.lease_id, payment.rent_cycle_id, amount_paid, date_paid "
+                                + "FROM payment "
+                                + "JOIN rent_cycle ON payment.rent_cycle_id = rent_cycle.rent_cycle_id "
+                                + "WHERE rent_cycle.lease_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(allPaymentsSql, leaseId);
+        while (results.next()){
+            allPayments.add(mapRowToPayment(results));
+        }
+        return allPayments;
+    }
 
     @Override //passed test sql is good
-    public RentCycle getRentByLeaseId(int leaseId){
+    public List<RentCycle> getAllRentCyclesByLeaseId(int leaseId){
         String sql = "SELECT rent_cycle_id, lease_id, start_date, balance, due_date, rent_status "
         + "FROM rent_cycle "
         + "WHERE lease_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, leaseId);
+
+        List<RentCycle> rentCycles = new ArrayList<RentCycle>();
+        while(results.next()){
+            rentCycles.add(mapRowToRentCycle(results));
+        }
+        return rentCycles;
+    }
+
+    @Override //passed test sql is good
+    public RentCycle getCurrentRentByLeaseId(int leaseId){
+        String sql = "SELECT rent_cycle_id, rent_cycle.lease_id, start_date, balance, due_date, rent_status "
+        + "FROM rent_cycle "
+        + "WHERE lease_id = ? AND start_date < ? AND due_date >= ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, leaseId, LocalDate.now(), LocalDate.now());
 
         RentCycle rentCycle = new RentCycle();
         while(results.next()){
@@ -117,6 +145,7 @@ public class JdbcRentDao implements RentDao{
    private Payment mapRowToPayment(SqlRowSet row){
     Payment payment = new Payment();
     payment.setId(row.getInt("payment_id"));
+    payment.setLeaseId(row.getInt("lease_id"));
     payment.setRentCycleId(row.getInt("rent_cycle_id"));
     payment.setAmountPaid(row.getBigDecimal("amount_paid"));
     payment.setDatePaid(row.getDate("date_paid").toLocalDate());
@@ -127,7 +156,7 @@ public class JdbcRentDao implements RentDao{
     private RentCycle mapRowToRentCycle(SqlRowSet row){
     RentCycle renCy = new RentCycle();
     renCy.setId(row.getInt("rent_cycle_id"));
-    renCy.setId(row.getInt("lease_id"));
+    renCy.setLeaseId(row.getInt("lease_id"));
     renCy.setStartDate(row.getDate("start_date").toLocalDate());
     renCy.setBalance(row.getBigDecimal("balance"));
     renCy.setDueDate(row.getDate("due_date").toLocalDate());
