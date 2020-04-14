@@ -47,7 +47,7 @@ export default {
     return {
         showPaymentHistory: false,
         showNewPaymentForm: true,
-        currentLeaseId: '',
+        currentLeaseId: 0,
         overdueBalance: '',
         currentBalance: ''
     };
