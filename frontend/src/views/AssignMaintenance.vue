@@ -2,16 +2,24 @@
 <div>
 
   <div>Hello {{ user.sub }}</div>
-  <div class= "maintenance-request-assignment">
-      <div class="alert alert-success" role="alert" v-if="this.$route.query.assignment">
-        This request has been successfully assigned.
-      </div> 
-  
+
+      <div class="tile is-ancestor">
+        
 <div v-for="request in allRequests" :key="request.requestId">
-  
-  <form>
-<label>Assign Maintenance Employee: </label>
-        <select v-model="request.assignedUserId">
+  <div class="tile is-parent">
+    <article class="tile is-child box">
+      <div class="content">
+      <p class="title">Request Id: {{ request.requestId }}</p>
+      <p class="subtitle">Unit id: {{ request.unitId }}</p>
+      <div class="content">
+      <p>{{ request.priority }}</p>
+      <p>{{ request.dateRequested}}</p>
+      <p>{{ request.requestDesc }}</p>
+      <p>{{ request.completed }}</p>
+      <form>
+      <p>
+        <label>Assign Maintenance Employee: </label>
+                <select v-model="request.assignedUserId">
         <option v-for="user in allMaintenanceUsers" :key="user.id" :value="user.id">{{ user.firstName }}</option>
          </select>
       <select v-model="request.completed">
@@ -19,50 +27,19 @@
         <option value="false">Incomplete</option>
          </select>
          <button type="button" @click="editRequest(request)">Update</button>
-</form>
-
-  <div class="tile is-ancestor">
-  <div class="tile is-parent">
-    <article class="tile is-child box">
-      <p class="title">Request Id: {{ request.requestId }}</p>
-      <p class="subtitle">Unit id: {{ request.unitId }}</p>
-      <p class="content">{{ request.priority }}</p>
-      <p class="content">{{ request.dateRequested}}</p>
-      <p class="content">{{ request.requestDesc }}</p>
-      <p class="content">{{ request.completed }}</p>
+      </p>
+      </form>
+      </div>
+      </div>
     </article>
   </div>
-  
-  </div>
-
-
-</div>
-</div>
-  <div class="numberOfAssignments">
-
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">employee Id</th>
-      <th>first name</th>
-      <th>last name</th>
-      <th scope="col">number of requests</th>
-      <th scope="col">phone #</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="user in allMaintenanceUsers" :key="user.id">
-      <th scope="row">{{ user.id }}</th>
-      <td>{{ user.firstName }}</td>
-      <td>{{ user.lastName}}
-      <td>{{ user.numberOfAssignedRequests }}</td>
-      <td>{{ user.phoneNumber }}</td>
-    </tr>
-  </tbody>
-</table>
+ 
   </div>
   </div>
-
+   
+      <b-table :data="allMaintenanceUsers" :columns="columns">
+      </b-table>
+  </div>
 </template>
 
 <script>
@@ -94,28 +71,24 @@ export default {
      },
      columns: [
        {
-         field: "requestId",
-         label: "Request Id: "
+         field: "id",
+         label: "employee Id"
        },
        {
-         field: "unitId",
-         label: "Unit id: "
+         field: "firstName",
+         label: "first name"
        },
        {
-         field: "priority",
-         label: "Priority level: "
+         field: "lastName",
+         label: "last name"
        },
        {
-         field: "dateRequested",
-         label: "date requested"
+         field: "numberOfAssignedRequests",
+         label: "number of requests"
        },
        {
-         field: "requestDesc",
-         label: "description"
-       },
-       {
-         field: "completed",
-         label: "status"
+         field: "phoneNumber",
+         label: "Phone #"
        }
      ],
       assignmentErrors: true,
@@ -200,8 +173,5 @@ export default {
 </script>
 
 <style>
-.card{
-  border: 1px solid black;
-}
 
 </style>
