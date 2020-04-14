@@ -3,7 +3,6 @@ package com.techelevator.model;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
 
-
 /**
  * User
  */
@@ -15,7 +14,7 @@ public class User {
     @NotBlank(message = "Last name is required")
     private String lastName;
 
-	@NotBlank(message = "Phone is required")
+    @NotBlank(message = "Phone is required")
     private String phoneNumber;
 
     @NotBlank(message = "Role is required")
@@ -26,12 +25,22 @@ public class User {
     private String password;
     private String confirmPassword;
 
+    private int numberOfAssignedRequests;
+
     @AssertTrue(message = "Passwords must match")
     public boolean isPasswordMatching() {
         if (password != null) {
             return password.equals(confirmPassword);
         }
         return true;
+    }
+
+    public int getNumberOfAssignedRequests() {
+        return numberOfAssignedRequests;
+    }
+
+    public void setNumberOfAssignedRequests(int numberOfAssignedRequests) {
+        this.numberOfAssignedRequests = numberOfAssignedRequests;
     }
 
     public String getPassword() {

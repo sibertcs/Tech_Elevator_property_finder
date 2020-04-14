@@ -172,8 +172,20 @@ public class JdbcUserDao implements UserDao {
         
         while(results.next()){
             User user = mapResultToUser(results);
+            user = numberOfRequestsPerEmployee(user);
             allMaintenancUsers.add(user);
         }
         return allMaintenancUsers;
+    }
+
+    @Override
+    public User numberOfRequestsPerEmployee(User user){
+        String sql = "SELECT COUNT(assigned_user_id) AS number FROM maintenance_request WHERE assigned_user_id = ? GROUP BY assigned_user_id;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user.getId());
+        if(results.next()){
+            user.setNumberOfAssignedRequests(results.getInt("number"));
+        }
+        return user;
     }
 }

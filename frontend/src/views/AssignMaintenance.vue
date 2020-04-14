@@ -20,16 +20,16 @@
 
 <form>
 <label>Assign Maintenance Employee: </label>
-        <select v-model="maintenanceRequest.assignedUserId">
+        <select v-model="request.assignedUserId">
         <option v-for="user in allMaintenanceUsers" :key="user.id" :value="user.id">{{ user.firstName }}</option>
          </select>
 
   <label> Change Status </label>
-      <select v-model="maintenanceRequest.completed">
+      <select v-model="request.completed">
         <option value="true">Completed</option>
         <option value="false">Incomplete</option>
          </select>
-         <button type="button" @click="editRequest">Update</button>
+         <button type="button" @click="editRequest(request)">Update</button>
 </form>
 </div>
 </div>
@@ -51,7 +51,7 @@
       <th scope="row">{{ user.id }}</th>
       <td>{{ user.firstName }}</td>
       <td>{{ user.lastName}}
-      <td>{{ }}</td>
+      <td>{{ user.numberOfAssignedRequests }}</td>
       <td>{{ user.phoneNumber }}</td>
     </tr>
   </tbody>
@@ -85,8 +85,8 @@ export default {
        completed: ''
       },
       maintenanceRequest:{
-       completed: "",
-       assignedUserId: "",
+       assignedUserId: '',
+       completed: ''
      },
       assignmentErrors: true,
     };
@@ -127,51 +127,37 @@ export default {
      })
      .catch(err => console.error(err));
    },
-   getCurrentRequest(){
-     this.assignedRequests.forEach((maintenanceRequest) =>{
-     if (maintenanceRequest.requestId == this.currentRequest.requestId){
-       this.currentRequest.requestId = maintenanceRequest.requestId;
-       this.currentRequest.unitId = maintenanceRequest.unitId;
-       this.currentRequest.requestUserId = maintenanceRequest.requestUserId;
-       this.currentRequest.requestDesc = maintenanceRequest.requestDesc;
-       this.currentRequest.priority = maintenanceRequest.priority;
-      this.currentRequest.dateRequested = maintenanceRequest.dateRequested;
-       this.currentRequest.assignedUserId = maintenanceRequest.assignedUserId;
-       this.currentRequest.completed = maintenanceRequest.completed;
+    getCurrentRequest(){
+      this.assignedRequests.forEach((maintenanceRequest) =>{
+      if (maintenanceRequest.requestId == this.currentRequest.requestId){
+        this.currentRequest.requestId = maintenanceRequest.requestId;
+        this.currentRequest.unitId = maintenanceRequest.unitId;
+        this.currentRequest.requestUserId = maintenanceRequest.requestUserId;
+        this.currentRequest.requestDesc = maintenanceRequest.requestDesc;
+        this.currentRequest.priority = maintenanceRequest.priority;
+       this.currentRequest.dateRequested = maintenanceRequest.dateRequested;
+        this.currentRequest.assignedUserId = maintenanceRequest.assignedUserId;
+        this.currentRequest.completed = maintenanceRequest.completed;
 
-   }
+    }
   });
 },
-      editRequest() {
-        this.maintenanceRequest.completed = this.maintenanceRequest.completed === "true";
+      editRequest(request) {
+         request.completed = request.completed === "true";
         fetch('http://localhost:8080/api/Landlord/assignMaintenance', {
           method: 'PUT',
           headers: {
-            Authorization: 'Bearer ' + auth.getToken()
+            Authorization: 'Bearer ' + auth.getToken(),
+            'Content-Type': 'application/json'
           },
           credentials: 'same-origin',
-          body: JSON.stringify(this.maintenanceRequest)
-        }).then(response => {
-          console.log(this.maintenanceRequest.completed);
-          if(response.ok){
-            // this.resetCompleteValue();
-          }
-         }).then(this.getAllRequests())
-        .catch(err => console.error(err));
+          body: JSON.stringify(request)
+        })
+        .then(() => {
+          console.log('Updated');
+        })
         
-      },
-      resetCompleteValue(){
-  this.currentRequest.requestId = ''
-     this.currentRequest.unitId = '';
-       this.currentRequest.requestUserId = '';
-       this.currentRequest.requestDesc = '';
-       this.currentRequest.priority = '';
-       this.currentRequest.dateRequested = '';
-       this.currentRequest.assignedUserId = '';
-       this.currentRequest.completed = '';
-
-       this.viewAllRequests();
-   }
+      }
    },
    created(){
      this.getAllRequests();

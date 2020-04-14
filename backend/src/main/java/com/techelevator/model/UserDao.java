@@ -45,4 +45,6 @@ public interface UserDao {
 
     public List<User> getAllMaintenancUsers();
 
+    public User numberOfRequestsPerEmployee(User user);
+
 }
