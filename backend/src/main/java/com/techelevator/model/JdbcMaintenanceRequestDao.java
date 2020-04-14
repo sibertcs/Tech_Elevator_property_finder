@@ -4,6 +4,7 @@ package com.techelevator.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -60,6 +61,8 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
         "WHERE request_id = ?;";
         jdbcTemplate.update(sqlUpdate, request.getAssignedUserId(), request.getPriority(), request.isCompleted(), request.getRequestId());
     }
+
+
 
     @Override
     public List<MaintenanceRequest> getAllRequestsByEmployeeId(int employeeId){

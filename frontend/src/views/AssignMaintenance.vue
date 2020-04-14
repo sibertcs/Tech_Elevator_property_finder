@@ -1,40 +1,44 @@
 <template>
 <div>
-  <h1>this is the page to assign maintenance</h1>
+
   <div>Hello {{ user.sub }}</div>
   <div class= "maintenance-request-assignment">
       <div class="alert alert-success" role="alert" v-if="this.$route.query.assignment">
         This request has been successfully assigned.
       </div> 
   
-<div class="card border-dark mb-3" style="max-width: 18rem;" v-for="request in allRequests" :key="request.requestId">
-  <div class="card-header">Request Id: {{ request.requestId }}</div>
-  <div class="card-body text-dark">
-    <h5 class="card-title">Unit id: {{ request.unitId }}</h5>
-    <p class="card-text">{{ request.priority }} </p>
-    <p class="card-text">{{ request.dateRequested}}</p>
-    <p class="card-text">{{ request.requestDesc }}</p>
-    <p class="card-text">{{ request.completed }}</p>
-
-  </div>
-
-<form>
+<div v-for="request in allRequests" :key="request.requestId">
+  
+  <form>
 <label>Assign Maintenance Employee: </label>
         <select v-model="request.assignedUserId">
         <option v-for="user in allMaintenanceUsers" :key="user.id" :value="user.id">{{ user.firstName }}</option>
          </select>
-
-  <label> Change Status </label>
       <select v-model="request.completed">
         <option value="true">Completed</option>
         <option value="false">Incomplete</option>
          </select>
          <button type="button" @click="editRequest(request)">Update</button>
 </form>
+
+  <div class="tile is-ancestor">
+  <div class="tile is-parent">
+    <article class="tile is-child box">
+      <p class="title">Request Id: {{ request.requestId }}</p>
+      <p class="subtitle">Unit id: {{ request.unitId }}</p>
+      <p class="content">{{ request.priority }}</p>
+      <p class="content">{{ request.dateRequested}}</p>
+      <p class="content">{{ request.requestDesc }}</p>
+      <p class="content">{{ request.completed }}</p>
+    </article>
+  </div>
+  
+  </div>
+
+
 </div>
 </div>
   <div class="numberOfAssignments">
-    Employee name: number of assignments
 
 <table class="table">
   <thead>
@@ -56,9 +60,9 @@
     </tr>
   </tbody>
 </table>
-
   </div>
-</div>
+  </div>
+
 </template>
 
 <script>
@@ -88,6 +92,32 @@ export default {
        assignedUserId: '',
        completed: ''
      },
+     columns: [
+       {
+         field: "requestId",
+         label: "Request Id: "
+       },
+       {
+         field: "unitId",
+         label: "Unit id: "
+       },
+       {
+         field: "priority",
+         label: "Priority level: "
+       },
+       {
+         field: "dateRequested",
+         label: "date requested"
+       },
+       {
+         field: "requestDesc",
+         label: "description"
+       },
+       {
+         field: "completed",
+         label: "status"
+       }
+     ],
       assignmentErrors: true,
     };
   },
