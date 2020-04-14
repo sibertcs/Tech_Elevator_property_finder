@@ -1,6 +1,7 @@
 package com.techelevator.model;
 
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +44,56 @@ public class JdbcRentDao implements RentDao{
         String sqlFindRentCycle = "SELECT rent_cycle_id FROM rent_cycle " +
                                   "WHERE lease_id = ? AND start_date < ? AND due_date >= ?;";
         int rentCycleId = jdbcTemplate.queryForObject(sqlFindRentCycle, Integer.class, payment.getLeaseId(), LocalDate.now(), LocalDate.now());
+        RentCycle rc = getRentCycleById(rentCycleId);
+
         payment.setRentCycleId(rentCycleId);                          
         String sqlCreatePayment = "INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) "
-                                + "VALUES(?, ?, ?);";
+                                + "VALUES(?, ?, ?);";                      
         jdbcTemplate.update(sqlCreatePayment, payment.getRentCycleId(), payment.getAmountPaid(), LocalDate.now());
+
+        //Overdue Balance Check
+        BigDecimal overdueBalance = getOverdueBalanceForLease(payment.getLeaseId());
+        BigDecimal rcBalance = rc.getBalance();
+        BigDecimal zero = new BigDecimal("0");
+
+        if (overdueBalance.compareTo(zero) == 1) {
+            //balance is positive, they owe money
+            overdueBalance = overdueBalance.subtract(payment.getAmountPaid());
+            if(overdueBalance.compareTo(zero) == -1) {
+                //they overpaid and have money to put towards rent
+                payment.setAmountPaid(overdueBalance.abs());
+                overdueBalance = zero;
+            } else {
+                //they underpaid or paid overdue balance exactly
+                payment.setAmountPaid(zero);
+            }
+        } else if(overdueBalance.compareTo(zero) == -1) {
+            //balance is negative, they have a credit
+            payment.setAmountPaid(payment.getAmountPaid().add(overdueBalance.abs()));
+            overdueBalance = zero;
+        }
+        //Rent Cycle Balance Check
+        if (rc.getBalance().compareTo(zero) == 1) {
+             //balance is positive, they owe money  
+            rcBalance = rc.getBalance().subtract(payment.getAmountPaid());
+            if(rcBalance.compareTo(zero) == -1) {
+                //they overpaid and have money to put towards credit
+                payment.setAmountPaid(rcBalance.abs());
+                rcBalance = zero;
+            } else {
+                //they underpaid or paid rent balance exactly
+                payment.setAmountPaid(zero);
+            }
+        } 
+        if (payment.getAmountPaid().compareTo(zero) == 1) {
+            overdueBalance = overdueBalance.subtract(payment.getAmountPaid());
+        }
+        
+        String sqlUpdateOverdueBalance = "UPDATE lease SET overdue_balance = ? WHERE lease_id = ?";
+        jdbcTemplate.update(sqlUpdateOverdueBalance, overdueBalance, payment.getLeaseId());
+
+        String sqlUpdateRentCycleBalance = "UPDATE rent_cycle SET balance = ? WHERE rent_cycle_id =?";
+        jdbcTemplate.update(sqlUpdateRentCycleBalance, rcBalance, rentCycleId);
     }
 
     @Override //passed test sql is good
@@ -140,6 +187,20 @@ public class JdbcRentDao implements RentDao{
             rentCycle = mapRowToRentCycle(results);
         }
         return rentCycle;
+    }
+    @Override
+    public BigDecimal getOverdueBalanceForLease(int leaseId) {
+        String sql = "SELECT overdue_balance "
+                    +"FROM lease "
+                    +"WHERE lease_id = ?;";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, leaseId);
+        
+        BigDecimal overdueBalance = null;
+
+        if (result.next()) {
+            overdueBalance = result.getBigDecimal("overdue_balance");
+        }
+        return overdueBalance;
     }
 
    private Payment mapRowToPayment(SqlRowSet row){

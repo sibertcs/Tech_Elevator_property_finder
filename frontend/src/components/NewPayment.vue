@@ -27,7 +27,7 @@ import auth from '../auth';
 
 export default {
     props: {
-        currentLeaseId: Number
+        currentLeaseId: Number,
     },
     data() {
         return {

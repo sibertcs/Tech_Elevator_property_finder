@@ -1,5 +1,6 @@
 package com.techelevator.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface RentDao {
@@ -12,6 +13,7 @@ public interface RentDao {
     public List<Payment> getAllPaymentsByLeaseId(int leaseId);
     public List<RentCycle> getAllRentCyclesByLeaseId(int leaseId);
     public RentCycle getCurrentRentByLeaseId(int leaseId);
+    public BigDecimal getOverdueBalanceForLease(int leaseId);
     public List<Payment> getPaymentsByRentCycleId(int rentCycleId);
     public RentCycle getRentCycleById(int rentCycleId);
 }
