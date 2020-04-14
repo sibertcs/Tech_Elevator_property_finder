@@ -2,35 +2,25 @@
   <div>
     <h1>Renters And Status</h1>
     <div>
-      <label for="propertyName">Property: </label>
-    <select id="propertyName" v-model="selectedPropertyName">
-      <option value="" disabled selected>Select a Property</option>
-            <option v-for="propName in getUniquePropNames()" 
-                            :key="propName" 
-                            :value="propName">
-                        {{propName}}
-                    </option>
-    </select>
-      <table>
-        <tr></tr>
-          <td>
-            
-          </td>
-      </table>
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Unit</th>
-          <th>Rent Status</th>
-          <th>Overdue Balance</th>
-        </tr>
+      <label for="propertyName">Property:</label>
+      <select id="propertyName" v-model="selectedPropertyName">
+        <option value disabled selected>Select a Property</option>
+        <option
+          v-for="propName in getUniquePropNames()"
+          :key="propName"
+          :value="propName"
+        >{{propName}}</option>
+      </select>
+      <b-table :data="leases" :columns="columns">
+      </b-table>
+      <!-- <table>
         <tr v-for="lease in getLeasesByProperty()" :key="lease.leaseId">
-        <td>{{lease.renterName}}</td>
-        <td>{{lease.unitNumber}}</td>
-        <td>{{lease.currentRentStatus}}</td>
-        <td>{{lease.overdueBalance}}</td>
-      </tr>
-      </table>
+          <td>{{lease.renterName}}</td>
+          <td>{{lease.unitNumber}}</td>
+          <td>{{lease.currentRentStatus}}</td>
+          <td>{{lease.overdueBalance}}</td>
+        </tr>
+      </table> -->
     </div>
   </div>
 </template>
@@ -53,9 +43,33 @@ data () {
             leases: [],
             selectedLeases: [],
             selectedPropertyName: '',
-}
-},
- methods: {
+            columns: [
+              {
+                field: "renterName",
+                label: "Name",
+              },
+              {
+                field: "unitNumber",
+                label: "Unit"
+              },
+              {
+                field: "currentRentStatus",
+                label: "Rent Status"
+              },
+              {
+                field: "overdueBalance",
+                label: "Balance"
+              },
+              {
+                field: "propertyName",
+                label: "Property",
+                searchable: true
+              }
+
+
+            ]
+          }},
+    methods: {
         getLeasesForLandlord() {
             fetch('http://localhost:8080/api/leases/landlord/' + this.user.id, {
               method: 'GET',
@@ -71,7 +85,7 @@ data () {
             }).then(responseData => {
               this.leases = responseData;
             });
-        },
+                                },
         getUniquePropNames() {
           let uniqueNames = [];
           this.leases.forEach(lease => {
@@ -80,19 +94,20 @@ data () {
             }
           });
           return uniqueNames;
-        },
+                            },
         getLeasesByProperty() {
           return this.leases.filter(lease => {
             return lease.propertyName === this.selectedPropertyName; 
           })
-        }
- },
+                             }
+            },
    created() {
         this.getLeasesForLandlord(this.user.sub);
-    }
- }
+             }
+        }
+
+
 </script>
 
 <style>
-
 </style>
