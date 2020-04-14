@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Renters And Status</h1>
-    <div>
+    <!-- <div>
       <label for="propertyName">Property:</label>
       <select id="propertyName" v-model="selectedPropertyName">
         <option value disabled selected>Select a Property</option>
@@ -10,7 +10,7 @@
           :key="propName"
           :value="propName"
         >{{propName}}</option>
-      </select>
+      </select> -->
       <b-table :data="leases" :columns="columns">
       </b-table>
       <!-- <table>
@@ -22,7 +22,6 @@
         </tr>
       </table> -->
     </div>
-  </div>
 </template>
 
 <script>
@@ -47,18 +46,22 @@ data () {
               {
                 field: "renterName",
                 label: "Name",
+                searchable: true
               },
               {
                 field: "unitNumber",
-                label: "Unit"
+                label: "Unit",
+                searchable: true
               },
               {
                 field: "currentRentStatus",
-                label: "Rent Status"
+                label: "Rent Status",
+                searchable: true
               },
               {
                 field: "overdueBalance",
-                label: "Balance"
+                label: "Balance",
+                searchable: true
               },
               {
                 field: "propertyName",

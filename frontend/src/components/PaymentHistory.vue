@@ -10,14 +10,16 @@
             </a>
         </div>
         <div class="payments">
-            <table>
+            <b-table :data="allPayments" :columns="column">
+            </b-table>
+             <!-- <table>
                 <th>Date Paid</th>
                 <th>Amount</th>
                 <tr v-for="payment in allPayments" :key="payment.id" :value="payment.id">
                     <td>{{payment.datePaid}}</td>
                     <td>{{payment.amountPaid}}</td>
-                </tr>
-            </table>
+                </tr> 
+            </table> -->
         </div>
     </div>
 </template>
@@ -31,7 +33,17 @@ export default {
     },
     data() {
         return {
-            allPayments: []
+            allPayments: [],
+            column: [
+                {
+                    field: "datePaid",
+                    label: "Date Of Payment"
+                },
+                {
+                    field: "amountPaid",
+                    label: "Amount Paid"
+                }
+            ]
         }
     },
     methods: {

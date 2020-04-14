@@ -271,13 +271,13 @@ INSERT INTO property_feature (property_id, feature_id) VALUES (5, 19);
 -- INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (3, '2020-04-01', 1429, '2020-04-30', 'Unpaid');
 -- INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (4, '2020-04-01', 2145, '2020-04-30', 'Unpaid');
 
--- INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (1, 525, '2019-10-31 12:00:00');
--- INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (2, 525, '2019-11-30 12:00:00');
--- INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (3, 525, '2019-12-31 12:00:00');
--- INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (4, 475, '2020-01-31 12:00:00');
--- INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (5, 475, '2020-02-29 12:00:00');
--- INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (6, 1429, '2020-02-29 12:00:00');
--- INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (9, 1429, '2020-03-31 12:00:00');
+INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (1, 525, '2019-10-31 12:00:00');
+INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (2, 525, '2019-11-30 12:00:00');
+INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (3, 525, '2019-12-31 12:00:00');
+INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (4, 475, '2020-01-31 12:00:00');
+INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (5, 475, '2020-02-29 12:00:00');
+INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (6, 1429, '2020-02-29 12:00:00');
+INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (9, 1429, '2020-03-31 12:00:00');
 
 
 COMMIT TRANSACTION;

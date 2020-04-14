@@ -10,7 +10,10 @@
             </a>
         </div>
         <div class="cycles">
-            <table>
+           <b-table :data="allRentCycles" :columns="columns">
+           </b-table>
+           
+            <!-- <table>
                 <th>Start Date</th>
                 <th>Due Date</th>
                 <th>Balance</th>
@@ -21,7 +24,7 @@
                     <td>{{cycle.balance}}</td>
                     <td>{{cycle.rentStatus}}</td>
                 </tr>
-            </table>
+            </table> -->
         </div>
     </div>
 </template>
@@ -35,7 +38,25 @@ export default {
     },
     data() {
         return {
-            allRentCycles: []
+            allRentCycles: [],
+            columns: [
+                {
+                    field: "startDate",
+                    label: "Start Date"
+                },
+                {
+                    field: "dueDate",
+                    label: "Due Date"
+                },
+                {
+                    field: "balance",
+                    label: "Balance"
+                },
+                {
+                    field: "rentStatus",
+                    label: "Rent Status"
+                }
+            ]
         }
     },
     methods: {
