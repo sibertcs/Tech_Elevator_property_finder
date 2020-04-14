@@ -5,8 +5,8 @@
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         There were problems registering this user.
       </div>
-      <label for="email" class="sr-only">Email</label>
-      <input
+      <b-field label="Email">
+      <b-input
         type="email"
         id="email"
         class="form-control"
@@ -15,8 +15,9 @@
         required
         autofocus
       />
-      <label for="firstName" class="sr-only">First Name</label>
-      <input
+      </b-field>
+            <b-field label="First Name">
+      <b-input
         type="text"
         id="firstName"
         class="form-control"
@@ -24,8 +25,9 @@
         v-model="user.firstName"
         required
       />
-      <label for="lastName" class="sr-only">Last Name</label>
-      <input
+            </b-field>
+      <b-field label="Last Name">
+      <b-input
         type="text"
         id="lastName"
         class="form-control"
@@ -33,8 +35,9 @@
         v-model="user.lastName"
         required
       />
-      <label for="phoneNumber" class="sr-only">Phone #</label>
-      <input
+      </b-field>
+      <b-field label="Phone #">
+      <b-input
         type="text"
         id="phoneNumber"
         class="form-control"
@@ -42,8 +45,9 @@
         v-model="user.phoneNumber"
         required
       />
-      <label for="password" class="sr-only">Password</label>
-      <input
+      </b-field>
+      <b-field label="Password">
+      <b-input
         type="password"
         id="password"
         class="form-control"
@@ -51,7 +55,8 @@
         v-model="user.password"
         required
       />
-      <input
+      </b-field>
+      <b-input
         type="password"
         id="confirmPassword"
         class="form-control"
@@ -59,15 +64,21 @@
         v-model="user.confirmPassword"
         required
       />
-      <input type="radio" v-model="user.role" value="renter">Renter
-      <input type="radio" v-model="user.role" value="maintenance">Maintenance
-      <input type="radio" v-model="user.role" value="landlord">Landlord
-      <router-link :to="{ name: 'login' }">
+      <b-field label="Role">
+             </b-field>
+      <b-radio v-model="user.role" native-value="renter">Renter</b-radio>
+      <b-radio v-model="user.role" native-value="maintenance">Maintenance</b-radio>
+      <b-radio v-model="user.role" native-value="landlord">Landlord </b-radio>
+    
+     
+      <b-button type="is-primary"
+      native-type="submit">
+        Create Account
+      </b-button>
+      <br>
+       <router-link :to="{ name: 'login' }">
         Have an account?
       </router-link>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Create Account
-      </button>
     </form>
   </div>
 </template>
@@ -120,5 +131,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+button {
+  margin-left: 10px;
+}
 </style>

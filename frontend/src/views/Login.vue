@@ -8,8 +8,9 @@
       <div class="alert alert-success" role="alert" v-if="this.$route.query.registration">
         Thank you for registering, please sign in.
       </div>
-      <label for="email" class="sr-only">Email</label>
-      <input
+      
+      <b-field label="Email">
+      <b-input
         type="text"
         id="email"
         class="form-control"
@@ -17,9 +18,9 @@
         v-model="user.email"
         required
         autofocus
-      />
-      <label for="password" class="sr-only">Password</label>
-      <input
+      /></b-field>
+      <b-field label="Password">
+      <b-input
         type="password"
         id="password"
         class="form-control"
@@ -27,8 +28,10 @@
         v-model="user.password"
         required
       />
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
-      <button type="submit">Sign in</button>
+      </b-field>
+      <router-link :to="{ name: 'register' }">Need an account? </router-link>
+      <b-button type="is-primary"
+      native-type="submit">Sign in</b-button>
     </form>
     <br>
     <browse-properties/>
@@ -86,6 +89,8 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
+button {
+  margin-left: 10px;
+}
 </style>
