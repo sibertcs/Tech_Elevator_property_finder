@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container is-fluid">
     <h2>Lease(s)</h2>
     <ul>
       <li v-for="lease in leasesForUser" :key="lease.leaseId">

@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home container is-fluid">
     <h1>Home</h1> 
   <!--   <nav>
       <div v-if="user.rol=== 'renter' || user.rol==='admin'">
@@ -24,9 +24,6 @@
       </div> 
       <router-link v-if="user.rol=== 'renter'" :to="{name:'request'}">Maintenance Request</router-link> 
     </nav> -->
-    <p>You are logged in as {{user.sub}} as a {{user.rol}} and has the id of {{user.id}}.</p>
-    <button @click="logout">logout</button>
-    <br>
     <browse-properties/>
   </div>
 </template>
@@ -47,10 +44,6 @@ export default {
     }
   },
   methods: {
-    logout() {
-      this.$emit('user-logout')
-      this.$router.push('/login');
-    },
     allProps() {
       return fetch('http://localhost:8080/api/properties')
         .then((response) => {

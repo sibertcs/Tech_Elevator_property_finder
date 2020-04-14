@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="container is-fluid">
     <div id="nav">
       <b-navbar>
         <template slot="brand">
@@ -57,13 +57,16 @@
         <template slot="end">
           <b-navbar-item tag="div">
             <div class="buttons">
-              <router-link to="/register">
+              <router-link v-if="!loggedIn" to="/register">
                 <a class="button is-primary">
                   <strong>Sign up</strong>
                 </a>
               </router-link>
-              <router-link to="/login">
+              <router-link v-if="!loggedIn" to="/login">
                 <a class="button is-light">Log in</a>
+              </router-link>
+              <router-link v-if="loggedIn" to="/login">
+                <a @click="logout" class="button is-primary">Log Out</a>
               </router-link>
             </div>
           </b-navbar-item>
