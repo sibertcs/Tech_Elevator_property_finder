@@ -1,19 +1,34 @@
 <template>
-  <div>
+  <div class="container is-fluid">
       <h1>This is the maintenance request page</h1>
      
     <form>
       <p>Unit: {{userUnitNumber}}</p> 
-      <label for="details">Details</label>
-      <textarea id="details"  rows="3" v-model="maintenanceRequest.requestDesc"></textarea>
-      <br>
-      <label for="priority">Priority Level</label>
-      <select id="priority" v-model="maintenanceRequest.priority">
-        <option value="1">Low</option>
-        <option value="2">Medium</option>
-        <option value="3">High</option>
-      </select>
-      <button type="submit" v-bind:disabled="!isValidForm" v-on:click="createRequest">Submit Request</button>
+      
+      <b-field label="Details">
+      <b-input  type="textarea" v-model="maintenanceRequest.requestDesc"></b-input>
+      </b-field>
+       <div class="block">
+         <b-field label="Priority Level">
+                    </b-field>
+            <b-radio v-model="maintenanceRequest.priority"
+                name="name"
+                native-value="3">
+                Low
+            </b-radio>
+            <b-radio v-model="maintenanceRequest.priority"
+                name="name"
+                native-value="2">
+                Medium
+            </b-radio>
+            <b-radio v-model="maintenanceRequest.priority"
+                name="name"
+                native-value="1">
+                High
+            </b-radio>
+       
+        </div>
+      <b-button type="is-primary" v-bind:disabled="!isValidForm" v-on:click="createRequest">Submit Request</b-button>
     </form>
   </div>
 </template>
