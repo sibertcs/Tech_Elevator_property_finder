@@ -89,7 +89,7 @@ export default {
   data() {
     return {
       user: auth.getUser(),
-      loggedIn: false
+      loggedIn: auth.getUser() != null
     };
   },
   methods: {
@@ -115,6 +115,6 @@ export default {
 }
 navbar{
 
-  .fixed-top: true;
+  fixed-top: true;
 }
 </style>
