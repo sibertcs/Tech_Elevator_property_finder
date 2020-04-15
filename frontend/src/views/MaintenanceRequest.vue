@@ -1,7 +1,7 @@
 <template>
   <div class="container is-fluid">
-      <h1>If you have a maintenance request, please fill out the form below.  </h1>
-     <br>
+      <h1 class="title">Maintenance Request</h1>
+     
     <form>
       <p><strong>Unit</strong> </p> 
       <p>{{userUnitNumber}}</p>
