@@ -12,11 +12,15 @@
             </div>
         </div>
         <div class="form">
-            <div class="form-input">
+            <b-field label="Payment">
+            <b-input placeholder="Enter the amount to be paid in U.S. dollars. I.E. 375" type="number" id="paymentAmount" min="1" step="0.01"
+                       data-number-to-fixed="2" v-model.number="payment.amountPaid" rounded size="is-large"></b-input>
+        </b-field>
+            <!-- <div class="form-input">
                 <label for="paymentAmount">Amount:</label>
                 <input type="number" id="paymentAmount" min="1" step="0.01"
                        data-number-to-fixed="2" v-model.number="payment.amountPaid" />
-            </div>
+            </div> -->
             <button :disabled="payment.amountPaid < 1" @click="createNewPayment">Submit Payment</button>
         </div>
     </div>
