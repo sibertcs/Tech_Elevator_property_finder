@@ -1,6 +1,5 @@
 <template>
 <div>
-  <div>Hello {{ user.sub }}</div>
   <h1>This is all the Uncompleted Maintenance Requests</h1>
   <div class="tile is-ancestor">
 <div class="tile is-4 is-vertical" v-for="request in assignedUncompletedRequests" :key="request.RequestId">

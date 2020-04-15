@@ -1,8 +1,6 @@
 <template>
 <div>
 
-  <div>Hello {{ user.sub }}</div>
-
       <div class="tile is-ancestor">
         
   <div class="tile is-4 is-vertical" v-for="request in assignedUncompletedRequests" :key="request.requestId">
@@ -12,10 +10,9 @@
       <p class="title">Request Id: {{ request.requestId }}</p>
       <p class="subtitle">Unit id: {{ request.unitId }}</p>
       <div class="content">
-      <p>{{ request.priority }}</p>
+      <p>priority level: {{ request.priority }}</p>
       <p>{{ request.dateRequested}}</p>
       <p>{{ request.requestDesc }}</p>
-      <p>{{ request.completed }}</p>
       <form>
       <p>
         <label>Assign Maintenance Employee: </label>

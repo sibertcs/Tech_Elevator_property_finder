@@ -69,6 +69,7 @@
               <router-link v-if="!loggedIn" to="/login">
                 <a class="button is-light">Log in</a>
               </router-link>
+              <div v-if="loggedIn" to="/login">Hello {{ user.fnm }} </div>
               <router-link v-if="loggedIn" to="/login">
                 <a @click="logout" class="button is-primary">Log Out</a>
               </router-link>
