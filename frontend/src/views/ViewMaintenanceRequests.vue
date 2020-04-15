@@ -10,24 +10,24 @@
     <p class="title"> request Id: {{ request.requestId}}</p>
     <p class="subtitle">Unit id: {{ request.unitId }}</p>
     <div class="content">
-    <p class=""> priority level:{{ request.priority }}</p>
-    <p class="">{{ request.dateRequested}}</p>
-    <p class="">{{ request.requestDesc }}</p>
-    <p class="">{{ request.isCompleted }}</p>
+    <p> priority level:{{ request.priority }}</p>
+    <p>{{ request.dateRequested}}</p>
+    <p>{{ request.requestDesc }}</p>
+    <p>{{ request.completed }}</p>
   
 <form>
       <label for="priority"> Change Priority Level </label>
-      <select id="priority" v-model="currentRequest.priority">
+      <select id="priority" v-model="request.priority">
         <option value="1">Low</option>
         <option value="2">Medium</option>
         <option value="3">High</option>
       </select>
   <label> Change Status </label>
-     <select v-model="currentRequest.isCompleted">
+     <select v-model="request.completed">
         <option value="true">Completed</option>
         <option value="false">Incomplete</option>
          </select>
-      <button type="button" @click="editRequestStatus">Submit</button>
+      <button type="button" @click="editRequestStatus(request)">Submit</button>
       </form>
       </div>
       </article>
@@ -57,7 +57,7 @@ export default {
        priority: '',
        dateRequested: '',
        assignedUserId: '',
-       isCompleted: ''
+       completed: ''
      }
     }
   },
@@ -92,28 +92,26 @@ getCurrentRequest(){
        this.currentRequest.priority = maintenanceRequest.priority;
       this.currentRequest.dateRequested = maintenanceRequest.dateRequested;
        this.currentRequest.assignedUserId = maintenanceRequest.assignedUserId;
-       this.currentRequest.isCompleted = maintenanceRequest.isCompleted;
+       this.currentRequest.completed = maintenanceRequest.completed;
 
      }
    });
  },
- editRequestStatus(){
-   console.log(JSON.stringify(this.currentRequest));
-   fetch('http://localhost:8080/api//Landlord/assignMaintenance', {
+ editRequestStatus(request){
+   request.completed = request.completed === "true";
+   fetch('http://localhost:8080/api/maintenance/requests', {
      method: 'PUT',
      headers: {
        Authorization: 'Bearer' + auth.getToken(),
        'Content-Type': 'application/json'
      },
      credentials: 'same-origin',
-     body: JSON.stringify(this.currentRequest)
-   }).then(response => {
-     if(response.ok){
-       this.resetCompleteValue();
-     }
-   }).then(this.viewAllRequests())
-   .catch(err => console.error(err));
- },
+     body: JSON.stringify(request)
+   })
+   .then(() => {
+       console.log('Updated');
+     })
+   },
  resetCompleteValue(){
   this.currentRequest.requestId = ''
      this.currentRequest.unitId = '';
@@ -122,7 +120,7 @@ getCurrentRequest(){
        this.currentRequest.priority = '';
        this.currentRequest.dateRequested = '';
        this.currentRequest.assignedUserId = '';
-       this.currentRequest.isCompleted = true;
+       this.currentRequest.completed = true;
 
        this.viewAllRequests();
    },
