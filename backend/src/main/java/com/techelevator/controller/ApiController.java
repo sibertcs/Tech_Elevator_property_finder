@@ -257,7 +257,7 @@ public class ApiController {
     //works in postman
     @GetMapping("/Landlord/assignMaintenance")
     public List<MaintenanceRequest> getAllRequests(){
-        return maintReqDao.getAllRequests();
+        return maintReqDao.getAllUncompletedRequests();
     }
 
     @GetMapping("/maintenance/completed/{employeeId}")

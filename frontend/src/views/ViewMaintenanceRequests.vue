@@ -35,6 +35,8 @@
   </div>
 </div>
   </div>  
+    <b-table :data="assignedCompletedRequests" :columns="columns">
+    </b-table>  
 </div>
 </template>
 
@@ -50,16 +52,24 @@ export default {
     return {
       assignedUncompletedRequests: [],
       assignedCompletedRequests: [],
-       currentRequest: {
-       requestId: '',
-       unitId: '',
-       requestUserId: '',
-       requestDesc: '',
-       priority: '',
-       dateRequested: '',
-       assignedUserId: '',
-       completed: ''
-     }
+      columns: [
+        {
+          field: "requestId",
+          label: "request id"
+        },
+        {
+          field: "unitId",
+          label: "unit id"
+        },
+        {
+          field: "priority",
+          label: "priority"
+        },
+        {
+          field: "dateRequested",
+          label: "date requested"
+        }
+      ]
     }
   },
 
@@ -114,6 +124,8 @@ methods: {
    })
    .then(() => {
        console.log('Updated');
+       this.viewAllCompletedRequests();
+       this.viewAllUncompletedRequests();
      })
    }
    },
