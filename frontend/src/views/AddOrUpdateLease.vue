@@ -3,145 +3,150 @@
         <div class="content">
             <p>You are logged in as {{user.sub}} as a {{user.rol}} and has the id of {{user.id}}.</p>
             <h1 class="title"> Lease Management Console</h1>
+            
+            <section class="form">
+                <h2 class="subtitle">Options:</h2>
+                <form>
+                    <div>
+                        <b-field>
+                            <b-radio name="addOrUpdate"
+                                checked
+                                v-model="newLease"
+                                :native-value="true"
+                                @input="resetLeaseValues">
+                                Add New Lease
+                            </b-radio>
+                            <b-radio name="addOrUpdate"
+                                v-model="newLease"
+                                :native-value="false"
+                                @input="resetLeaseValues">
+                                Update Existing Lease
+                            </b-radio>
+                        </b-field>
+                    </div>
+                    <br/>
 
-            <h2 class="subtitle">All Existing Leases:</h2>
-            <b-table
-                :data="leasesForLandlord"
-                :columns="columns">
-            </b-table>
+                    <!-- Prompt for Lease when 'Updating Existing Lease' chosen above -->
+                    <div v-show="!newLease">
+                        <b-field grouped>
+                            <b-field label="Lease ID">
+                                <b-select v-model="currentLease.leaseId" @input="getCurrentLease" placeholder="Select a Lease">
+                                    <option v-for="lease in leasesForLandlord" :key="lease.leaseId" :value="lease.leaseId">
+                                        {{ `${lease.leaseId}: ${lease.propertyName} - ${lease.unitNumber} (${lease.status })` }}
+                                    </option>
+                                </b-select>
+                            </b-field>
+                            <b-field v-show="currentLease.leaseId != ''" label="Lease Status">
+                                <b-select v-model="currentLease.status" placeholder="Select a name">
+                                    <option>Active</option>
+                                    <option>Expired</option>
+                                    <option>Terminated</option>
+                                </b-select>
+                            </b-field>
+                        </b-field>
+                    </div>
 
-            <h2 class="subtitle">Options:</h2>
-            <form>
-                <div>
-                    <b-field>
-                        <b-radio name="addOrUpdate"
-                            checked
-                            v-model="newLease"
-                            :native-value="true"
-                            @input="resetLeaseValues">
-                            Add New Lease
-                        </b-radio>
-                        <b-radio name="addOrUpdate"
-                            v-model="newLease"
-                            :native-value="false"
-                            @input="resetLeaseValues">
-                            Update Existing Lease
-                        </b-radio>
-                    </b-field>
-                </div>
-                <br/>
+                    <!-- Prompt for Property and Unit for new leases only -->
+                    <div v-show="newLease">
+                        <b-field grouped>
+                            <b-field label="Property">
+                                <b-select v-model="selectedPropertyId" placeholder="Select a Property">
+                                <!-- shows only the properties for current Landlord user -->
+                                    <option v-for="prop in propertiesForLandlord" 
+                                            :key="prop.propertyId" 
+                                            :value="prop.propertyId">
+                                        {{ prop.propertyName }}
+                                    </option>
+                                </b-select>
+                            </b-field>
 
-                <!-- Prompt for Lease when 'Updating Existing Lease' chosen above -->
-                <div v-show="!newLease">
-                    <b-field grouped>
-                        <b-field label="Lease ID">
-                            <b-select v-model="currentLease.leaseId" @input="getCurrentLease" placeholder="Select a Lease">
-                                <option v-for="lease in leasesForLandlord" :key="lease.leaseId" :value="lease.leaseId">
-                                    {{ `${lease.leaseId}: ${lease.propertyName} - ${lease.unitNumber} (${lease.status })` }}
+                            <b-field label="Unit">
+                                <b-select v-model="currentLease.unitId" placeholder="Select a Unit Number">
+                                <!-- shows only the Units for the Property selected above -->
+                                    <option v-for="unit in getUnitsForSelectedProperty" 
+                                            :key="unit.unitId" 
+                                            :value="unit.unitId">
+                                        {{ unit.unitNumber }}
+                                    </option>
+                                </b-select>
+                            </b-field>
+                        </b-field>
+                    </div>
+
+                    <!-- Show remaining fields for new leases, or when an existing lease has been selected -->
+                    <div v-show="currentLease.unitId !== ''">
+
+                        <b-field label="Renter Name">
+                            <b-select v-model="currentLease.userId" placeholder="Select a Renter" icon="account">
+                            <!-- shows all Renter users -->
+                                <option v-for="renter in allRenters"
+                                        :key="renter.id"
+                                        :value="renter.id">
+                                    {{ `${renter.lastName}, ${renter.firstName} (${renter.email})` }}
                                 </option>
                             </b-select>
                         </b-field>
-                        <b-field v-show="currentLease.leaseId != ''" label="Lease Status">
-                            <b-select v-model="currentLease.status" placeholder="Select a name">
-                                <option>Active</option>
-                                <option>Expired</option>
-                                <option>Terminated</option>
-                            </b-select>
-                        </b-field>
-                    </b-field>
-                </div>
-
-                <!-- Prompt for Property and Unit for new leases only -->
-                <div v-show="newLease">
-                    <b-field grouped>
-                        <b-field label="Property">
-                            <b-select v-model="selectedPropertyId" placeholder="Select a Property">
-                            <!-- shows only the properties for current Landlord user -->
-                                <option v-for="prop in propertiesForLandlord" 
-                                        :key="prop.propertyId" 
-                                        :value="prop.propertyId">
-                                    {{ prop.propertyName }}
-                                </option>
-                            </b-select>
+                        
+                        <b-field grouped>
+                            <b-field label="Signed Date">
+                                <b-datepicker
+                                    v-model="currentLease.signedDate"
+                                    placeholder="Type or select a date..."
+                                    icon="calendar-today"
+                                    editable
+                                    >
+                                </b-datepicker>
+                            </b-field>
+                            <b-field label="Start Date">
+                                <b-datepicker
+                                    v-model="currentLease.startDate"
+                                    placeholder="Type or select a date..."
+                                    icon="calendar-today"
+                                    editable
+                                    >
+                                </b-datepicker>
+                            </b-field>
                         </b-field>
 
-                        <b-field label="Unit">
-                            <b-select v-model="currentLease.unitId" placeholder="Select a Unit Number">
-                            <!-- shows only the Units for the Property selected above -->
-                                <option v-for="unit in getUnitsForSelectedProperty" 
-                                        :key="unit.unitId" 
-                                        :value="unit.unitId">
-                                    {{ unit.unitNumber }}
-                                </option>
-                            </b-select>
-                        </b-field>
-                    </b-field>
-                </div>
+                        <b-field grouped>
 
-                <!-- Show remaining fields for new leases, or when an existing lease has been selected -->
-                <div v-show="currentLease.unitId !== ''">
+                        <!-- Landlord can specify any positive integer value -->
+                            <b-field label="Lease Term (Months)">
+                                <b-numberinput min="1" max="99999" v-model="currentLease.rentLength" controls-position="compact">
+                                </b-numberinput>
+                            </b-field>
 
-                    <b-field label="Renter Name">
-                        <b-select v-model="currentLease.userId" placeholder="Select a Renter" icon="account">
-                        <!-- shows all Renter users -->
-                            <option v-for="renter in allRenters"
-                                    :key="renter.id"
-                                    :value="renter.id">
-                                {{ `${renter.lastName}, ${renter.firstName} (${renter.email})` }}
-                            </option>
-                        </b-select>
-                    </b-field>
-                    
-                    <b-field grouped>
-                        <b-field label="Signed Date">
-                            <b-datepicker
-                                v-model="currentLease.signedDate"
-                                placeholder="Type or select a date..."
-                                icon="calendar-today"
-                                editable
-                                >
-                            </b-datepicker>
-                        </b-field>
-                        <b-field label="Start Date">
-                            <b-datepicker
-                                v-model="currentLease.startDate"
-                                placeholder="Type or select a date..."
-                                icon="calendar-today"
-                                editable
-                                >
-                            </b-datepicker>
-                        </b-field>
-                    </b-field>
+                            <!-- Landlord can specify any positive dollar value -->
+                            <b-field label="Rent Amount">
+                                <b-numberinput min="0" max="99999" v-model="currentLease.rentAmount" controls-position="compact">
+                                </b-numberinput>
+                            </b-field>
 
-                    <b-field grouped>
-
-                    <!-- Landlord can specify any positive integer value -->
-                        <b-field label="Lease Term (Months)">
-                            <b-numberinput min="1" max="99999" v-model="currentLease.rentLength" controls-position="compact">
-                            </b-numberinput>
+                            <!-- Landlord can specify any positive value between 1-100 -->
+                            <b-field label="Late Fee %">
+                                <b-numberinput min="0" max="100" v-model="currentLease.lateFee" controls-position="compact">
+                                </b-numberinput>
+                            </b-field>
                         </b-field>
 
-                        <!-- Landlord can specify any positive dollar value -->
-                        <b-field label="Rent Amount">
-                            <b-numberinput min="0" max="99999" v-model="currentLease.rentAmount" controls-position="compact">
-                            </b-numberinput>
+                    </div>
+                    <div >
+                        <b-field v-show="isValidForm">
+                            <b-button type="is-primary" v-show="newLease"  @click.prevent="createLease">Submit New Lease</b-button>
+                            <b-button type="is-primary" v-show="!newLease" @click.prevent="updateLease">Submit Updates</b-button>
                         </b-field>
+                    </div>
+                </form>
+            </section>
+            <br/>
+            <section class="existing-leases">
+                <h2 class="subtitle">All Existing Leases:</h2>
+                <b-table
+                    :data="leasesForLandlord"
+                    :columns="columns">
+                </b-table>
+            </section>
 
-                        <!-- Landlord can specify any positive value between 1-100 -->
-                        <b-field label="Late Fee %">
-                            <b-numberinput min="0" max="100" v-model="currentLease.lateFee" controls-position="compact">
-                            </b-numberinput>
-                        </b-field>
-                    </b-field>
-
-                </div>
-                <div >
-                    <b-field v-show="isValidForm">
-                        <b-button type="is-primary" v-show="newLease"  @click.prevent="createLease">Submit New Lease</b-button>
-                        <b-button type="is-primary" v-show="!newLease" @click.prevent="updateLease">Submit Updates</b-button>
-                    </b-field>
-                </div>
-            </form>
         </div>
     </div>
 </template>
