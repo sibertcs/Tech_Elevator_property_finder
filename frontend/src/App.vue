@@ -78,7 +78,9 @@
         </template>
       </b-navbar>
     </div>
-    <router-view :user="user" @user-logout="logout" @user-login="login" />
+    <div class="content">
+        <router-view :user="user" @user-logout="logout" @user-login="login" />
+    </div>
   </div>
   
 </template>
@@ -114,6 +116,9 @@ export default {
 }
 .footer {
   background-color: aqua;
+}
+.content {
+    margin: 2%;
 }
 
 </style>
