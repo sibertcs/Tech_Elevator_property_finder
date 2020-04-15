@@ -3,10 +3,11 @@
 
   <div>Hello {{ user.sub }}</div>
 
-      <div class="tile is-8 is-vertical">
+      <div class="tile is-ancestor">
         
-<div v-for="request in allRequests" :key="request.requestId">
-  <div class="tile is-parent">
+  <div class="tile is-4 is-vertical" v-for="request in allRequests" :key="request.requestId">
+    <div class="tile">
+    <div class="tile is-parent">
     <article class="tile is-child box">
       <p class="title">Request Id: {{ request.requestId }}</p>
       <p class="subtitle">Unit id: {{ request.unitId }}</p>
@@ -31,7 +32,7 @@
       </div>
     </article>
   </div>
- 
+  </div>
   </div>
   </div>
    
@@ -171,6 +172,8 @@ export default {
 </script>
 
 <style>
-
+.is-ancestor{
+  flex-wrap: wrap;
+}
 
 </style>

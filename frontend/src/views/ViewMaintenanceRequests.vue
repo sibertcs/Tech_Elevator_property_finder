@@ -2,16 +2,19 @@
 <div>
   <h1>This is all the Maintenance Requests</h1>
   <div>Hello {{ user.sub }}</div>
-  <div class= "maintenace-request">
-<div class="card border-dark mb-3" style="max-width: 18rem;" v-for="request in assignedRequests" :key="request.RequestId">
-  <div class="card-header"> request Id: {{ request.requestId}}</div>
-  <div class="card-body text-dark">
-    <h5 class="card-title">Unit id: {{ request.unitId }}</h5>
-    <p class="card-text"> priority level:{{ request.priority }}</p>
-    <p class="card-text">{{ request.dateRequested}}</p>
-    <p class="card-text">{{ request.requestDesc }}</p>
-    <p class="card-text">{{ request.isCompleted }}</p>
-  </div>
+  <div class="tile is-ancestor">
+<div class="tile is-4 is-vertical" v-for="request in assignedRequests" :key="request.RequestId">
+  <div class="tile">
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+    <p class="title"> request Id: {{ request.requestId}}</p>
+    <p class="subtitle">Unit id: {{ request.unitId }}</p>
+    <div class="content">
+    <p class=""> priority level:{{ request.priority }}</p>
+    <p class="">{{ request.dateRequested}}</p>
+    <p class="">{{ request.requestDesc }}</p>
+    <p class="">{{ request.isCompleted }}</p>
+  
 <form>
       <label for="priority"> Change Priority Level </label>
       <select id="priority" v-model="currentRequest.priority">
@@ -24,9 +27,13 @@
         <option value="true">Completed</option>
         <option value="false">Incomplete</option>
          </select>
-      <button type="submit" @click="editRequestStatus">Submit</button></form>
+      <button type="button" @click="editRequestStatus">Submit</button>
+      </form>
+      </div>
+      </article>
 </div>
-   
+  </div>
+</div>
   </div>  
 </div>
 </template>
@@ -127,8 +134,7 @@ created(){
 </script>
 
 <style>
-.card{
-  border: 1px solid black;
-}
+
+
 
 </style>
