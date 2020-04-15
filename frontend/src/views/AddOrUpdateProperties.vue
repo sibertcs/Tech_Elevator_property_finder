@@ -1,140 +1,151 @@
 <template>
-  <div>
-    <h1>this is where you add or update properties</h1>
-    <p>You are logged in as {{user.sub}} as a {{user.rol}} and has the id of {{user.id}}.</p>
-    <input @click="currentProperty = {
-                    address: '',
-                    name: '',
-                    location: '',
-                    units: []
-                  }" 
-    v-model="newProperty" type="radio" :value="true">Add New Property
-    <input @click="currentProperty = {
-                    address: '',
-                    name: '',
-                    location: '',
-                    units: []
-                  }" 
-    v-model="newProperty" type="radio" :value="false">Update Existing Property
-    <br>
-    <br>
-    <div>
-      <form v-if="newProperty">
-        <div class="property">
-          <b-field label-position="inside" label="Address">
-            <b-input type="text" v-model="currentProperty.streetAddress"></b-input>
-          </b-field>
-          <b-field label-position="inside" label="Name">
-            <b-input type="text" v-model="currentProperty.propertyName"></b-input>
-          </b-field>
-          <b-field label-position="inside" label="Location">
-            <b-select v-model="currentProperty.location">
-              <option>Downtown</option>
-              <option>East Side</option>
-              <option>West Side</option>
-              <option>North Side</option>
-              <option>NKY</option>
-            </b-select>
-          </b-field>
-        </div>
-        <table>
-          <tr>
-            <th>Unit Number</th>
-            <th>Bed Count</th>
-            <th>Bath Count</th>
-            <th>Rent Price</th>
-            <th>SqFt</th>
-            <th></th>
-          </tr>
-          <tr v-for="unit in currentProperty.units" :key="unit.unitId">
-            <td>#{{unit.unitNumber}}</td>
-            <td>{{unit.bedCount}} bed</td>
-            <td>{{unit.bathCount}} bath</td>
-            <td>${{unit.price}}</td>
-            <td>{{unit.sqFt}} sqft</td>
-            <td>
-            <b-button type="is-danger" v-if="unit.available" @click.prevent="removeUnit(unit.unitId)">Delete Unit</b-button>
-            </td>
-          </tr>
-        </table>
-        <b-field class="newUnit">
-          <b-input type="text" placeholder="Unit #" v-model="newUnit.unitNumber"></b-input>
-          <b-input type="text" placeholder="Bed Count" v-model="newUnit.bedCount"></b-input>
-          <b-input type="text" placeholder="Bath Count" v-model="newUnit.bathCount"></b-input>
-          <b-input type="text" placeholder="Rent $" v-model="newUnit.price"></b-input>
-          <b-input type="text" placeholder="SqFt" v-model="newUnit.sqft"></b-input>
-          <b-button type="submit is-success" @click.prevent="addUnit">Add Unit</b-button>
-        </b-field>
-      </form>
-      <form v-if="!newProperty">
-        <label for="property">Select Property</label>
-        <select v-model="updatePropId" @change="selectExistingProp">
-          <option v-for="prop in existingProps" :key="prop.propertyId" :value="prop.propertyId">{{prop.streetAddress}}</option>
-        </select>
-        
-        <div v-if="updatePropId !== ''">
-          <div class="property">
-          <b-field label-position="inside" label="Address">
-            <b-input type="text" v-model="currentProperty.streetAddress"></b-input>
-          </b-field>
-          <b-field label-position="inside" label="Name">
-            <b-input type="text" v-model="currentProperty.propertyName"></b-input>
-          </b-field>
+  <div class="container is-fluid">
+    <div class="content">
+        <p>You are logged in as {{user.sub}} as a {{user.rol}} and has the id of {{user.id}}.</p>
+        <h1 class="title">Property Management Console</h1>
 
-          <b-field label-position="inside" label="Location">
-            <b-select v-model="currentProperty.location">
-              <option>Downtown</option>
-              <option>East Side</option>
-              <option>West Side</option>
-              <option>North Side</option>
-              <option>NKY</option>
-            </b-select>
-          </b-field>
-          </div>
-          <table>
+        <h2 class="subtitle">Options:</h2>
+        <b-field>
+            <b-radio @input="currentProperty = {
+                            address: '',
+                            name: '',
+                            location: '',
+                            units: []
+                        }" 
+            v-model="newProperty" :native-value="true">Add New Property</b-radio>
+            <b-radio @input="currentProperty = {
+                            address: '',
+                            name: '',
+                            location: '',
+                            units: []
+                        }" 
+            v-model="newProperty" :native-value="false">Update Existing Property</b-radio>
+        </b-field>
+        <br>
+        <br>
+        <div>
+        <form v-if="newProperty">
+            <div class="property">
+            <b-field label-position="inside" label="Address">
+                <b-input type="text" v-model="currentProperty.streetAddress"></b-input>
+            </b-field>
+            <b-field label-position="inside" label="Name">
+                <b-input type="text" v-model="currentProperty.propertyName"></b-input>
+            </b-field>
+            <b-field label-position="inside" label="Location">
+                <b-select v-model="currentProperty.location">
+                <option>Downtown</option>
+                <option>East Side</option>
+                <option>West Side</option>
+                <option>North Side</option>
+                <option>NKY</option>
+                </b-select>
+            </b-field>
+                <file-upload />
+            </div>
+            <table>
             <tr>
-              <th>Unit Number</th>
-              <th>Bed Count</th>
-              <th>Bath Count</th>
-              <th>Rent Price</th>
-              <th>SqFt</th>
-              <th></th>
+                <th>Unit Number</th>
+                <th>Bed Count</th>
+                <th>Bath Count</th>
+                <th>Rent Price</th>
+                <th>SqFt</th>
+                <th></th>
             </tr>
             <tr v-for="unit in currentProperty.units" :key="unit.unitId">
-              <td>#{{unit.unitNumber}}</td>
-              <td>{{unit.bedCount}} bed</td>
-              <td>{{unit.bathCount}} bath</td>
-              <td>${{unit.price}}</td>
-              <td>{{unit.sqFt}} sqft</td>
-              <td>
-              <b-button type="is-danger" v-if="unit.available" @click.prevent="removeUnit(unit.unitId)">Delete Unit</b-button>
-              </td>
+                <td>#{{unit.unitNumber}}</td>
+                <td>{{unit.bedCount}} bed</td>
+                <td>{{unit.bathCount}} bath</td>
+                <td>${{unit.price}}</td>
+                <td>{{unit.sqFt}} sqft</td>
+                <td>
+                <b-button type="is-danger" v-if="unit.available" @click.prevent="removeUnit(unit.unitId)">Delete Unit</b-button>
+                </td>
             </tr>
-          </table>
-          <div class="newUnit">
-            <b-field>
-              <b-input type="text" placeholder="Unit #" v-model="newUnit.unitNumber"></b-input>
-              <b-input type="text" placeholder="Bed Count" v-model="newUnit.bedCount"></b-input>
-              <b-input type="text" placeholder="Bath Count" v-model="newUnit.bathCount"></b-input>
-              <b-input type="text" placeholder="Rent $" v-model="newUnit.price"></b-input>
-              <b-input type="text" placeholder="SqFt" v-model="newUnit.sqft"></b-input>
-              <b-button type="submit is-success" @click.prevent="addUnit">Add Unit</b-button>
+            </table>
+            <b-field class="newUnit">
+            <b-input type="text" placeholder="Unit #" v-model="newUnit.unitNumber"></b-input>
+            <b-input type="text" placeholder="Bed Count" v-model="newUnit.bedCount"></b-input>
+            <b-input type="text" placeholder="Bath Count" v-model="newUnit.bathCount"></b-input>
+            <b-input type="text" placeholder="Rent $" v-model="newUnit.price"></b-input>
+            <b-input type="text" placeholder="SqFt" v-model="newUnit.sqft"></b-input>
+            <b-button type="submit is-success" @click.prevent="addUnit">Add Unit</b-button>
             </b-field>
-          </div>
+        </form>
+        <form v-if="!newProperty">
+            <label for="property">Select Property</label>
+            <select v-model="updatePropId" @change="selectExistingProp">
+            <option v-for="prop in existingProps" :key="prop.propertyId" :value="prop.propertyId">{{prop.streetAddress}}</option>
+            </select>
+            
+            <div v-if="updatePropId !== ''">
+            <div class="property">
+            <b-field label-position="inside" label="Address">
+                <b-input type="text" v-model="currentProperty.streetAddress"></b-input>
+            </b-field>
+            <b-field label-position="inside" label="Name">
+                <b-input type="text" v-model="currentProperty.propertyName"></b-input>
+            </b-field>
+
+            <b-field label-position="inside" label="Location">
+                <b-select v-model="currentProperty.location">
+                <option>Downtown</option>
+                <option>East Side</option>
+                <option>West Side</option>
+                <option>North Side</option>
+                <option>NKY</option>
+                </b-select>
+            </b-field>
+            </div>
+            <table>
+                <tr>
+                <th>Unit Number</th>
+                <th>Bed Count</th>
+                <th>Bath Count</th>
+                <th>Rent Price</th>
+                <th>SqFt</th>
+                <th></th>
+                </tr>
+                <tr v-for="unit in currentProperty.units" :key="unit.unitId">
+                <td>#{{unit.unitNumber}}</td>
+                <td>{{unit.bedCount}} bed</td>
+                <td>{{unit.bathCount}} bath</td>
+                <td>${{unit.price}}</td>
+                <td>{{unit.sqFt}} sqft</td>
+                <td>
+                <b-button type="is-danger" v-if="unit.available" @click.prevent="removeUnit(unit.unitId)">Delete Unit</b-button>
+                </td>
+                </tr>
+            </table>
+            <div class="newUnit">
+                <b-field>
+                <b-input type="text" placeholder="Unit #" v-model="newUnit.unitNumber"></b-input>
+                <b-input type="text" placeholder="Bed Count" v-model="newUnit.bedCount"></b-input>
+                <b-input type="text" placeholder="Bath Count" v-model="newUnit.bathCount"></b-input>
+                <b-input type="text" placeholder="Rent $" v-model="newUnit.price"></b-input>
+                <b-input type="text" placeholder="SqFt" v-model="newUnit.sqft"></b-input>
+                <b-button type="submit is-success" @click.prevent="addUnit">Add Unit</b-button>
+                </b-field>
+            </div>
+            </div>
+        </form>
+        <br>
         </div>
-      </form>
-      <br>
+        <b-button @click.prevent="submitProperty" type="submit is-primary">{{newProperty? 'Add' : 'Update'}} Property</b-button>  
     </div>
-    <b-button @click.prevent="submitProperty" type="submit is-primary">{{newProperty? 'Add' : 'Update'}} Property</b-button>  
   </div>
 </template>
 
 <script>
 import auth from '../auth';
+import FileUpload from '@/components/FileUpload.vue'
 
 export default {
   props: {
     user: Object
+  },
+  components: {
+    FileUpload
   },
   data() {
     return {
