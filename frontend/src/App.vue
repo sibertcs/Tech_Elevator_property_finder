@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container is-fluid">
     <div id="nav">
-      <b-navbar>
+      <b-navbar fixed-top>
         <template slot="brand">
           <b-navbar-item tag="router-link" :to="{ path: '/' }">
      <img
@@ -114,6 +114,7 @@ export default {
   background-color: aqua;
 }
 navbar{
-  fixed-top: true;
+
+  .fixed-top: true;
 }
 </style>
