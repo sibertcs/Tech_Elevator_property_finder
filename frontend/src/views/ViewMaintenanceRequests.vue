@@ -1,9 +1,9 @@
 <template>
 <div>
-  <h1>This is all the Maintenance Requests</h1>
   <div>Hello {{ user.sub }}</div>
+  <h1>This is all the Uncompleted Maintenance Requests</h1>
   <div class="tile is-ancestor">
-<div class="tile is-4 is-vertical" v-for="request in assignedRequests" :key="request.RequestId">
+<div class="tile is-4 is-vertical" v-for="request in assignedUncompletedRequests" :key="request.RequestId">
   <div class="tile">
     <div class="tile is-parent">
       <article class="tile is-child box">
@@ -48,7 +48,8 @@ export default {
   },
   data(){
     return {
-      assignedRequests: [],
+      assignedUncompletedRequests: [],
+      assignedCompletedRequests: [],
        currentRequest: {
        requestId: '',
        unitId: '',
@@ -63,8 +64,8 @@ export default {
   },
 
 methods: {
-  viewAllRequests(){
-    fetch('http://localhost:8080/api/maintenance/' + this.user.id, {
+  viewAllCompletedRequests(){
+    fetch('http://localhost:8080/api/maintenance/completed/' + this.user.id, {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + auth.getToken()
@@ -76,33 +77,36 @@ methods: {
         return response.json();
       }
     }).then(responseData => {
-      this.assignedRequests = responseData;
+      this.assignedCompletedRequests = responseData;
       
     })
     .catch(err => console.error(err));
-  }
-},
-getCurrentRequest(){
-   this.assignedRequests.forEach((maintenanceRequest) =>{
-     if (maintenanceRequest.requestId == this.currentRequest.requestId){
-       this.currentRequest.requestId = maintenanceRequest.requestId;
-       this.currentRequest.unitId = maintenanceRequest.unitId;
-       this.currentRequest.requestUserId = maintenanceRequest.requestUserId;
-       this.currentRequest.requestDesc = maintenanceRequest.requestDesc;
-       this.currentRequest.priority = maintenanceRequest.priority;
-      this.currentRequest.dateRequested = maintenanceRequest.dateRequested;
-       this.currentRequest.assignedUserId = maintenanceRequest.assignedUserId;
-       this.currentRequest.completed = maintenanceRequest.completed;
+  },
 
-     }
-   });
- },
+ viewAllUncompletedRequests(){
+    fetch('http://localhost:8080/api/maintenance/uncompleted/' + this.user.id, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + auth.getToken()
+      },
+      credentials: 'same-origin'
+    })
+    .then(response => {
+      if(response.ok){
+        return response.json();
+      }
+    }).then(responseData => {
+      this.assignedUncompletedRequests = responseData;
+      
+    })
+    .catch(err => console.error(err));
+  },
  editRequestStatus(request){
    request.completed = request.completed === "true";
    fetch('http://localhost:8080/api/maintenance/requests', {
      method: 'PUT',
      headers: {
-       Authorization: 'Bearer' + auth.getToken(),
+       Authorization: 'Bearer ' + auth.getToken(),
        'Content-Type': 'application/json'
      },
      credentials: 'same-origin',
@@ -111,22 +115,11 @@ getCurrentRequest(){
    .then(() => {
        console.log('Updated');
      })
+   }
    },
- resetCompleteValue(){
-  this.currentRequest.requestId = ''
-     this.currentRequest.unitId = '';
-       this.currentRequest.requestUserId = '';
-       this.currentRequest.requestDesc = '';
-       this.currentRequest.priority = '';
-       this.currentRequest.dateRequested = '';
-       this.currentRequest.assignedUserId = '';
-       this.currentRequest.completed = true;
-
-       this.viewAllRequests();
-   },
-
 created(){
-  this.viewAllRequests();
+  this.viewAllCompletedRequests();
+  this.viewAllUncompletedRequests();
 }
 }
 </script>

@@ -30,7 +30,7 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
     @Override
     public List<MaintenanceRequest> getAllRequests() {
         List<MaintenanceRequest> allRequests = new ArrayList<>();
-        String requestSearchSql = "SELECT * FROM maintenance_request;";
+        String requestSearchSql = "SELECT * FROM maintenance_request ORDER BY request_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(requestSearchSql);
         while (results.next()) {
             MaintenanceRequest req = new MaintenanceRequest();
@@ -65,10 +65,34 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
 
 
     @Override
-    public List<MaintenanceRequest> getAllRequestsByEmployeeId(int employeeId){
+    public List<MaintenanceRequest> getAllCompletedRequestsByEmployeeId(int employeeId){
         String sql = "SELECT request_id, unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed "
         + "FROM maintenance_request "
-        + "WHERE assigned_user_id = ?;";
+        + "WHERE assigned_user_id = ? AND is_completed = true "
+        + "ORDER BY request_id;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, employeeId);
+        List<MaintenanceRequest> requests = new ArrayList<>();
+        while (results.next()) {
+            MaintenanceRequest req = new MaintenanceRequest();
+            req.setRequestId(results.getInt("request_id"));
+            req.setUnitId(results.getInt("unit_id"));
+            req.setRequestUserId(results.getInt("request_user_id"));
+            req.setRequestDesc(results.getString("request_desc"));
+            req.setPriority(results.getInt("priority"));
+            req.setDateRequested(results.getDate("date_requested").toLocalDate());
+            req.setAssignedUserId(results.getInt("assigned_user_id"));
+            req.setCompleted(results.getBoolean("is_completed"));
+            requests.add(req);
+        }
+        return requests;
+    }
+
+    @Override
+    public List<MaintenanceRequest> getAllUncompletedRequestsByEmployeeId(int employeeId){
+        String sql = "SELECT request_id, unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed "
+        + "FROM maintenance_request "
+        + "WHERE assigned_user_id = ? AND is_completed = false "
+        + "ORDER BY request_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, employeeId);
         List<MaintenanceRequest> requests = new ArrayList<>();
         while (results.next()) {

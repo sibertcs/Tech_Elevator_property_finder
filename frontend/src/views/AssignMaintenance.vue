@@ -129,21 +129,6 @@ export default {
      })
      .catch(err => console.error(err));
    },
-    getCurrentRequest(){
-      this.assignedRequests.forEach((maintenanceRequest) =>{
-      if (maintenanceRequest.requestId == this.currentRequest.requestId){
-        this.currentRequest.requestId = maintenanceRequest.requestId;
-        this.currentRequest.unitId = maintenanceRequest.unitId;
-        this.currentRequest.requestUserId = maintenanceRequest.requestUserId;
-        this.currentRequest.requestDesc = maintenanceRequest.requestDesc;
-        this.currentRequest.priority = maintenanceRequest.priority;
-       this.currentRequest.dateRequested = maintenanceRequest.dateRequested;
-        this.currentRequest.assignedUserId = maintenanceRequest.assignedUserId;
-        this.currentRequest.completed = maintenanceRequest.completed;
-
-    }
-  });
-},
       editRequest(request) {
          request.completed = request.completed === "true";
         fetch('http://localhost:8080/api/Landlord/assignMaintenance', {

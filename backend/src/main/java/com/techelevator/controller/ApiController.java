@@ -254,12 +254,15 @@ public class ApiController {
         return maintReqDao.getAllRequests();
     }
 
-    @GetMapping("/maintenance/{employeeId}")
+    @GetMapping("/maintenance/completed/{employeeId}")
     public List<MaintenanceRequest> getAllRequestsByEmployeeId(@PathVariable int employeeId){
-        return maintReqDao.getAllRequestsByEmployeeId(employeeId);
+        return maintReqDao.getAllCompletedRequestsByEmployeeId(employeeId);
     }
 
-
+    @GetMapping("/maintenance/uncompleted/{employeeId}")
+    public List<MaintenanceRequest> getAllUncompletedRequestsByEmployeeId(@PathVariable int employeeId){
+        return maintReqDao.getAllCompletedRequestsByEmployeeId(employeeId);
+    }
    
 
 }
