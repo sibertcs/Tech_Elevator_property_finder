@@ -1,10 +1,11 @@
 <template>
   <div class="container is-fluid">
-      <h1>This is the maintenance request page</h1>
-     
+      <h1>If you have a maintenance request, please fill out the form below.  </h1>
+     <br>
     <form>
-      <p>Unit: {{userUnitNumber}}</p> 
-      
+      <p><strong>Unit</strong> </p> 
+      <p>{{userUnitNumber}}</p>
+      <br>
       <b-field label="Details">
       <b-input  type="textarea" v-model="maintenanceRequest.requestDesc"></b-input>
       </b-field>
