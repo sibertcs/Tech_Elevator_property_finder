@@ -1,6 +1,6 @@
 <template>
   <div class="home container is-fluid">
-    <h1>Home</h1> 
+    <h1 class="title">Browse Properties</h1> 
   <!--   <nav>
       <div v-if="user.rol=== 'renter' || user.rol==='admin'">
         <router-link to="/payment">Payment</router-link>
