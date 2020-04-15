@@ -12,9 +12,63 @@ public class MaintenanceRequest {
     private LocalDate dateRequested;
     private int assignedUserId;
     private boolean completed;
+    private String UnitNumber;
+    private String propertyName;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String zipCode;
 
     public int getRequestId() {
         return requestId;
+    }
+
+    public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreetAddress() {
+        return streetAddress;
+    }
+
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
+    }
+
+    public String getPropertyName() {
+        return propertyName;
+    }
+
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
+    }
+
+    public String getUnitNumber() {
+        return UnitNumber;
+    }
+
+    public void setUnitNumber(String unitNumber) {
+        this.UnitNumber = unitNumber;
     }
 
     public LocalDate getDateRequested() {

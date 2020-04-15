@@ -6,9 +6,10 @@
   <div class="tile">
     <div class="tile is-parent">
       <article class="tile is-child box">
-    <p class="title"> request Id: {{ request.requestId}}</p>
-    <p class="subtitle">Unit id: {{ request.unitId }}</p>
+    <p class="title">{{ request.propertyName}}</p>
+    <p class="subtitle">Address: {{ request.streetAddress }} {{ request.city }} {{  request.state }} {{ request.zipCode }}</p>
     <div class="content">
+    <p> unit #: {{ request.unitNumber }} </p>
     <p> priority level:{{ request.priority }}</p>
     <p>{{ request.dateRequested}}</p>
     <p>{{ request.requestDesc }}</p>

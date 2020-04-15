@@ -4,14 +4,11 @@ package com.techelevator.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
 
-import com.techelevator.Main;
 
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -30,19 +27,11 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
     @Override
     public List<MaintenanceRequest> getAllUncompletedRequests() {
         List<MaintenanceRequest> allRequests = new ArrayList<>();
-        String requestSearchSql = "SELECT * FROM maintenance_request WHERE is_completed = false ORDER BY request_id;";
+        String requestSearchSql = "SELECT request_id, maintenance_request.unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed, unit_number, property_name, street_address, city, state, property.zip_code "
+        + "FROM maintenance_request WHERE is_completed = false ORDER BY request_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(requestSearchSql);
         while (results.next()) {
-            MaintenanceRequest req = new MaintenanceRequest();
-            req.setRequestId(results.getInt("request_id"));
-            req.setUnitId(results.getInt("unit_id"));
-            req.setRequestUserId(results.getInt("request_user_id"));
-            req.setRequestDesc(results.getString("request_desc"));
-            req.setPriority(results.getInt("priority"));
-            req.setDateRequested(results.getDate("date_requested").toLocalDate());
-            req.setAssignedUserId(results.getInt("assigned_user_id"));
-            req.setCompleted(results.getBoolean("is_completed"));
-            allRequests.add(req);
+            allRequests.add(mapRowToRequest(results));
         }
         return allRequests;
     }
@@ -57,8 +46,10 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
 
     @Override
     public void updateRequest(MaintenanceRequest request){
-        String sqlUpdate = "UPDATE maintenance_request SET assigned_user_id = ?, priority = ?, is_completed = ? " +
-        "WHERE request_id = ?;";
+        String sqlUpdate = "UPDATE maintenance_request SET assigned_user_id = ?, priority = ?, is_completed = ? " 
+        + "JOIN unit ON maintenance_request.unit_id = unit.unit_id "
+        + "JOIN property ON unit.property_id = property.property_id "
+        + "WHERE request_id = ?;";
         jdbcTemplate.update(sqlUpdate, request.getAssignedUserId(), request.getPriority(), request.isCompleted(), request.getRequestId());
     }
 
@@ -66,46 +57,32 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
 
     @Override
     public List<MaintenanceRequest> getAllCompletedRequestsByEmployeeId(int employeeId){
-        String sql = "SELECT request_id, unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed "
+        String sql = "SELECT request_id, unit.unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed, unit_number, property_name, street_address, city, state, property.zip_code "
         + "FROM maintenance_request "
+        + "JOIN unit ON maintenance_request.unit_id = unit.unit_id "
+        + "JOIN property ON unit.property_id = property.property_id "
         + "WHERE assigned_user_id = ? AND is_completed = true "
         + "ORDER BY request_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, employeeId);
         List<MaintenanceRequest> requests = new ArrayList<>();
         while (results.next()) {
-            MaintenanceRequest req = new MaintenanceRequest();
-            req.setRequestId(results.getInt("request_id"));
-            req.setUnitId(results.getInt("unit_id"));
-            req.setRequestUserId(results.getInt("request_user_id"));
-            req.setRequestDesc(results.getString("request_desc"));
-            req.setPriority(results.getInt("priority"));
-            req.setDateRequested(results.getDate("date_requested").toLocalDate());
-            req.setAssignedUserId(results.getInt("assigned_user_id"));
-            req.setCompleted(results.getBoolean("is_completed"));
-            requests.add(req);
+            requests.add(mapRowToRequest(results));
         }
         return requests;
     }
 
     @Override
     public List<MaintenanceRequest> getAllUncompletedRequestsByEmployeeId(int employeeId){
-        String sql = "SELECT request_id, unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed "
+        String sql = "SELECT request_id, unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed, unit_number, property_name, street_address, city, state, property.zip_code "
         + "FROM maintenance_request "
+        + "JOIN unit ON maintenance_request.unit_id = unit.unit_id "
+        + "JOIN property ON unit.property_id = property.property_id "
         + "WHERE assigned_user_id = ? AND is_completed = false "
         + "ORDER BY request_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, employeeId);
         List<MaintenanceRequest> requests = new ArrayList<>();
         while (results.next()) {
-            MaintenanceRequest req = new MaintenanceRequest();
-            req.setRequestId(results.getInt("request_id"));
-            req.setUnitId(results.getInt("unit_id"));
-            req.setRequestUserId(results.getInt("request_user_id"));
-            req.setRequestDesc(results.getString("request_desc"));
-            req.setPriority(results.getInt("priority"));
-            req.setDateRequested(results.getDate("date_requested").toLocalDate());
-            req.setAssignedUserId(results.getInt("assigned_user_id"));
-            req.setCompleted(results.getBoolean("is_completed"));
-            requests.add(req);
+            requests.add(mapRowToRequest(results));
         }
         return requests;
     }
@@ -115,5 +92,24 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
         String sqlUpdate = "UPDATE maintenance_request SET priority = ?, is_completed = ? " +
         "WHERE request_id = ?;";
         jdbcTemplate.update(sqlUpdate, request.getPriority(), request.isCompleted(), request.getRequestId());
+    }
+
+    private MaintenanceRequest mapRowToRequest(SqlRowSet row){
+        MaintenanceRequest req = new MaintenanceRequest();
+        req.setRequestId(row.getInt("request_id"));
+            req.setUnitId(row.getInt("unit_id"));
+            req.setRequestUserId(row.getInt("request_user_id"));
+            req.setRequestDesc(row.getString("request_desc"));
+            req.setPriority(row.getInt("priority"));
+            req.setDateRequested(row.getDate("date_requested").toLocalDate());
+            req.setAssignedUserId(row.getInt("assigned_user_id"));
+            req.setCompleted(row.getBoolean("is_completed"));
+            req.setUnitNumber(row.getString("unit_number"));
+            req.setPropertyName(row.getString("property_name"));
+            req.setStreetAddress(row.getString("street_address"));
+            req.setCity(row.getString("city"));
+            req.setState(row.getString("state"));
+            req.setZipCode(row.getString("zip_code"));
+            return req;
     }
 }
