@@ -9,12 +9,11 @@
                 :data="leasesForLandlord"
                 :columns="columns">
             </b-table>
-            <br/>
-            <br/>
 
+            <h2 class="subtitle">Options:</h2>
             <form>
                 <div>
-                    <b-field label="Options">
+                    <b-field>
                         <b-radio name="addOrUpdate"
                             checked
                             v-model="newLease"
@@ -34,12 +33,21 @@
 
                 <!-- Prompt for Lease when 'Updating Existing Lease' chosen above -->
                 <div v-show="!newLease">
-                    <b-field label="Lease ID">
-                        <b-select v-model="currentLease.leaseId" @input="getCurrentLease" placeholder="Select a Lease">
-                            <option v-for="lease in leasesForLandlord" :key="lease.leaseId" :value="lease.leaseId">
-                                {{ `${lease.leaseId}: ${lease.propertyName} - ${lease.unitNumber} (${lease.status })` }}
-                            </option>
-                        </b-select>
+                    <b-field grouped>
+                        <b-field label="Lease ID">
+                            <b-select v-model="currentLease.leaseId" @input="getCurrentLease" placeholder="Select a Lease">
+                                <option v-for="lease in leasesForLandlord" :key="lease.leaseId" :value="lease.leaseId">
+                                    {{ `${lease.leaseId}: ${lease.propertyName} - ${lease.unitNumber} (${lease.status })` }}
+                                </option>
+                            </b-select>
+                        </b-field>
+                        <b-field v-show="currentLease.leaseId != ''" label="Lease Status">
+                            <b-select v-model="currentLease.status" placeholder="Select a name">
+                                <option>Active</option>
+                                <option>Expired</option>
+                                <option>Terminated</option>
+                            </b-select>
+                        </b-field>
                     </b-field>
                 </div>
 
@@ -94,7 +102,7 @@
                                 >
                             </b-datepicker>
                         </b-field>
-                        <b-field v-show="newLease" label="Start Date">
+                        <b-field label="Start Date">
                             <b-datepicker
                                 v-model="currentLease.startDate"
                                 placeholder="Type or select a date..."
@@ -124,14 +132,6 @@
                             <b-numberinput min="0" max="100" v-model="currentLease.lateFee" controls-position="compact">
                             </b-numberinput>
                         </b-field>
-                    </b-field>
-
-                    <b-field v-show="!newLease" label="Lease Status">
-                        <b-select v-model="currentLease.status" placeholder="Select a name">
-                            <option>Active</option>
-                            <option>Expired</option>
-                            <option>Terminated</option>
-                        </b-select>
                     </b-field>
 
                 </div>
@@ -175,6 +175,7 @@ export default {
                 {
                     field: 'propertyName',
                     label: 'Property',
+                    width: '250',
                     searchable: true,
                 },
                 {
@@ -205,12 +206,14 @@ export default {
                 {
                     field: 'rentAmount',
                     label: 'Rent',
+                    width: '100',
                     numeric: true,
                     centered: true,
                 },
                 {
                     field: 'renterName',
                     label: 'Renter Name',
+                    width: '250',
                     searchable: true,
                 }
             ]
@@ -228,12 +231,11 @@ export default {
         },
         isValidForm() {
             return (
-                this.currentLease.userId != "" &&
+                this.currentLease.userId != 0 &&
                 this.currentLease.unitId != "" &&
                 this.currentLease.signedDate != "" &&
-                this.currentLease.rentLength != "" &&
-                this.currentLease.rentAmount != "" &&
-                this.currentLease.lateFee != ""
+                this.currentLease.rentLength != 0 &&
+                this.currentLease.rentAmount != 0
             );
         }
     },
