@@ -361,6 +361,7 @@ b-datepicker {
 }
 .content {
     margin: 0 32px;
+    padding-bottom: 64px;
 }
 
 
