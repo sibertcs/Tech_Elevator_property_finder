@@ -1,5 +1,7 @@
 <template>
-  <h1> this is where you view all users</h1>
+  <div class="container is-fluid">
+    <p v-for="user in users" :key="user.userId"></p>
+  </div>
 </template>
 
 <script>

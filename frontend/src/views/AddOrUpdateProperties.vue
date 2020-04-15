@@ -43,7 +43,7 @@
             <th>Bed Count</th>
             <th>Bath Count</th>
             <th>Rent Price</th>
-            <th>Square Footage</th>
+            <th>SqFt</th>
             <th></th>
           </tr>
           <tr v-for="unit in currentProperty.units" :key="unit.unitId">
@@ -97,7 +97,7 @@
               <th>Bed Count</th>
               <th>Bath Count</th>
               <th>Rent Price</th>
-              <th>Square Footage</th>
+              <th>SqFt</th>
               <th></th>
             </tr>
             <tr v-for="unit in currentProperty.units" :key="unit.unitId">
@@ -242,11 +242,14 @@ export default {
   table th,
   table td {
     width: 16.66%;
-    border: 1px solid black;
+    border-bottom: 1px solid black;
     padding: 5px;
   }
   table {
     width: 55%;
+  }
+  tr:nth-child(even) {
+    background-color: ghostwhite;
   }
   .property {
     width: 50%;
