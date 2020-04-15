@@ -1,6 +1,9 @@
 <template>
   <div class="container is-fluid">
-    <p v-for="user in users" :key="user.userId"></p>
+     <b-table
+        :data="users"
+        :columns="columns">
+      </b-table>
   </div>
 </template>
 
@@ -10,7 +13,45 @@ import auth from '../auth';
 export default {
   data() {
     return {
-      users: []
+      users: [],
+      columns: [
+                {
+                    field: 'id',
+                    label: 'User ID',
+                    width: '100',
+                    searchable: true,
+                },
+                {
+                    field: 'email',
+                    label: 'Email',
+                    width: '100',
+                    searchable: true,
+                },
+                {
+                    field: 'firstName',
+                    label: 'First Name',
+                    width: '100',
+                    searchable: true,
+                },
+                {
+                    field: 'lastName',
+                    label: 'Last Name',
+                    width: '100',
+                    searchable: true,
+                },
+                {
+                    field: 'phoneNumber',
+                    label: 'Phone Number',
+                    width: '100',
+                    searchable: true,
+                },
+                {
+                    field: 'role',
+                    label: 'Role',
+                    width: '100',
+                    searchable: true,
+                }
+            ]
     }
   },
   created() {

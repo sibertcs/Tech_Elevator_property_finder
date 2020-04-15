@@ -42,6 +42,9 @@
                         <option>NKY</option>
                         </b-select>
                     </b-field>
+                    <b-field label-position="inside" label="Photo URL">
+                        <b-input v-model="currentProperty.photoPath"></b-input>
+                    </b-field>
                 </b-field>
                 <!-- <file-upload /> -->
             </div>
@@ -97,6 +100,9 @@
                 <option>North Side</option>
                 <option>NKY</option>
                 </b-select>
+            </b-field>
+            <b-field label-position="inside" label="Photo URL">
+               <b-input v-model="currentProperty.photoPath"></b-input>
             </b-field>
             </div>
             <table>
@@ -251,7 +257,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   table th,
   table td {
     width: 16.66%;

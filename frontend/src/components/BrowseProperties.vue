@@ -60,7 +60,9 @@
                 </div>
                 <div class="card-content">
                     <div class="content">
-                        <img class="property-img" :src="require('@/assets/images/properties/' + property.photoPath)">
+                        <img v-if="property.photoPath.includes('http')" :src="property.photoPath">
+                        <img v-else class="property-img" :src="require('@/assets/images/properties/' + property.photoPath)">
+
                         <div>
                             <p>Neighborhood: {{property.location}}</p>
                             <p>City: {{property.city}}</p>

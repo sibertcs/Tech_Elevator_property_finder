@@ -106,7 +106,7 @@ public class JdbcUserDao implements UserDao {
     @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<User>();
-        String sqlSelectAllUsers = "SELECT user_id, email, role FROM users";
+        String sqlSelectAllUsers = "SELECT user_id, email, first_name, last_name, phone_number, role FROM users";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSelectAllUsers);
 
         while (results.next()) {
