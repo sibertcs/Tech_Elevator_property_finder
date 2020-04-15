@@ -3,12 +3,11 @@
 
   <div>Hello {{ user.sub }}</div>
 
-      <div class="tile is-ancestor">
+      <div class="tile is-8 is-vertical">
         
 <div v-for="request in allRequests" :key="request.requestId">
   <div class="tile is-parent">
     <article class="tile is-child box">
-      <div class="content">
       <p class="title">Request Id: {{ request.requestId }}</p>
       <p class="subtitle">Unit id: {{ request.unitId }}</p>
       <div class="content">
@@ -29,7 +28,6 @@
          <button type="button" @click="editRequest(request)">Update</button>
       </p>
       </form>
-      </div>
       </div>
     </article>
   </div>
@@ -173,5 +171,6 @@ export default {
 </script>
 
 <style>
+
 
 </style>
