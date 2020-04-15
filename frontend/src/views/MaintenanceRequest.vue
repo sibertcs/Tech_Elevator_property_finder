@@ -28,8 +28,8 @@
             </b-radio>
        
         </div>
-      <b-button type="is-primary" native-type="submit" v-bind:disabled="!isValidForm" v-on:click="createRequest" @click=toast();
->Submit Request</b-button>
+      <b-button type="is-primary" native-type="submit" v-bind:disabled="!isValidForm" v-on:click="createRequest">
+        Submit Request</b-button>
     </form>
   </div>
 </template>
@@ -44,6 +44,7 @@ export default {
   },
  data (){
    return {
+     
      userUnitNumber: "",
      maintenanceRequest:{
        unitId: "",
@@ -72,6 +73,7 @@ export default {
         .then(response => {
           if (response.ok) {
            console.log('maint request post method worked...YEEHAWW!');
+           this.toast();
           }
         })
         .catch(err => console.error(err));

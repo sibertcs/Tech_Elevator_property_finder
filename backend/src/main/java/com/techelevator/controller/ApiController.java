@@ -245,7 +245,7 @@ public class ApiController {
         maintReqDao.updateRequest(request);
     }
     @PutMapping("/maintenance/requests")
-    public void updateRequestMaint(MaintenanceRequest request){
+    public void updateRequestMaint(@RequestBody MaintenanceRequest request){
         maintReqDao.updateRequest(request);
     }
     //works in postman

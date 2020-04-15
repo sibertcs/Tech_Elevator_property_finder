@@ -297,6 +297,7 @@ export default {
                 body: JSON.stringify(this.currentLease)
             }).then(response => {
                 if (response.ok) {
+                    this.newToast();
                     this.resetLeaseValues();
                 }
             }).then(this.getLeasesForLandlord())
@@ -314,6 +315,7 @@ export default {
                 body: JSON.stringify(this.currentLease)
             }).then(response => {
                 if (response.ok) {
+                    this.updateToast();
                     this.resetLeaseValues();
                 }
             }).then(this.getLeasesForLandlord())
@@ -330,7 +332,17 @@ export default {
 
             // pull in updates to lease table
             this.getLeasesForLandlord();
-        }
+        },
+         newToast(){
+      this.$buefy.toast.open({
+        message: 'Lease Created',
+        type: 'is-success'})
+     },
+      updateToast(){
+      this.$buefy.toast.open({
+        message: 'Lease Updated',
+        type: 'is-success'})
+     }
     },
     created() {
         this.getLeasesForLandlord();
@@ -349,6 +361,7 @@ b-datepicker {
 }
 .content {
     margin: 0 32px;
+    padding-bottom: 64px;
 }
 
 
