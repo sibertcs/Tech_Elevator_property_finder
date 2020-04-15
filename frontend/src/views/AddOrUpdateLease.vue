@@ -352,16 +352,10 @@ export default {
 }
 </script>
 
-<style>
-b-datepicker {
-    width: 300px;
-}
-.title {
-    padding-bottom: 20px;
-}
+<style scoped>
+
 .content {
-    margin: 0 32px;
-    padding-bottom: 64px;
+    margin: 2%;
 }
 
 

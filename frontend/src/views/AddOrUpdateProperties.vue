@@ -1,11 +1,11 @@
 <template>
-  <div class="container is-fluid">
-    <div class="content">
+    <div class="container is-fluid">
+        <div class="add-margin">
         <p>You are logged in as {{user.sub}} as a {{user.rol}} and has the id of {{user.id}}.</p>
         <h1 class="title">Property Management Console</h1>
 
         <h2 class="subtitle">Options:</h2>
-        <b-field>
+        <b-field grouped>
             <b-radio @input="currentProperty = {
                             address: '',
                             name: '',
@@ -26,22 +26,24 @@
         <div>
         <form v-if="newProperty">
             <div class="property">
-            <b-field label-position="inside" label="Address">
-                <b-input type="text" v-model="currentProperty.streetAddress"></b-input>
-            </b-field>
-            <b-field label-position="inside" label="Name">
-                <b-input type="text" v-model="currentProperty.propertyName"></b-input>
-            </b-field>
-            <b-field label-position="inside" label="Location">
-                <b-select v-model="currentProperty.location">
-                <option>Downtown</option>
-                <option>East Side</option>
-                <option>West Side</option>
-                <option>North Side</option>
-                <option>NKY</option>
-                </b-select>
-            </b-field>
-                <file-upload />
+                <b-field grouped>
+                    <b-field label-position="inside" label="Address">
+                        <b-input v-model="currentProperty.streetAddress"></b-input>
+                    </b-field>
+                    <b-field label-position="inside" label="Name">
+                        <b-input v-model="currentProperty.propertyName"></b-input>
+                    </b-field>
+                    <b-field label-position="inside" label="Location">
+                        <b-select v-model="currentProperty.location">
+                        <option>Downtown</option>
+                        <option>East Side</option>
+                        <option>West Side</option>
+                        <option>North Side</option>
+                        <option>NKY</option>
+                        </b-select>
+                    </b-field>
+                </b-field>
+                <!-- <file-upload /> -->
             </div>
             <table>
             <tr>
@@ -132,20 +134,20 @@
         <br>
         </div>
         <b-button @click.prevent="submitProperty" type="submit is-primary">{{newProperty? 'Add' : 'Update'}} Property</b-button>  
-    </div>
+        </div>
   </div>
 </template>
 
 <script>
 import auth from '../auth';
-import FileUpload from '@/components/FileUpload.vue'
+// import FileUpload from '@/components/FileUpload.vue'
 
 export default {
   props: {
     user: Object
   },
   components: {
-    FileUpload
+    // FileUpload
   },
   data() {
     return {
@@ -269,5 +271,13 @@ export default {
   }
   .newUnit {
     width: 52.5%;
+  }
+  .add-margin {
+    margin: 2%;
+  }
+  h1, h2 {
+      margin-top: 1em;
+      margin-bottom: 1.5rem;
+      line-height: 1.125;
   }
 </style>
