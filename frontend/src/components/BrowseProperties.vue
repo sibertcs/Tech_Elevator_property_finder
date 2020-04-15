@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container is-fluid">
       
     <div id="forms">
         <form id="search">
@@ -10,11 +10,9 @@
                 </p>
             </b-field>
         </form>
-        <br>
-        <form>
-            <div id="filters">
+        <form id="filters">
                 <b-field label="Bed Count" label-position="inside">
-                    <b-select id="filterBr" v-model="brFilter">
+                    <b-select @input="filter" id="filterBr" v-model="brFilter">
                         <option value=""></option>
                         <option value="1">1 Br</option>
                         <option value="2">2 Br</option>
@@ -23,7 +21,7 @@
                     </b-select>
                 </b-field>
                 <b-field label="Max Rent" label-position="inside">
-                    <b-select id="filterBr" v-model="upperRentFilter">
+                    <b-select @input="filter" id="filterBr" v-model="upperRentFilter">
                         <option value=""></option>
                         <option value="500">$500/mo</option>
                         <option value="750">$750/mo</option>
@@ -33,7 +31,7 @@
                     </b-select>
                 </b-field>
                 <b-field label="Neighborhood" label-position="inside">
-                    <b-select @change.prevent="filter" id="filterLocation" v-model="locationFilter">
+                    <b-select @input="filter" id="filterLocation" v-model="locationFilter">
                         <option value=""></option>
                         <option>Downtown</option>
                         <option>East Side</option>
@@ -42,8 +40,7 @@
                         <option>NKY</option>
                     </b-select>
                 </b-field>
-                </div>
-                <b-button @click.prevent="filter" type="is-primary" expanded>Filter</b-button>
+                <!-- <b-button @click.prevent="filter" type="is-primary" expanded>Filter</b-button> -->
         </form>
     </div>
     <div id="properties">
@@ -86,7 +83,7 @@
                     </div>
                 </div>
                 <footer class="card-footer">
-                    <p class="card-footer-item">Do Something!</p>
+                    <p class="card-footer-item">Schedule a Tour</p>
                 </footer>
            </b-collapse> 
         </div>    
@@ -171,15 +168,13 @@ export default {
 
 <style scoped>
     #forms {
-        width: 25%;
-    }
-    #search {
-        width: 100%;
-    }
-    #filters {
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
+    }
+    #filters {
+        margin-left: 10px;
+        display: flex
     }
     #properties {
         display: flex;
@@ -191,6 +186,9 @@ export default {
     }
     .property-img {
         width: 25%;
+    }
+    img {
+        width: 75%;
     }
     li {
         list-style: none;
@@ -204,7 +202,7 @@ export default {
     .content {
         display: flex;
         flex-direction: row;
-        justify-content: flex-start;
+        justify-content: space-between;
     }
 
 </style>

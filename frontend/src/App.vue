@@ -78,8 +78,8 @@
         </template>
       </b-navbar>
     </div>
-    <div class="content">
-        <router-view :user="user" @user-logout="logout" @user-login="login" />
+    <div id="loginForm">
+      <router-view :user="user" @user-logout="logout" @user-login="login" />
     </div>
   </div>
   

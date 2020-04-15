@@ -1,40 +1,39 @@
 <template>
   <div id="login" class="text-center">
-    <form class="form-signin" @submit.prevent="login">
-      <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
-      <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
-        Invalid username and password!
+      <form class="form-signin" @submit.prevent="login">
+        <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
+          Invalid username and password!
+        </div>
+        <div class="alert alert-success" role="alert" v-if="this.$route.query.registration">
+          Thank you for registering, please sign in.
+        </div>
+        <div class="credentials">
+          <b-field>
+            <b-input
+              type="text"
+              id="email"
+              class="form-control"
+              placeholder="Email"
+              v-model="user.email"
+              required
+            /></b-field>
+            <b-field>
+            <b-input
+              type="password"
+              id="password"
+              class="form-control"
+              placeholder="Password"
+              v-model="user.password"
+              required
+            ></b-input>
+            </b-field>
+            <b-button type="is-primary" outlined native-type="submit">Sign in</b-button>
+          </div>
+            
+      </form>
+      <div class="align">
+        <browse-properties/>
       </div>
-      <div class="alert alert-success" role="alert" v-if="this.$route.query.registration">
-        Thank you for registering, please sign in.
-      </div>
-      
-      <b-field label="Email">
-      <b-input
-        type="text"
-        id="email"
-        class="form-control"
-        placeholder="Email"
-        v-model="user.email"
-        required
-        autofocus
-      /></b-field>
-      <b-field label="Password">
-      <b-input
-        type="password"
-        id="password"
-        class="form-control"
-        placeholder="Password"
-        v-model="user.password"
-        required
-      />
-      </b-field>
-      <router-link :to="{ name: 'register' }">Need an account? </router-link>
-      <b-button type="is-primary"
-      native-type="submit">Sign in</b-button>
-    </form>
-    <br>
-    <browse-properties/>
   </div>
 </template>
 
@@ -93,4 +92,16 @@ export default {
 button {
   margin-left: 10px;
 }
+form{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.credentials {
+  display: flex;
+  flex-direction: row;
+}
+
 </style>

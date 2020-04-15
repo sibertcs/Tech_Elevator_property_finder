@@ -159,8 +159,8 @@ class JdbcLeaseDao implements LeaseDao {
               "VALUES (?, ?, ?, ?, ?);";
         LocalDate startDate = newLease.getStartDate();
         for (int i = 0; i < newLease.getRentLength(); i++) {
-            jdbcTemplate.update(sql, leaseId, startDate, newLease.getRentAmount(), startDate.plusDays(30), "Unpaid");
-            startDate = startDate.plusDays(30);
+            jdbcTemplate.update(sql, leaseId, startDate, newLease.getRentAmount(), startDate.plusMonths(1), "Unpaid");
+            startDate = startDate.plusMonths(1);
         }
         // Update unit 'is_available' to false
         sql = "UPDATE unit SET is_available = false WHERE unit_id = ?;";

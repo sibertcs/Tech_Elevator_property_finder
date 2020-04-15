@@ -123,6 +123,7 @@ public class JdbcPropertyDao implements PropertyDao {
         Integer propertyId = jdbcTemplate.queryForObject(sql, Integer.class, property.getLandlordId(), property.getStreetAddress(), property.getCity(),
                                     property.getStreetAddress(), property.getZipCode(), property.getPropertyName(), property.getPhotoPath(), property.getLocation());
         addUnitsByProperty(propertyId, property.getUnits());
+        addFeaturesPropertyLinks(propertyId, property.getFeatures());
         return propertyId != null;
     }
     @Override
@@ -131,6 +132,14 @@ public class JdbcPropertyDao implements PropertyDao {
                      "VALUES (?, ?, ?, ?, ?, ?, ?);";
         for(Unit u : units) {             
             jdbcTemplate.update(sql, u.getUnitNumber(), propertyId, u.getBedCount(), u.getBathCount(), u.getPrice(), u.getSqFt(), u.isAvailable());
+        }
+    }
+    @Override
+    public void addFeaturesPropertyLinks(int propertyId, List<Feature> features) {
+        String sql = "INSERT INTO property_feature (property_id, feature_id) " +
+                     "VALUES (?,?);";
+        for(Feature f : features) {
+            jdbcTemplate.update(sql, propertyId, f.getFeatureId());
         }
     }
 
@@ -161,6 +170,20 @@ public class JdbcPropertyDao implements PropertyDao {
             feat.setFeatureId(results.getInt("feature_id"));
            feat.setFeatureName(results.getString("feature_name"));
            features.add(feat);
-    } return features;
-}
+        } return features;
+    }
+
+    @Override
+    public List<Feature> getAllFeatures() {
+        String sql = "SELECT feature_id, feature_name FROM feature;";
+        List<Feature> features = new ArrayList<>();
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while(results.next()) {
+            Feature f = new Feature();
+            f.setFeatureId(results.getInt("feature_id"));
+            f.setFeatureName(results.getString("feature_name"));
+            features.add(f);
+        }
+        return features;
+    }
 }
