@@ -14,10 +14,20 @@ public class Property {
     private String photoPath;
     private String location;
     private List<Unit> units;
+    private List<Feature> features;
 
     public int getPropertyId() {
         return propertyId;
     }
+
+    public List<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(List<Feature> features) {
+        this.features = features;
+    }
+
     public int getLandlordId() {
         return landlordId;
     }

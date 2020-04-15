@@ -76,6 +76,13 @@
                                 </li>
                             </ul>
                         </div>
+                    <div>
+                    <p>Features</p>
+                    <ul>
+                        <li v-for="feature in property.features" :key="feature.featureId"> {{feature.featureName}}</li>
+                        </ul>
+                
+                    </div>
                     </div>
                 </div>
                 <footer class="card-footer">

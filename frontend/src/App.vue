@@ -114,10 +114,7 @@ export default {
 .footer {
   background-color: aqua;
 }
-navbar{
 
-  fixed-top: true;
-}
 </style>
 
 
