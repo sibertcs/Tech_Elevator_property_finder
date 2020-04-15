@@ -5,7 +5,7 @@
 
       <div class="tile is-ancestor">
         
-  <div class="tile is-4 is-vertical" v-for="request in allRequests" :key="request.requestId">
+  <div class="tile is-4 is-vertical" v-for="request in assignedUncompletedRequests" :key="request.requestId">
     <div class="tile">
     <div class="tile is-parent">
     <article class="tile is-child box">
@@ -52,7 +52,7 @@ export default {
   name: 'assign',
   data(){
     return {
-      allRequests: [],
+      assignedUncompletedRequests: [],
       allMaintenanceUsers: [],
       currentRequest: {
        requestId: '',
@@ -94,7 +94,7 @@ export default {
     };
   },
    methods: {
-      getAllRequests(){
+      getAllUncompletedRequests(){
         fetch('http://localhost:8080/api/Landlord/assignMaintenance', {
           method: 'GET',
           headers: {
@@ -107,7 +107,7 @@ export default {
             return response.json();
           }
         }).then(responseData => {
-          this.allRequests = responseData;
+          this.assignedUncompletedRequests = responseData;
         })
         .catch(err => console.error(err));
       },
@@ -141,19 +141,13 @@ export default {
           body: JSON.stringify(request)
         })
         .then(() => {
-          this.assignToast();
           console.log('Updated');
         })
         
-      },
-       assignToast(){
-      this.$buefy.toast.open({
-        message: 'Maintenance Request Updated',
-        type: 'is-success'})
-     }
+      }
    },
    created(){
-     this.getAllRequests();
+     this.getAllUncompletedRequests();
      this.getAllMaintenanceUsers();
    }
 

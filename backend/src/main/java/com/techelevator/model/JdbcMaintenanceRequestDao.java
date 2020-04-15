@@ -28,9 +28,9 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
     }
 
     @Override
-    public List<MaintenanceRequest> getAllRequests() {
+    public List<MaintenanceRequest> getAllUncompletedRequests() {
         List<MaintenanceRequest> allRequests = new ArrayList<>();
-        String requestSearchSql = "SELECT * FROM maintenance_request ORDER BY request_id;";
+        String requestSearchSql = "SELECT * FROM maintenance_request WHERE is_completed = false ORDER BY request_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(requestSearchSql);
         while (results.next()) {
             MaintenanceRequest req = new MaintenanceRequest();
