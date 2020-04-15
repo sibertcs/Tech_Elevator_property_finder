@@ -10,5 +10,6 @@ public Property getPropertyById(int id);
 public boolean addNewProperty(Property property);
 public boolean updateExistingProperty(Property property);
 public void addUnitsByProperty(int propertyId, List<Unit> units);
+public List<Feature> getFeaturesByPropertyId (int id);
 
 }

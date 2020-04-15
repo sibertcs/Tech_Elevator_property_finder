@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container is-fluid">
+  <div id="app" >
     <div id="nav">
       <b-navbar fixed-top>
         <template slot="brand">
@@ -79,6 +79,7 @@
     </div>
     <router-view :user="user" @user-logout="logout" @user-login="login" />
   </div>
+  
 </template>
 
 <script>

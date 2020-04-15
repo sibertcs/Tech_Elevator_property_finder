@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.techelevator.authentication.AuthProvider;
 import com.techelevator.authentication.UnauthorizedException;
+import com.techelevator.model.Feature;
 import com.techelevator.model.Lease;
 import com.techelevator.model.LeaseDao;
 import com.techelevator.model.MaintenanceRequest;
@@ -112,6 +113,11 @@ public class ApiController {
     public Property getPropertyById(@PathVariable int propertyId) {
         return propertyDao.getPropertyById(propertyId);
     }
+    @GetMapping("/features/{propertyId}")
+    public List<Feature> getFeaturesByPropertyId(@PathVariable int propertyId){
+        return propertyDao.getFeaturesByPropertyId(propertyId);
+    }
+
     /**************** PROPERTY CONTROLLER METHODS ****************/
 
 

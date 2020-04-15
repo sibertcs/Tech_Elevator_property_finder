@@ -141,10 +141,16 @@ export default {
           body: JSON.stringify(request)
         })
         .then(() => {
+          this.assignToast();
           console.log('Updated');
         })
         
-      }
+      },
+       assignToast(){
+      this.$buefy.toast.open({
+        message: 'Maintenance Request Updated',
+        type: 'is-success'})
+     }
    },
    created(){
      this.getAllRequests();

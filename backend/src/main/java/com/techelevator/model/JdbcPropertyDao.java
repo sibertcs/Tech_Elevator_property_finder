@@ -148,4 +148,17 @@ public class JdbcPropertyDao implements PropertyDao {
 
         return rows > 0;
     }
+    @Override
+    public List<Feature> getFeaturesByPropertyId (int propertyId){
+       List<Feature> features = new ArrayList<>();
+       String featureSql = "SELECT feature_name FROM feature "
+       + "JOIN property_feature ON property_feature.feature_id = feature.feature_id "
+       + "JOIN property ON property_feature.property_id = property.property_id WHERE property.property_id = ?;";
+       SqlRowSet results = jdbcTemplate.queryForRowSet(featureSql, propertyId);
+       while (results.next()){
+        Feature feat = new Feature();
+           feat.setFeatureName(results.getString("feature_name"));
+           features.add(feat);
+    } return features;
+}
 }
