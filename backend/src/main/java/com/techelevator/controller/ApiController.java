@@ -113,7 +113,7 @@ public class ApiController {
     public Property getPropertyById(@PathVariable int propertyId) {
         return propertyDao.getPropertyById(propertyId);
     }
-    @GetMapping("/features/{propertyId}")
+    @GetMapping("public/features/{propertyId}")
     public List<Feature> getFeaturesByPropertyId(@PathVariable int propertyId){
         return propertyDao.getFeaturesByPropertyId(propertyId);
     }

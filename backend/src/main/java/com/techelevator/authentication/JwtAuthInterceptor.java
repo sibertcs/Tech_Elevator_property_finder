@@ -37,6 +37,10 @@ public class JwtAuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws IOException, ServletException {
 
+        if (request.getRequestURI().contains("public")){
+            return true;
+        }
+
         if (excludedUrls.contains(request.getRequestURI().replaceFirst(request.getContextPath(), ""))
                 || request.getMethod().equals("OPTIONS")) {
             return true;

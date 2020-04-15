@@ -2,8 +2,8 @@
   <div class="payments">
     <h1>Rent Payments</h1>
     <div class="overview">
-        <p>Balance Overdue: ${{ overdueBalance }}</p>
-        <p>Current Balance: ${{ currentBalance }}</p>
+        <b-message class="balance" :type="overdueBalance > 0 ? 'is-danger' : 'is-success'">Balance Overdue: ${{ overdueBalance }}</b-message>
+        <b-message class="balance">Current Balance: ${{ currentBalance }}</b-message>
     </div>
     <div class="content">
       <rent-cycles
@@ -96,5 +96,8 @@ export default {
 .content {
   display: flex;
   flex-direction: column;
+}
+.balance {
+  width: 25%
 }
 </style>
