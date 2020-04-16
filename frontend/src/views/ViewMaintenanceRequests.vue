@@ -10,7 +10,9 @@
     <p class="subtitle">Address: {{ request.streetAddress }} {{ request.city }} {{  request.state }} {{ request.zipCode }}</p>
     <div class="content">
     <p> unit #: {{ request.unitNumber }} </p>
-    <p> priority level:{{ request.priority }}</p>
+    <p v-if="request.priority === 1"> priority level: Low</p>
+    <p v-if="request.priority === 2"> priority level: Medium</p>
+    <p v-if="request.priority === 3"> priority level: High</p>
     <p>{{ request.dateRequested}}</p>
     <p>{{ request.requestDesc }}</p>
     <p>{{ request.completed }}</p>
