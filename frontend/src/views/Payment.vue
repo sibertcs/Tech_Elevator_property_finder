@@ -2,7 +2,7 @@
   <div class="payments">
     <h1>Rent Payments</h1>
     <div class="overview">
-        <b-message class="balance" :type="overdueBalance > 0 ? 'is-danger' : 'is-success'">Balance Overdue: ${{ overdueBalance }}</b-message>
+        <b-message class="balance" :type="overdueBalance > 0 ? 'is-danger' : 'is-success'">Overdue Balance: ${{ overdueBalance }}</b-message>
         <b-message class="balance">Current Balance: ${{ currentBalance }}</b-message>
     </div>
     <div class="content">
