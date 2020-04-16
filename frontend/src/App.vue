@@ -4,7 +4,7 @@
       <b-navbar fixed-top navbar-breakpoint="700px">
         <template slot="brand">
           <b-navbar-item tag="router-link" :to="{ path: '/' }">
-     <img
+     <img class="logo"
                     src="@/assets/images/adobe-logo.png"
                     alt="Lightweight UI components for Vue.js based on Bulma"
             >
@@ -116,14 +116,14 @@ export default {
 };
 </script>
 
+
 <style>
+
 .navDiv{
   margin-top: 6px;
    margin-bottom: 6px;
 }
-.footer {
-  background-color: aqua;
-}
+
 #app {
     margin: 2%;
 }
@@ -133,7 +133,9 @@ export default {
 .navbar-item {
     font-weight: bold;
 }
-
+.navbar {
+   box-shadow: 0px 1px 3px lightgrey;
+}
 </style>
 
 
