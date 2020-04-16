@@ -112,9 +112,6 @@ export default {
         let role = this.user.rol;
         this.roleName = role.charAt(0).toUpperCase().concat(role.substring(1));
     }
-  },
-  created() {
-      this.refreshRoleName();
   }
 };
 </script>
