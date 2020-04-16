@@ -154,6 +154,8 @@ created(){
 
 <style>
 
-
+.tile{
+  flex-wrap: wrap;
+}
 
 </style>
