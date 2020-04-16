@@ -62,20 +62,23 @@
                 <td>{{unit.bedCount}} bed</td>
                 <td>{{unit.bathCount}} bath</td>
                 <td>${{unit.price}}</td>
-                <td>{{unit.sqFt}} sqft</td>
+                <td>{{unit.sqft}} sqft</td>
                 <td>
                 <b-button type="is-danger" v-if="unit.available" @click.prevent="removeUnit(unit.unitId)">Delete Unit</b-button>
                 </td>
             </tr>
             </table>
             <b-field class="newUnit">
-            <b-input type="text" placeholder="Unit #" v-model="newUnit.unitNumber"></b-input>
-            <b-input type="text" placeholder="Bed Count" v-model="newUnit.bedCount"></b-input>
-            <b-input type="text" placeholder="Bath Count" v-model="newUnit.bathCount"></b-input>
-            <b-input type="text" placeholder="Rent $" v-model="newUnit.price"></b-input>
-            <b-input type="text" placeholder="SqFt" v-model="newUnit.sqft"></b-input>
-            <b-button type="submit is-success" @click.prevent="addUnit">Add Unit</b-button>
+              <b-input type="text" placeholder="Unit #" v-model="newUnit.unitNumber"></b-input>
+              <b-input type="text" placeholder="Bed Count" v-model="newUnit.bedCount"></b-input>
+              <b-input type="text" placeholder="Bath Count" v-model="newUnit.bathCount"></b-input>
+              <b-input type="text" placeholder="Rent $" v-model="newUnit.price"></b-input>
+              <b-input type="text" placeholder="SqFt" v-model="newUnit.sqft"></b-input>
+              <b-button type="submit is-success" @click.prevent="addUnit">Add Unit</b-button>
             </b-field>
+            <div class="features">
+              <b-checkbox v-model="currentProperty.features" v-for="feature in features" :native-value="feature" :key="feature.featureId" type="radio">{{feature.featureName}}</b-checkbox>
+            </div>
         </form>
         <form v-if="!newProperty">
             <label for="property">Select Property</label>
@@ -168,7 +171,8 @@ export default {
         propertyName: '',
         photoPath: '',
         location: '',
-        units: []
+        units: [],
+        features: []
       },
       newUnit: {
         unitId: 1000,
@@ -179,6 +183,7 @@ export default {
         sqft: '',
         available: true
       },
+      features: [],
       existingProps: {}
     }
   },
@@ -249,10 +254,27 @@ export default {
           }).then(responseData => {
               this.existingProps = responseData;
           });
+    },
+    loadFeatures() {
+      fetch('http://localhost:8080/api/features', {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + auth.getToken()
+        },
+        credentials: 'same-origin'
+      })
+      .then (response => {
+              if(response.ok) {
+                  return response.json();
+              }
+          }).then(responseData => {
+              this.features = responseData;
+          });
     }
   },
   created() {
     this.loadProperties();
+    this.loadFeatures();
   }
 }
 </script>

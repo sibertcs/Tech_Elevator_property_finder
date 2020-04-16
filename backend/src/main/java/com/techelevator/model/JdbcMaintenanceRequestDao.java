@@ -28,7 +28,10 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
     public List<MaintenanceRequest> getAllUncompletedRequests() {
         List<MaintenanceRequest> allRequests = new ArrayList<>();
         String requestSearchSql = "SELECT request_id, maintenance_request.unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed, unit_number, property_name, street_address, city, state, property.zip_code "
-        + "FROM maintenance_request WHERE is_completed = false ORDER BY request_id;";
+        + "FROM maintenance_request "
+        + "JOIN unit ON maintenance_request.unit_id = unit.unit_id "
+        + "JOIN property ON unit.property_id = property.property_id "
+        + "WHERE is_completed = false ORDER BY request_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(requestSearchSql);
         while (results.next()) {
             allRequests.add(mapRowToRequest(results));

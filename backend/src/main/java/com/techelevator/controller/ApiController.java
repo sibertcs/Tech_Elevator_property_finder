@@ -117,6 +117,10 @@ public class ApiController {
     public List<Feature> getFeaturesByPropertyId(@PathVariable int propertyId){
         return propertyDao.getFeaturesByPropertyId(propertyId);
     }
+    @GetMapping("/features")
+    public List<Feature> getAllfeatures() {
+        return propertyDao.getAllFeatures();
+    }
 
     /**************** PROPERTY CONTROLLER METHODS ****************/
 

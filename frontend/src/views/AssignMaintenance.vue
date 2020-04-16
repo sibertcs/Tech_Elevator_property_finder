@@ -7,12 +7,16 @@
     <div class="tile">
     <div class="tile is-parent">
     <article class="tile is-child box">
-      <p class="title">Request Id: {{ request.requestId }}</p>
-      <p class="subtitle">Unit id: {{ request.unitId }}</p>
+      <p class="title">Request Id: {{ request.propertyName }}</p>
+      <p class="subtitle">Unit id: {{ request.streetAddress }}</p>
       <div class="content">
-      <p>priority level: {{ request.priority }}</p>
-      <p>{{ request.dateRequested}}</p>
-      <p>{{ request.requestDesc }}</p>
+        <p> unit #: {{ request.unitNumber }} </p>  
+        <p>priority level: {{ request.priority }}</p>
+        <p v-if="request.priority === 1"> priority level: Low</p>
+      <p v-if="request.priority === 2"> priority level: Medium</p>
+      <p v-if="request.priority === 3"> priority level: High</p>
+        <p>{{ request.dateRequested}}</p>
+        <p>{{ request.requestDesc }}</p>
       <form>
       <p>
         <label>Assign Maintenance Employee: </label>
