@@ -1,6 +1,6 @@
 <template>
   <div class="container is-fluid">
-    <h2>Lease(s)</h2>
+    <h1 class="title">Your Lease Details:</h1>
       <b-table
         :data="leasesForUser"
         :columns="columns">
