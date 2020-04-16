@@ -13,6 +13,8 @@
                             <p v-if="request.priority === 2">Medium Priority</p>
                             <p v-if="request.priority === 1" style="font-weight: bold; color: red;">High Priority</p>
                             <p>Submitted on {{ request.dateRequested}}</p>
+                            <p>Requested by {{ request.requesterFullName }}</p>
+                            <p>{{ request.requesterEmail }}</p>
                             <br/>
                             <p style="font-weight: bold;">{{ request.requestDesc }}</p>
                             <br/>

@@ -27,10 +27,11 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
     @Override
     public List<MaintenanceRequest> getAllUncompletedRequests() {
         List<MaintenanceRequest> allRequests = new ArrayList<>();
-        String requestSearchSql = "SELECT request_id, maintenance_request.unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed, unit_number, property_name, street_address, city, state, property.zip_code "
+        String requestSearchSql = "SELECT request_id, maintenance_request.unit_id, request_user_id, CONCAT(users.first_name, ' ', users.last_name) AS full_name, users.email, request_desc, priority, date_requested, assigned_user_id, is_completed, unit_number, property_name, street_address, city, state, property.zip_code "
         + "FROM maintenance_request "
         + "JOIN unit ON maintenance_request.unit_id = unit.unit_id "
         + "JOIN property ON unit.property_id = property.property_id "
+        + "JOIN users ON maintenance_request.request_user_id = users.user_id "
         + "WHERE is_completed = false ORDER BY request_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(requestSearchSql);
         while (results.next()) {
@@ -60,10 +61,11 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
 
     @Override
     public List<MaintenanceRequest> getAllCompletedRequestsByEmployeeId(int employeeId){
-        String sql = "SELECT request_id, unit.unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed, unit_number, property_name, street_address, city, state, property.zip_code "
+        String sql = "SELECT request_id, unit.unit_id, request_user_id, CONCAT(users.first_name, ' ', users.last_name) AS full_name, users.email, request_desc, priority, date_requested, assigned_user_id, is_completed, unit_number, property_name, street_address, city, state, property.zip_code "
         + "FROM maintenance_request "
         + "JOIN unit ON maintenance_request.unit_id = unit.unit_id "
         + "JOIN property ON unit.property_id = property.property_id "
+        + "JOIN users ON maintenance_request.request_user_id = users.user_id "
         + "WHERE assigned_user_id = ? AND is_completed = true "
         + "ORDER BY request_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, employeeId);
@@ -76,10 +78,11 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
 
     @Override
     public List<MaintenanceRequest> getAllUncompletedRequestsByEmployeeId(int employeeId){
-        String sql = "SELECT request_id,  maintenance_request.unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed, unit_number, property_name, street_address, city, state, property.zip_code "
+        String sql = "SELECT request_id,  maintenance_request.unit_id, request_user_id, CONCAT(users.first_name, ' ', users.last_name) AS full_name, users.email, request_desc, priority, date_requested, assigned_user_id, is_completed, unit_number, property_name, street_address, city, state, property.zip_code "
         + "FROM maintenance_request "
         + "JOIN unit ON maintenance_request.unit_id = unit.unit_id "
         + "JOIN property ON unit.property_id = property.property_id "
+        + "JOIN users ON maintenance_request.request_user_id = users.user_id "
         + "WHERE assigned_user_id = ? AND is_completed = false "
         + "ORDER BY request_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, employeeId);
@@ -102,6 +105,8 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
         req.setRequestId(row.getInt("request_id"));
             req.setUnitId(row.getInt("unit_id"));
             req.setRequestUserId(row.getInt("request_user_id"));
+            req.setRequesterFullName(row.getString("full_name"));
+            req.setRequesterEmail(row.getString("email"));
             req.setRequestDesc(row.getString("request_desc"));
             req.setPriority(row.getInt("priority"));
             req.setDateRequested(row.getDate("date_requested").toLocalDate());

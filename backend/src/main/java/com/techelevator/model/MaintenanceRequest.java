@@ -7,6 +7,8 @@ public class MaintenanceRequest {
     private int requestId;
     private int unitId;
     private int requestUserId;
+    private String requesterFullName;
+    private String requesterEmail;
     private String requestDesc;
     private int priority;
     private LocalDate dateRequested;
@@ -23,19 +25,35 @@ public class MaintenanceRequest {
         return requestId;
     }
 
+    public String getRequesterEmail() {
+        return requesterEmail;
+    }
+
+    public void setRequesterEmail(String requesterEmail) {
+        this.requesterEmail = requesterEmail;
+    }
+
+    public String getRequesterFullName() {
+        return requesterFullName;
+    }
+
+    public void setRequesterFullName(String requesterFullName) {
+        this.requesterFullName = requesterFullName;
+    }
+
     public String getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
+	public void setZipCode(final String zipCode) {
+        this.zipCode = zipCode;
+    }
 
-	public String getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(final String state) {
         this.state = state;
     }
 
@@ -43,7 +61,7 @@ public class MaintenanceRequest {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(final String city) {
         this.city = city;
     }
 
@@ -51,7 +69,7 @@ public class MaintenanceRequest {
         return streetAddress;
     }
 
-    public void setStreetAddress(String streetAddress) {
+    public void setStreetAddress(final String streetAddress) {
         this.streetAddress = streetAddress;
     }
 
@@ -59,7 +77,7 @@ public class MaintenanceRequest {
         return propertyName;
     }
 
-    public void setPropertyName(String propertyName) {
+    public void setPropertyName(final String propertyName) {
         this.propertyName = propertyName;
     }
 
@@ -67,7 +85,7 @@ public class MaintenanceRequest {
         return UnitNumber;
     }
 
-    public void setUnitNumber(String unitNumber) {
+    public void setUnitNumber(final String unitNumber) {
         this.UnitNumber = unitNumber;
     }
 
@@ -75,7 +93,7 @@ public class MaintenanceRequest {
         return dateRequested;
     }
 
-    public void setDateRequested(LocalDate dateRequested) {
+    public void setDateRequested(final LocalDate dateRequested) {
         this.dateRequested = dateRequested;
     }
 
@@ -83,7 +101,7 @@ public class MaintenanceRequest {
         return completed;
     }
 
-    public void setCompleted(boolean completed) {
+    public void setCompleted(final boolean completed) {
         this.completed = completed;
     }
 
@@ -91,7 +109,7 @@ public class MaintenanceRequest {
         return assignedUserId;
     }
 
-    public void setAssignedUserId(int assignedUserId) {
+    public void setAssignedUserId(final int assignedUserId) {
         this.assignedUserId = assignedUserId;
     }
 
@@ -99,7 +117,7 @@ public class MaintenanceRequest {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(final int priority) {
         this.priority = priority;
     }
 
@@ -107,7 +125,7 @@ public class MaintenanceRequest {
         return requestDesc;
     }
 
-    public void setRequestDesc(String requestDesc) {
+    public void setRequestDesc(final String requestDesc) {
         this.requestDesc = requestDesc;
     }
 
@@ -115,7 +133,7 @@ public class MaintenanceRequest {
         return requestUserId;
     }
 
-    public void setRequestUserId(int requestUserId) {
+    public void setRequestUserId(final int requestUserId) {
         this.requestUserId = requestUserId;
     }
 
@@ -123,11 +141,11 @@ public class MaintenanceRequest {
         return unitId;
     }
 
-    public void setUnitId(int unitId) {
+    public void setUnitId(final int unitId) {
         this.unitId = unitId;
     }
 
-    public void setRequestId(int requestId) {
+    public void setRequestId(final int requestId) {
         this.requestId = requestId;
     }
 
