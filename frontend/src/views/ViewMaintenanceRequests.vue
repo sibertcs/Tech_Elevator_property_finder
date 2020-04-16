@@ -9,28 +9,29 @@
     <p class="title">{{ request.propertyName}}</p>
     <p class="subtitle">Address: {{ request.streetAddress }} {{ request.city }} {{  request.state }} {{ request.zipCode }}</p>
     <div class="content">
-    <p> unit #: {{ request.unitNumber }} </p>
-    <p v-if="request.priority === 1"> priority level: Low</p>
-    <p v-if="request.priority === 2"> priority level: Medium</p>
-    <p v-if="request.priority === 3"> priority level: High</p>
-    <p>{{ request.dateRequested}}</p>
-    <p>{{ request.requestDesc }}</p>
-    <p>{{ request.completed }}</p>
+      <p> unit #: {{ request.unitNumber }} </p>
+      <p v-if="request.priority === 1"> priority level: Low</p>
+      <p v-if="request.priority === 2"> priority level: Medium</p>
+      <p v-if="request.priority === 3"> priority level: High</p>
+      <p>{{ request.dateRequested}}</p>
+      <p>{{ request.requestDesc }}</p>
+      <p>{{ request.completed }}</p>
   
-<form>
-      <label for="priority"> Change Priority Level </label>
-      <select id="priority" v-model="request.priority">
-        <option value="1">Low</option>
-        <option value="2">Medium</option>
-        <option value="3">High</option>
-      </select>
-  <label> Change Status </label>
-     <select v-model="request.completed">
-        <option value="true">Completed</option>
-        <option value="false">Incomplete</option>
-         </select>
-      <button type="button" @click="editRequestStatus(request)">Submit</button>
-      </form>
+        <form>
+          <label for="priority"> Change Priority Level </label>
+          <select id="priority" v-model="request.priority">
+            <option value="1">Low</option>
+            <option value="2">Medium</option>
+            <option value="3">High</option>
+          </select>
+            <br>
+         <label> Change Status </label>
+         <select v-model="request.completed">
+            <option value="true">Completed</option>
+            <option value="false">Incomplete</option>
+          </select>
+          <button type="button" @click="editRequestStatus(request)">Submit</button>
+        </form>
       </div>
       </article>
 </div>
