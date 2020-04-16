@@ -59,8 +59,8 @@
                         <div class="tile is-ancestor">
   <div class="tile is-4 is-parent">
     <div class="tile is-child">
-         <img v-if="property.photoPath.includes('http')" :src="property.photoPath">
-                        <img v-if="property.photoPath.includes('http') === false" class="property-img is-cover" :src="require('@/assets/images/properties/' + property.photoPath)">
+         <img v-if="property.photoPath.includes('http')" :src="property.photoPath" class="property-img">
+                        <img v-if="property.photoPath.includes('http') === false" class="property-img" :src="require('@/assets/images/properties/' + property.photoPath)">
     </div>
    
   </div>
@@ -202,10 +202,11 @@ i {
     } */
    .property-img {
          object-fit: cover;
+         height: 100%;
     }
     img {
-        width: 75%;
-
+        width: 100%;
+      object-fit: cover;
     }
     li {
         list-style: none;
