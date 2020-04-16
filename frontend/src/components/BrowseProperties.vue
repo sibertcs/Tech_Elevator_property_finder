@@ -219,18 +219,8 @@ i {
     .content {
         display: flex;
         flex-direction: row;
-<<<<<<< Updated upstream
         justify-content: space-between;
-=======
         justify-content: flex-start;
-
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     }
 .featureList {
      -moz-column-count: 3;
