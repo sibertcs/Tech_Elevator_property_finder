@@ -29,6 +29,7 @@ class JdbcLeaseDao implements LeaseDao {
         newLease.setUserId(row.getInt("user_id"));
         newLease.setUnitId(row.getInt("unit_id"));
         newLease.setSignedDate(row.getDate("signed_date").toLocalDate());
+        newLease.setStartDate(row.getDate("start_date").toLocalDate());
         newLease.setRentLength(row.getInt("rent_length"));
         newLease.setRentAmount(row.getBigDecimal("rent_amount"));
         newLease.setLateFee(row.getBigDecimal("late_fee"));
@@ -51,7 +52,7 @@ class JdbcLeaseDao implements LeaseDao {
 
     @Override
     public List<Lease> getAllLeases() {
-        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, overdue_balance, status, "
+        String sql = "SELECT lease_id, signed_date, start_date, rent_length, rent_amount, late_fee, overdue_balance, status, "
                     + "lease.user_id, users.email, users.first_name, users.last_name, "
                     + "lease.unit_id, unit.unit_number, property.property_name, property.street_address "
                     + "FROM lease "
@@ -69,7 +70,7 @@ class JdbcLeaseDao implements LeaseDao {
 
     @Override
     public List<Lease> getLeasesForLandlord(int landlordUserId) {
-        String sql = "SELECT lease_id, signed_date, rent_length, rent_amount, late_fee, overdue_balance, status, "
+        String sql = "SELECT lease_id, signed_date, start_date, rent_length, rent_amount, late_fee, overdue_balance, status, "
                     + "lease.user_id, users.email, users.first_name, users.last_name, "
                     + "lease.unit_id, unit.unit_number, property.property_name, property.street_address "
                     + "FROM lease "
