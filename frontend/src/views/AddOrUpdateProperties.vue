@@ -1,19 +1,18 @@
 <template>
     <div class="container is-fluid">
         <div class="add-margin">
-        <p>You are logged in as {{user.sub}} as a {{user.rol}} and has the id of {{user.id}}.</p>
         <h1 class="title">Property Management Console</h1>
+        <br>
 
-        <h2 class="subtitle">Options:</h2>
         <b-field grouped>
-            <b-radio @input="currentProperty = {
+            <b-radio class="options" @input="currentProperty = {
                             address: '',
                             name: '',
                             location: '',
                             units: []
                         }" 
             v-model="newProperty" :native-value="true">Add New Property</b-radio>
-            <b-radio @input="currentProperty = {
+            <b-radio class="options" @input="currentProperty = {
                             address: '',
                             name: '',
                             location: '',
@@ -21,7 +20,6 @@
                         }" 
             v-model="newProperty" :native-value="false">Update Existing Property</b-radio>
         </b-field>
-        <br>
         <br>
         <div>
         <form v-if="newProperty">
@@ -48,6 +46,7 @@
                 </b-field>
                 <!-- <file-upload /> -->
             </div>
+            <br/>
             <table>
             <tr>
                 <th>Unit Number</th>
@@ -76,9 +75,12 @@
               <b-input type="text" placeholder="SqFt" v-model="newUnit.sqft"></b-input>
               <b-button type="submit is-success" @click.prevent="addUnit">Add Unit</b-button>
             </b-field>
+            <br/>
+            <h3 class="subtitle">Features:</h3>
             <div class="features">
-              <span class="control-label">Features</span>
-              <b-checkbox v-model="currentProperty.features" v-for="feature in features" :native-value="feature" :key="feature.featureId" type="radio">{{feature.featureName}}</b-checkbox>
+                <div v-for="feature in features" :key="feature.featureId">
+                    <b-checkbox v-model="currentProperty.features" :native-value="feature" type="radio">{{feature.featureName}}</b-checkbox>
+                </div>
             </div>
         </form>
         <form v-if="!newProperty">
@@ -359,10 +361,16 @@ export default {
       margin-bottom: 1.5rem;
       line-height: 1.125;
   }
+  h3 {
+      font-weight: bold;
+  }
   .features {
     width: 75%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+  }
+  .options {
+      margin-right: 5%;
   }
 </style>
