@@ -78,6 +78,11 @@ export default {
   },
 
 methods: {
+   toast(){
+      this.$buefy.toast.open({
+        message: 'Maintenance request submitted!',
+        type: 'is-success'})
+     },
   viewAllCompletedRequests(){
     fetch('http://localhost:8080/api/maintenance/completed/' + this.user.id, {
       method: 'GET',
@@ -130,6 +135,7 @@ methods: {
        console.log('Updated');
        this.viewAllCompletedRequests();
        this.viewAllUncompletedRequests();
+       this.toast();
      })
    }
    },

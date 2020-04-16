@@ -96,6 +96,11 @@ export default {
     };
   },
    methods: {
+      toast(){
+      this.$buefy.toast.open({
+        message: 'Updated maintenance request!',
+        type: 'is-success'})
+     },
       getAllUncompletedRequests(){
         fetch('http://localhost:8080/api/Landlord/assignMaintenance', {
           method: 'GET',
@@ -144,6 +149,7 @@ export default {
         })
         .then(() => {
           console.log('Updated');
+          this.toast();
         })
         
       }
