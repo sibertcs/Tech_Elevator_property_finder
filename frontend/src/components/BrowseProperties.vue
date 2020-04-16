@@ -98,8 +98,8 @@
 </div>
                     </div>         
                 <footer class="card-footer">
-                     <b-button type="is-primary" expanded v-if="property.streetAddress !== property.propertyName"> <i class="fas fa-angle-double-right"></i>Apply to {{property.propertyName}} @ {{property.streetAddress}} </b-button>
-                   <b-button type="is-primary" expanded v-if="property.streetAddress === property.propertyName" > <i class="fas fa-angle-double-right"></i>Apply to {{property.streetAddress}}</b-button>
+                     <b-button @click="toast" type="is-primary" expanded v-if="property.streetAddress !== property.propertyName"> <i class="fas fa-angle-double-right"></i>Apply to {{property.propertyName}} @ {{property.streetAddress}} </b-button>
+                   <b-button @click="toast" type="is-primary" expanded v-if="property.streetAddress === property.propertyName" > <i class="fas fa-angle-double-right"></i>Apply to {{property.streetAddress}}</b-button>
                 </footer>
            </b-collapse> 
         </div>    
@@ -120,10 +120,24 @@ export default {
             locationFilter: '',
             props: {
                 open: true
-            }
+            },
         }
     },
+    props: {
+        user: Object
+    },
     methods: {
+        toast(){
+            if(this.user != null) {
+                this.$buefy.toast.open({
+                    message: 'Application Sent!',
+                    type: 'is-success'})
+            } else {
+                this.$buefy.toast.open({
+                    message: 'Please Log In!',
+                    type: 'is-danger'})
+            }
+        },
         search() {
             console.log('searching');
             this.shownProperties = this.allProperties.filter(p => {

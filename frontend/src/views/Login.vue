@@ -32,7 +32,7 @@
             
       </form>
       <div class="align">
-        <browse-properties/>
+        <browse-properties :user="auth.user"/>
       </div>
   </div>
 </template>
@@ -56,6 +56,7 @@ export default {
         password: '',
       },
       invalidCredentials: false,
+      auth: auth
     };
   },
   methods: {

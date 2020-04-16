@@ -1,7 +1,7 @@
 <template>
   <div class="home container is-fluid">
     <br/><br/> 
-    <browse-properties/>
+    <browse-properties :user="user" />
   </div>
 </template>
 
