@@ -211,6 +211,7 @@ export default {
    .property-img {
          object-fit: cover;
          height: 100%;
+         border-radius: 8px;
     }
     img {
         width: 100%;
@@ -245,6 +246,9 @@ export default {
         justify-content: space-around;
         align-items: center;
 }
-
+button {
+    margin-left: 20px;
+    margin-right: 20px;
+}
 
 </style>

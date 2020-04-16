@@ -1,6 +1,6 @@
 <template>
   <div class="container is-fluid">
-    <h2>Lease(s)</h2>
+    <h2 class="title">Lease(s)</h2>
     <ul>
       <li v-for="lease in leasesForUser" :key="lease.leaseId">
         <p>{{lease.propertyName}} @ {{lease.propertyAddress}}</p>
