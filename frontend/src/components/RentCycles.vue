@@ -10,8 +10,21 @@
         </div>
         <div class="cycles">
         <h3>Rent Cycles</h3>
-           <b-table :data="allRentCycles" :columns="columns">
-           </b-table>
+          <b-table :data="allRentCycles">
+        <template slot-scope="props">
+          <b-table-column field="startDate" label="Start Date" width="125">{{ props.row.startDate }}</b-table-column>
+          <b-table-column field="dueDate" label="Due Date" width="125">{{ props.row.dueDate }}</b-table-column>
+          <b-table-column label="Balance" width="1">
+            <span>
+              <div class="block">
+                <b-icon pack="fas" icon="dollar-sign" size="is-small"></b-icon>
+                {{ props.row.balance}}.00
+              </div>
+            </span>
+          </b-table-column>
+          <b-table-column field="rentStatus" label="Rent Status" width="125">{{ props.row.rentStatus }}</b-table-column>
+        </template>
+      </b-table>
            
             <!-- <table>
                 <th>Start Date</th>
