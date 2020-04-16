@@ -105,4 +105,11 @@ export default {
     width: 250px;
     font-weight: bold;
 }
+.payment-nav-item {
+    margin: 10px;
+
+}
+.payment-nav {
+    height: 50px;
+}
 </style>

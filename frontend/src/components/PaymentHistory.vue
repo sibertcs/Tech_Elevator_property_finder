@@ -1,15 +1,15 @@
 <template>
     <div class="payment-history">
-        <h1>Payment History</h1>
-        <div class="nav">
-            <a href="#" class="back" @click="goToRentCycles">
+        <div class="payment-nav">
+            <a href="#" class="payment-nav-item" @click="goToRentCycles">
                 <i class="fas fa-list-ul"></i> View Rent Cycles
             </a>
-            <a href="#" class="back" @click="goToNewPayment">
+            <a href="#" class="payment-nav-item" @click="goToNewPayment">
                 <i class="fas fa-address-card"></i> Submit New Payment
             </a>
         </div>
         <div class="payments">
+        <h3>Payment History</h3>
             <b-table :data="allPayments" :columns="column">
             </b-table>
              <!-- <table>
