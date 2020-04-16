@@ -20,6 +20,7 @@
       <form>
       <p>
         <label>Assign Maintenance Employee: </label>
+        <br>
                 <select v-model="request.assignedUserId">
         <option v-for="user in allMaintenanceUsers" :key="user.id" :value="user.id">{{ user.firstName }}</option>
          </select>
