@@ -18,7 +18,7 @@ CREATE TABLE users (
   email varchar(255) NOT NULL UNIQUE,     -- Email
   first_name varchar(255) NOT NULL,
   last_name varchar(255) NOT NULL,
-  phone_number varchar(10) NOT NULL,
+  phone_number varchar(14) NOT NULL,
   password varchar(32) NOT NULL,      -- Password
   salt varchar(256) NOT NULL,          -- Password Salt
   role varchar(255) NOT NULL default('renter'),
@@ -112,51 +112,81 @@ CREATE TABLE maintenance_request (
 );
 
 
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('admin@gmail.com', 'admin', 'admin', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'admin');
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('renter@gmail.com', 'renter', 'renter', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('maintenance@gmail.com', 'maintenance', 'maintenance', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'maintenance');
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('landlord@gmail.com', 'landlord', 'landlord', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'landlord');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('admin@gmail.com', 'Abode', 'Admin', '(513) 000-0315', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'admin');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('david_pc@gmail.com', 'David', 'Pfaltzgraff-Carlson', '(859) 600-6958', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'maintenance');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('katie_dwyer@gmail.com', 'Katie', 'Dwyer', '(859) 600-6958', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'maintenance');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('joe_riggs@gmail.com', 'Joe', 'Riggs', '(859) 600-6958', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'maintenance');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('angie_auel@gmail.com', 'Angie', 'Auel', '(313) 000-0313', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'landlord');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('evan_white@gmail.com', 'Evan', 'White', '(310) 103-0031', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'landlord');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('rebecca_fox@gmail.com', 'Rebecca', 'Fox', '(702) 277-0720', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'landlord');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('drew_cook@gmail.com', 'Drew', 'Cook', '(949) 494-9944', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'landlord');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('zach_kenney@gmail.com', 'Zach', 'Kenney', '(513) 433-315', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'landlord');
 
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('landlord_1@gmail.com', 'Landlord', 'One', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'landlord');
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('landlord_2@gmail.com', 'Landlord', 'Two', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'landlord');
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('renter_1@gmail.com', 'Renter', 'One', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('renter_2@gmail.com', 'Renter', 'Two', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('renter_3@gmail.com', 'Renter', 'Three', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('renter_4@gmail.com', 'Renter', 'Four', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('renter_5@gmail.com', 'Renter', 'Five', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('renter_6@gmail.com', 'Renter', 'Six', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('maintenance_1@gmail.com', 'Maint', 'One', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'maintenance');
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('maintenance_2@gmail.com', 'Maint', 'Two', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'maintenance');
-INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('maintenance_3@gmail.com', 'Maint', 'Three', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'maintenance');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('joe_security@gmail.com', 'Joe', 'Melon', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('steve_boomer@gmail.com', 'Steve', 'Stier', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('sweet_baby_trent@gmail.com', 'Trent', 'Corrill', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('rock_dukakis@gmail.com', 'Rock', 'Dukakis', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('kristas_bakery@gmail.com', 'Krista', 'Lewis', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('isabell_the_dog@gmail.com', 'Doge', 'Isabell', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('tom_nook@gmail.com', 'Tom', 'Nook', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('rita_stall@gmail.com', 'Rita', 'Stall', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('jessica_hall@gmail.com', 'Jessica', 'Hall', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
+INSERT INTO users (email, first_name, last_name, phone_number, password, salt, role) VALUES ('jessica_weatherly@gmail.com', 'J', 'Madd', '1234567890', 'nRNoeCGP0JropBPpDDfIcQ==', 'mbaSqD88vwLEkM/GKKwTOKUWJEcpzZoyvrRz8R2Z1sC1OLLUHdg53/ylzLDq9waiweLaZLigBNDtLYgdKH6kDEEuth5wisTwoS1b/yewubMfnMS+gpQuCj+haoVlJ/zYXM4lEDA73LLkjE6Jp1Em++DD7491T5qJxfwVB4o8nyI=', 'renter');
 
-INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (4, '630 Vine St', 'Cincinnati', 'OH', '45202', 'The Provident Apartments' , '1/630VineSt-01.jpg', 'Downtown');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (5, '630 Vine St', 'Cincinnati', 'OH', '45202', 'The Provident Apartments' , '1/630VineSt-01.jpg', 'Downtown');
 INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (5, '2251 Washington Ave', 'Cincinnati', 'OH', '45212', '2251 Washington Ave' , '2/2251WashingtonAve-01.jpg', 'East Side');
-INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (6, '5601 Viewpointe', 'Cincinnati', 'OH', '45213', 'Hilltop Apartments' , '3/5601Viewpointe-01.jpg', 'North Side');
-INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (6, '1500 Groesbeck Rd', 'Cincinnati', 'OH', '45224', 'The Bradford Apartments' , '4/1500GroesbeckRd-01.jpg', 'North Side');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (5, '5601 Viewpointe', 'Cincinnati', 'OH', '45213', 'Hilltop Apartments' , '3/5601Viewpointe-01.jpg', 'North Side');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (5, '1500 Groesbeck Rd', 'Cincinnati', 'OH', '45224', 'The Bradford Apartments' , '4/1500GroesbeckRd-01.jpg', 'North Side');
 INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (5, '2496 Queen City Ave', 'Cincinnati', 'OH', '45238', 'Lisa Ridge Apartments' , '5/2496QueenCityAve-01.jpg', 'West Side');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (5, '631 Vine St', 'Cincinnati', 'OH', '45202', 'The Majestic Apartments' , 'https://m.foolcdn.com/media/millionacres/images/hero__S9fnzmn.width-1200.jpg', 'Downtown');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (5, '2252 Washington Ave', 'Cincinnati', 'OH', '45212', '2252 Washington Ave' , 'https://homefinderimages.s3.amazonaws.com/cms/articles/1007/1571163764.8921_rental-home.jpg', 'East Side');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (5, '5608 Viewpointe', 'Cincinnati', 'OH', '45213', 'Valleyway Apartments' , 'https://i2.wp.com/www.buildingsaltlake.com/wp-content/uploads/2019/11/Dixon-View-1_Edit_sm-002.jpg?fit=1941%2C1142&ssl=1', 'North Side');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (5, '1501 Groesbeck Rd', 'Cincinnati', 'OH', '45224', 'The Elevate Apartments' , 'https://www.nextpittsburgh.com/wp-content/uploads/2020/01/214-Craig-Rendering-copy-scaled-e1578249535877.jpg', 'North Side');
+INSERT INTO property (landlord_id, street_address, city, state, zip_code, property_name, photo_path, location) VALUES (5, '2497 Queen City Ave', 'Cincinnati', 'OH', '45238', 'Boulevard Apartments' , 'https://bloximages.chicago2.vip.townnews.com/bozemandailychronicle.com/content/tncms/assets/v3/editorial/e/c2/ec28ac82-d5da-5232-9035-04fff014d3ed/5dc4a6674b0dc.image.jpg?resize=1200%2C801', 'West Side');
 
 INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('0211', 1, 0, 1, 1040, 430, true);
 INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('0220', 1, 1, 1, 1410, 650, true);
-INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('1001', 1, 2, 2, 2145, 1052, true);
-INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('2', 2, 3, 1, 1395, 1400, true);
-INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('5633C', 3, 2, 2, 1429, 1171, false);
-INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('5653B', 3, 2, 2, 1279, 1033, true);
-INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('511', 4, 1, 1, 710, 525, true);
-INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('621', 4, 0, 1, 475, 425, false);
-INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('2486-02', 5, 2, 1, 760, 705, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('0224', 1, 2, 2, 2145, 1052, false);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('HS', 2, 3, 1, 1395, 1400, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('5601C', 3, 2, 2, 1429, 1171, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('5601B', 3, 2, 2, 1279, 1033, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('5602A', 3, 1, 1, 710, 525, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('5602D', 3, 0, 1, 475, 425, false);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('02', 4, 0, 1, 760, 705, false);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('03', 4, 2, 1, 1040, 430, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('04', 4, 1, 1, 1410, 650, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('3', 5, 3, 2, 2145, 1052, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('6', 5, 2, 1, 1395, 1400, false);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('3210C', 6, 2, 2, 1429, 1171, false);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('3211B', 6, 2, 2, 1279, 1033, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('3212B', 6, 1, 1, 710, 525, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('HS', 7, 4, 2, 475, 2425, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('1F', 8, 2, 1, 760, 705, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('1G', 8, 2, 1, 760, 705, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('2A', 8, 3, 2, 1753, 1260, false);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('12', 9, 2, 1, 835, 705, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('13', 9, 2, 1, 950, 870, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('14', 9, 2, 1, 1005, 960, true);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('7A', 10, 0, 1, 999, 500, false);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('7B', 10, 1, 1, 1099, 705, false);
+INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('7D', 10, 1, 1, 1099, 705, true);
 
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (2, 8, '2019-09-15', 3, 525, 10, 'Expired');
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (2, 8, '2019-12-15', 12, 475, 5, 'Active');
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (7, 5, '2020-01-20', 12, 1429, 5, 'Active');
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (8, 3, '2020-01-28', 24, 2145, 2, 'Terminated');
+INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (10, 3, '2019-09-15', 3, 525, 10, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (11, 8, '2019-12-15', 12, 475, 5, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (12, 9, '2020-01-20', 12, 1429, 5, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (13, 13, '2020-01-28', 24, 2145, 2, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (14, 14, '2019-09-15', 3, 525, 10, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (15, 20, '2019-12-15', 12, 475, 5, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (16, 24, '2020-01-20', 12, 1429, 5, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (17, 25, '2020-01-28', 24, 2145, 2, 'Active');
 
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (8, 5, 'My toilet is clogged.', 1, '2019-10-15', 13, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (5, 6, 'My bedroom door will not close all the way.', 3, '2020-02-15', 13, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (5, 6, 'There are ants coming in through the bedroom window.', 2, '2020-03-03', 13, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (3, 7, 'Lock on main door is broken.', 1, '2020-03-08', 14, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (8, 5, 'My toilet is clogged.', 1, '2020-04-01', 14, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (5, 6, 'Kitchen sink is clogged.', 1, '2020-04-07', 14, false);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (8, 5, 'Air conditioning not working', 2, '2020-04-08', 15, false);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (3, 10, 'My toilet is clogged.', 1, '2019-10-15', 13, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (8, 11, 'My bedroom door will not close all the way.', 3, '2020-02-15', 13, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (9, 12, 'There are ants coming in through the bedroom window.', 2, '2020-03-03', 13, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (13, 13, 'Lock on main door is broken.', 1, '2020-03-08', 14, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (14, 14, 'My toilet is clogged.', 1, '2020-04-01', 14, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (20, 15, 'Kitchen sink is clogged.', 1, '2020-04-07', 14, false);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (24, 16, 'Air conditioning not working', 2, '2020-04-08', 15, false);
 
 INSERT INTO feature (feature_name) VALUES ('Controlled Access');
 INSERT INTO feature (feature_name) VALUES ('Elevator');
@@ -221,7 +251,6 @@ INSERT INTO property_feature (property_id, feature_id) VALUES (3, 16);
 INSERT INTO property_feature (property_id, feature_id) VALUES (3, 17);
 INSERT INTO property_feature (property_id, feature_id) VALUES (3, 18);
 
-INSERT INTO property_feature (property_id, feature_id) VALUES (4, 1);
 INSERT INTO property_feature (property_id, feature_id) VALUES (4, 3);
 INSERT INTO property_feature (property_id, feature_id) VALUES (4, 4);
 INSERT INTO property_feature (property_id, feature_id) VALUES (4, 5);
@@ -257,28 +286,60 @@ INSERT INTO property_feature (property_id, feature_id) VALUES (5, 17);
 INSERT INTO property_feature (property_id, feature_id) VALUES (5, 18);
 INSERT INTO property_feature (property_id, feature_id) VALUES (5, 19);
 
--- INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (1, '2019-10-01', 525, '2019-10-31', 'Paid');
--- INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (1, '2019-11-01', 525, '2019-11-30', 'Paid');
--- INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (1, '2019-12-01', 525, '2019-12-31', 'Paid');
--- INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (2, '2020-01-01', 475, '2020-01-31', 'Paid');
--- INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (2, '2020-02-01', 475, '2020-02-29', 'Paid');
--- INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (3, '2020-02-01', 1429, '2020-02-29', 'Paid');
--- INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (4, '2020-02-01', 2145, '2020-02-29', 'Overdue');
--- INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (2, '2020-03-01', 475, '2020-03-31', 'Overdue');
--- INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (3, '2020-03-01', 1429, '2020-03-31', 'Paid');
--- INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (4, '2020-03-01', 2145, '2020-03-31', 'Overdue');
--- INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (2, '2020-04-01', 475, '2020-04-30', 'Unpaid');
--- INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (3, '2020-04-01', 1429, '2020-04-30', 'Unpaid');
--- INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (4, '2020-04-01', 2145, '2020-04-30', 'Unpaid');
+INSERT INTO property_feature (property_id, feature_id) VALUES (6, 3);
+INSERT INTO property_feature (property_id, feature_id) VALUES (6, 5);
+INSERT INTO property_feature (property_id, feature_id) VALUES (6, 6);
+INSERT INTO property_feature (property_id, feature_id) VALUES (6, 7);
+INSERT INTO property_feature (property_id, feature_id) VALUES (6, 8);
+INSERT INTO property_feature (property_id, feature_id) VALUES (6, 9);
+INSERT INTO property_feature (property_id, feature_id) VALUES (6, 10);
+INSERT INTO property_feature (property_id, feature_id) VALUES (6, 11);
+INSERT INTO property_feature (property_id, feature_id) VALUES (6, 17);
+INSERT INTO property_feature (property_id, feature_id) VALUES (6, 18);
+INSERT INTO property_feature (property_id, feature_id) VALUES (6, 19);
 
--- INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (1, 525, '2019-10-31 12:00:00');
--- INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (2, 525, '2019-11-30 12:00:00');
--- INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (3, 525, '2019-12-31 12:00:00');
--- INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (4, 475, '2020-01-31 12:00:00');
--- INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (5, 475, '2020-02-29 12:00:00');
--- INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (6, 1429, '2020-02-29 12:00:00');
--- INSERT INTO payment (rent_cycle_id, amount_paid, date_paid) VALUES (9, 1429, '2020-03-31 12:00:00');
+INSERT INTO property_feature (property_id, feature_id) VALUES (7, 5);
+INSERT INTO property_feature (property_id, feature_id) VALUES (7, 6);
+INSERT INTO property_feature (property_id, feature_id) VALUES (7, 7);
+INSERT INTO property_feature (property_id, feature_id) VALUES (7, 8);
+INSERT INTO property_feature (property_id, feature_id) VALUES (7, 9);
+INSERT INTO property_feature (property_id, feature_id) VALUES (7, 10);
+INSERT INTO property_feature (property_id, feature_id) VALUES (7, 11);
+INSERT INTO property_feature (property_id, feature_id) VALUES (7, 12);
+INSERT INTO property_feature (property_id, feature_id) VALUES (7, 13);
+INSERT INTO property_feature (property_id, feature_id) VALUES (7, 16);
+INSERT INTO property_feature (property_id, feature_id) VALUES (7, 17);
+INSERT INTO property_feature (property_id, feature_id) VALUES (7, 18);
+INSERT INTO property_feature (property_id, feature_id) VALUES (7, 19);
 
+INSERT INTO property_feature (property_id, feature_id) VALUES (8, 13);
+INSERT INTO property_feature (property_id, feature_id) VALUES (8, 14);
+INSERT INTO property_feature (property_id, feature_id) VALUES (8, 15);
+INSERT INTO property_feature (property_id, feature_id) VALUES (8, 16);
+INSERT INTO property_feature (property_id, feature_id) VALUES (8, 17);
+INSERT INTO property_feature (property_id, feature_id) VALUES (8, 18);
+INSERT INTO property_feature (property_id, feature_id) VALUES (8, 19);
+
+INSERT INTO property_feature (property_id, feature_id) VALUES (9, 1);
+INSERT INTO property_feature (property_id, feature_id) VALUES (9, 3);
+INSERT INTO property_feature (property_id, feature_id) VALUES (9, 5);
+INSERT INTO property_feature (property_id, feature_id) VALUES (9, 6);
+INSERT INTO property_feature (property_id, feature_id) VALUES (9, 7);
+INSERT INTO property_feature (property_id, feature_id) VALUES (9, 8);
+INSERT INTO property_feature (property_id, feature_id) VALUES (9, 9);
+INSERT INTO property_feature (property_id, feature_id) VALUES (9, 10);
+INSERT INTO property_feature (property_id, feature_id) VALUES (9, 11);
+INSERT INTO property_feature (property_id, feature_id) VALUES (9, 12);
+INSERT INTO property_feature (property_id, feature_id) VALUES (9, 13);
+
+INSERT INTO property_feature (property_id, feature_id) VALUES (10, 1);
+INSERT INTO property_feature (property_id, feature_id) VALUES (10, 3);
+INSERT INTO property_feature (property_id, feature_id) VALUES (10, 5);
+INSERT INTO property_feature (property_id, feature_id) VALUES (10, 6);
+INSERT INTO property_feature (property_id, feature_id) VALUES (10, 7);
+INSERT INTO property_feature (property_id, feature_id) VALUES (10, 8);
+INSERT INTO property_feature (property_id, feature_id) VALUES (10, 9);
+INSERT INTO property_feature (property_id, feature_id) VALUES (10, 10);
 
 COMMIT TRANSACTION;
 
