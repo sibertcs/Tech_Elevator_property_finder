@@ -2,9 +2,8 @@
     <div class="container is-fluid" id="addOrUpdateLease">
         <div class="content">
             <h1 class="title"> Lease Management Console</h1>
-            
+            <br/>
             <section class="form">
-                <h2 class="subtitle">Options:</h2>
                 <form>
                     <div>
                         <b-field>
@@ -137,7 +136,7 @@
                     </div>
                 </form>
             </section>
-            <br/>
+            <br/><br/>
             <section class="existing-leases">
                 <h2 class="subtitle">All Existing Leases:</h2>
                 <b-table
