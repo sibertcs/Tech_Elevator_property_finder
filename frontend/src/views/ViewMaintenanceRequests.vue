@@ -1,47 +1,47 @@
 <template>
-<div>
-  <h1 class="title">This is all the Uncompleted Maintenance Requests</h1>
-  <div class="tile is-ancestor">
-<div class="tile is-4 is-vertical" v-for="request in assignedUncompletedRequests" :key="request.RequestId">
-  <div class="tile">
-    <div class="tile is-parent">
-      <article class="tile is-child box">
-    <p class="title">{{ request.propertyName}}</p>
-    <p class="subtitle">Address: {{ request.streetAddress }} {{ request.city }} {{  request.state }} {{ request.zipCode }}</p>
-    <div class="content">
-      <p> unit #: {{ request.unitNumber }} </p>
-      <p v-if="request.priority === 1"> priority level: Low</p>
-      <p v-if="request.priority === 2"> priority level: Medium</p>
-      <p v-if="request.priority === 3"> priority level: High</p>
-      <p>{{ request.dateRequested}}</p>
-      <p>{{ request.requestDesc }}</p>
-      <p>{{ request.completed }}</p>
-  
-        <form>
-          <label for="priority"> Change Priority Level </label>
-          <select id="priority" v-model="request.priority">
-            <option value="1">Low</option>
-            <option value="2">Medium</option>
-            <option value="3">High</option>
-          </select>
-            <br>
-         <label> Change Status </label>
-         <select v-model="request.completed">
-            <option value="true">Completed</option>
-            <option value="false">Incomplete</option>
-          </select>
-          <button type="button" @click="editRequestStatus(request)">Submit</button>
-        </form>
-      </div>
-      </article>
-</div>
-  </div>
-</div>
-  </div>  
-  <h1 class="title"> completed requests </h1>
-    <b-table :data="assignedCompletedRequests" :columns="columns">
-    </b-table>  
-</div>
+    <div>
+        <h1 class="title">Active Maintenance Requests</h1>
+        <div class="tile is-ancestor">
+            <div class="tile is-4 is-vertical" v-for="request in assignedUncompletedRequests" :key="request.RequestId">
+                <div class="tile">
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="subtitle">{{ request.propertyName }}
+                            <br/>{{ request.streetAddress }} {{ request.city }} {{ request.state }} {{ request.zipCode }}
+                            <br/>Unit #: {{ request.unitNumber }}</p>
+                            <p v-if="request.priority === 3">Low Priority</p>
+                            <p v-if="request.priority === 2">Medium Priority</p>
+                            <p v-if="request.priority === 1" style="font-weight: bold; color: red;">High Priority</p>
+                            <p>Submitted on {{ request.dateRequested}}</p>
+                            <br/>
+                            <p style="font-weight: bold;">{{ request.requestDesc }}</p>
+                            <br/>
+                    
+                            <form>
+                                <label for="priority"> Change Priority Level </label>
+                                <select id="priority" v-model="request.priority">
+                                    <option value="3">Low</option>
+                                    <option value="2">Medium</option>
+                                    <option value="1">High</option>
+                                </select>
+                                    <br>
+                                <label> Change Status </label>
+                                <select v-model="request.completed">
+                                    <option value="true">Completed</option>
+                                    <option value="false">Incomplete</option>
+                                </select>
+                                <button type="button" @click="editRequestStatus(request)">Submit</button>
+                            </form>
+
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <br/>
+        <h1 class="title">Completed Requests</h1>
+        <b-table :data="assignedCompletedRequests" :columns="columns"></b-table>  
+    </div>
 </template>
 
 <script>
@@ -57,21 +57,25 @@ export default {
       assignedUncompletedRequests: [],
       assignedCompletedRequests: [],
       columns: [
+          {
+             field: "propertyName",
+            label: "Property"
+         },
+         {
+             field: "streetAddress",
+            label: "Address"
+         },
+         {
+             field: "unitNumber",
+            label: "Unit #"
+         },
         {
-          field: "requestId",
-          label: "request id"
-        },
-        {
-          field: "unitId",
-          label: "unit id"
-        },
-        {
-          field: "priority",
-          label: "priority"
+          field: "requestDesc",
+          label: "Problem"
         },
         {
           field: "dateRequested",
-          label: "date requested"
+          label: "Date Requested"
         }
       ]
     }
