@@ -1,6 +1,6 @@
 <template>
   <div class="home container is-fluid">
-    <h1>Home</h1> 
+    <br/><br/> 
     <browse-properties/>
   </div>
 </template>

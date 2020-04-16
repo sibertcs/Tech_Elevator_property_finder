@@ -1,7 +1,7 @@
 <template>
-  <div id="app" >
+  <div id="app">
     <div id="nav">
-      <b-navbar fixed-top>
+      <b-navbar fixed-top navbar-breakpoint="700px">
         <template slot="brand">
           <b-navbar-item tag="router-link" :to="{ path: '/' }">
      <img
@@ -17,7 +17,7 @@
 
           <b-navbar-item href="#">About Us</b-navbar-item>
           <div class=navDiv v-if="loggedIn">
-            <b-navbar-dropdown label="Options" v-if="user != undefined">
+            <b-navbar-dropdown :label="`${roleName} Menu`" v-if="user != undefined">
               <div v-if="user != undefined && (user.rol=== 'renter' || user.rol==='admin')">
                 <b-navbar-item href="#">
                   <router-link to="/payment">Payment</router-link>
@@ -69,7 +69,7 @@
               <router-link v-if="!loggedIn" to="/login">
                 <a class="button is-light">Log in</a>
               </router-link>
-              <div v-if="loggedIn" to="/login">Hello {{ user.fnm }} </div>
+              <div id="hello" v-if="loggedIn" to="/login">Hello, {{ user.fnm }}! </div>
               <router-link v-if="loggedIn" to="/login">
                 <a @click="logout" class="button is-primary">Log Out</a>
               </router-link>
@@ -93,7 +93,8 @@ export default {
   data() {
     return {
       user: auth.getUser(),
-      loggedIn: auth.getUser() != null
+      loggedIn: auth.getUser() != null,
+      roleName: ''
     };
   },
   methods: {
@@ -104,7 +105,14 @@ export default {
     login() {
       this.loggedIn = true;
       this.user = auth.getUser();
+      this.refreshRoleName();
+    },
+    refreshRoleName() {
+        this.roleName = this.user.rol.charAt(0).toUpperCase().concat(this.user.rol.substring(1));
     }
+  },
+  created() {
+      this.refreshRoleName();
   }
 };
 </script>
@@ -117,8 +125,14 @@ export default {
 .footer {
   background-color: aqua;
 }
-.content {
+#app {
     margin: 2%;
+}
+#hello {
+    margin-right: 20px;
+}
+.navbar-item {
+    font-weight: bold;
 }
 
 </style>
