@@ -1,9 +1,14 @@
 <template>
   <div class="payments">
-    <h1>Rent Payments</h1>
+    <h1 class="title">Manage Your Rent Payments</h1>
     <div class="overview">
-        <b-message class="balance" :type="overdueBalance > 0 ? 'is-danger' : 'is-success'">Overdue Balance: ${{ overdueBalance }}</b-message>
-        <b-message class="balance">Current Balance: ${{ currentBalance }}</b-message>
+        <b-message class="balance"
+                    :type="overdueBalance > 0 ? 'is-danger' : 'is-success'">
+            Overdue Balance: ${{ overdueBalance }}
+        </b-message>
+        <b-message class="balance">
+            Current Balance: ${{ currentBalance }}
+        </b-message>
     </div>
     <div class="content">
       <rent-cycles
@@ -49,8 +54,8 @@ export default {
         showPaymentHistory: false,
         showNewPaymentForm: true,
         currentLeaseId: 0,
-        overdueBalance: '',
-        currentBalance: ''
+        overdueBalance: 0,
+        currentBalance: 0
     };
   },
   methods: {
@@ -93,11 +98,11 @@ export default {
 </script>
 
 <style>
-.content {
-  display: flex;
-  flex-direction: column;
+.overview {
+    height: 200px;
 }
 .balance {
-  width: 25%
+    width: 250px;
+    font-weight: bold;
 }
 </style>

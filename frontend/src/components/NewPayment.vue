@@ -1,7 +1,6 @@
 <template>
     <div class="new-payment">
         <div class="header">
-            <h2>Add Payment</h2>
             <div class="nav">
                 <a href="#" class="back" @click="goToRentCycles">
                     <i class="fas fa-list-ul"></i> View Rent Cycles
@@ -12,8 +11,8 @@
             </div>
         </div>
         <div class="form">
-            <b-field label="Payment" id="paymentAmount">
-            <b-numberinput placeholder="Payment Here" type="number" min="1" step="0.01"
+            <b-field id="paymentAmount">
+            <b-numberinput placeholder="Enter Amount" type="number" min="1" step="0.01"
                        data-number-to-fixed="2" v-model.number="payment.amountPaid" rounded size="is-medium"></b-numberinput>
         </b-field>
             <!-- <div class="form-input">
@@ -36,7 +35,7 @@ export default {
     data() {
         return {
             payment: {
-                amountPaid: ''
+                amountPaid: 0
             }
         };
     },
@@ -65,9 +64,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #paymentAmount{
-    width: 25%
+    width: 400px;
 }
-
+a {
+    margin: 10px;
+    padding: 10px;
+}
 </style>
