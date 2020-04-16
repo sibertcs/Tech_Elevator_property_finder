@@ -84,7 +84,7 @@ export default {
 methods: {
    toast(){
       this.$buefy.toast.open({
-        message: 'Maintenance request submitted!',
+        message: 'Updated maintenance request!',
         type: 'is-success'})
      },
   viewAllCompletedRequests(){
