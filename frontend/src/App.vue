@@ -108,7 +108,8 @@ export default {
       this.refreshRoleName();
     },
     refreshRoleName() {
-        this.roleName = this.user.rol.charAt(0).toUpperCase().concat(this.user.rol.substring(1));
+        let role = this.user.rol;
+        this.roleName = role.charAt(0).toUpperCase().concat(role.substring(1));
     }
   },
   created() {
