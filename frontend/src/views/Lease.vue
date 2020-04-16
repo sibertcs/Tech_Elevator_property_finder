@@ -3,25 +3,17 @@
     <h1 class="title">Your Lease Details:</h1>
        <b-table :data="leasesForUser">
         <template slot-scope="props">
-          <b-table-column field="propertyName" label="Property Name" width="125" searchable="true">{{ props.row.propertyName }}</b-table-column>
+          <b-table-column field="status" label="Status" width="125" searchable="true">{{ props.row.status }}</b-table-column>
+          <b-table-column field="propertyName" label="Property Name" width="125">{{ props.row.propertyName }}</b-table-column>
+          <b-table-column field="propertyAddress" label="Property Address" width="125">{{ props.row.propertyAddress }}</b-table-column>
           <b-table-column field="unitNumber" label="Unit #" width="125">{{ props.row.unitNumber }}</b-table-column>
-          <b-table-column field="renterName" label="Renter Name" width="125">{{ props.row.renterName }}</b-table-column>
-          <b-table-column field="renterEmail" label="Renter Email" width="125">{{ props.row.renterEmail }}</b-table-column>
-          <b-table-column field="currentRentStatus" label="Rent Status" width="125">{{ props.row.currentRentStatus }}</b-table-column>
+          <b-table-column field="signedDate" label="Signed Date" width="125">{{ props.row.signedDate }}</b-table-column>
 
           <b-table-column label="Monthly Rent" width="125">
             <span>
               <div class="block">
                 <b-icon pack="fas" icon="dollar-sign" size="is-small"></b-icon>
                 {{ props.row.rentAmount}}.00
-              </div>
-            </span>
-          </b-table-column>
-          <b-table-column label="Overdue Balance">
-            <span>
-              <div class="block">
-                <b-icon pack="fas" icon="dollar-sign" size="is-small" width="125"></b-icon>
-                {{ props.row.overdueBalance}}.00
               </div>
             </span>
           </b-table-column>
