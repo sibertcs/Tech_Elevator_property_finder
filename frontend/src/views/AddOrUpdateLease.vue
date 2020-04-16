@@ -139,10 +139,29 @@
             <br/><br/>
             <section class="existing-leases">
                 <h2 class="subtitle">All Existing Leases:</h2>
-                <b-table
-                    :data="leasesForLandlord"
-                    :columns="columns">
-                </b-table>
+                  <b-table :data="leasesForLandlord">
+        <template slot-scope="props">
+          <b-table-column field="propertyName" label="Property Name" width="125" searchable="true">{{ props.row.propertyName }}</b-table-column>
+          <b-table-column field="unitNumber" label="Unit #" width="125">{{ props.row.unitNumber }}</b-table-column>
+          <b-table-column field="status" label="Status" width="125">{{ props.row.renterName }}</b-table-column>
+          <b-table-column field="signedDate" label="Renter Email" width="125">{{ props.row.renterEmail }}</b-table-column>
+          <b-table-column field="rentLength" label="Rent Status" width="125">{{ props.row.currentRentStatus }}</b-table-column>
+
+          <b-table-column label="Monthly Rent" width="125">
+            <span>
+              <div class="block">
+                <b-icon pack="fas" icon="dollar-sign" size="is-small"></b-icon>
+                {{ props.row.rentAmount}}.00
+              </div>
+            </span>
+          </b-table-column>
+          <b-table-column field="renterName" label="Renter Name" searchable="true">
+              {{props.row.renterName}}
+              
+            
+          </b-table-column>
+        </template>
+      </b-table>
             </section>
 
         </div>
