@@ -59,18 +59,7 @@
                     </a>
                 </div>
                 <div class="card-content">
-                    <div class="columns">
-                        <div class="column is-two-thirds">  
-                            <img v-if="property.photoPath.includes('http')" :src="property.photoPath">
-                        <img v-if="property.photoPath.includes('http') === false" class="property-img" :src="require('@/assets/images/properties/' + property.photoPath)">
-                        </div>
-                        <div class="column">
-                             <p>Neighborhood: {{property.location}}</p>
-                            <p>City: {{property.city}}</p>
-                            <p>State: {{property.state}}</p>
-                        </div>
-                        <div class="column">Auto</div>
-</div>
+                    
                     <div class="content">
                         <img v-if="property.photoPath.includes('http')" :src="property.photoPath">
                         <img v-if="property.photoPath.includes('http') === false" class="property-img" :src="require('@/assets/images/properties/' + property.photoPath)">

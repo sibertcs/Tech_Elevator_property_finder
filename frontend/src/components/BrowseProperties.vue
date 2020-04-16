@@ -95,10 +95,6 @@
 </div>
                     </div>         
                 <footer class="card-footer">
-<<<<<<< Updated upstream
-                    <p class="card-footer-item">Schedule a Tour</p>
-=======
->>>>>>> Stashed changes
                      <b-button type="is-primary" expanded v-if="property.streetAddress !== property.propertyName"> <i class="fas fa-angle-double-right"></i>Apply to {{property.propertyName}} @ {{property.streetAddress}} </b-button>
                    <b-button type="is-primary" expanded v-if="property.streetAddress === property.propertyName" > <i class="fas fa-angle-double-right"></i>Apply to {{property.streetAddress}}</b-button>
                 </footer>
@@ -206,12 +202,10 @@ i {
     } */
    .property-img {
          object-fit: cover;
-<<<<<<< Updated upstream
     }
     img {
         width: 75%;
-=======
->>>>>>> Stashed changes
+
     }
     li {
         list-style: none;
@@ -231,6 +225,9 @@ i {
         justify-content: flex-start;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
