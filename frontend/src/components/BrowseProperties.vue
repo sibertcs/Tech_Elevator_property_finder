@@ -1,6 +1,8 @@
 <template>
   <div class="container is-fluid">
-      
+    <div class="center">
+        <h1 class="title">Find your next apartment!</h1>
+    </div>
     <div id="forms">
         <form id="search">
             <b-field label="Search by Address or Name" label-position="inside">
@@ -180,9 +182,15 @@ export default {
 </script>
 
 <style scoped>
-i {
-    padding-right: 10px;
-}
+    .center {
+        text-align: center;
+    }
+    h1, #search {
+        margin-bottom: 40px;
+    }
+    i {
+        padding-right: 10px;
+    }
     #forms {
         width: 100%;
         display: flex;
