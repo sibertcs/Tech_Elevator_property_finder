@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Renters And Status</h1>
+    <h1 class="title">Renter Details</h1>
     <!-- <div>
       <label for="propertyName">Property:</label>
       <select id="propertyName" v-model="selectedPropertyName">
@@ -25,9 +25,6 @@
 </template>
 
 <script>
-import propertyData from '../assets/data/properties.json'
-import unitData from '../assets/data/units.json'
-import renterData from '../assets/data/renters.json'
 import auth from '../auth';
 export default {
    props: {
@@ -35,38 +32,51 @@ export default {
   },
 data () {
   return {
-            allProperties: propertyData,
-            allUnits: unitData,
-            allRenters: renterData,
-            selectedRenters: [],
             leases: [],
-            selectedLeases: [],
-            selectedPropertyName: '',
             columns: [
+                {
+                  field: "propertyName",
+                  label: "Property",
+                  searchable: true
+                },
+                {
+                field: "unitNumber",
+                label: "Unit #",
+                searchable: true,
+                width: 75,
+                },
               {
                 field: "renterName",
-                label: "Name",
-                searchable: true
+                label: "Renter",
+                searchable: true,
+                width: 150,
               },
               {
-                field: "unitNumber",
-                label: "Unit",
+                field: "renterEmail",
+                label: "Renter Email",
                 searchable: true
               },
               {
                 field: "currentRentStatus",
                 label: "Rent Status",
-                searchable: true
+                searchable: true,
+                width: 125,
+                centered: true
               },
+              {
+                field: "rentAmount",
+                label: "Monthly Rent",
+                searchable: true,
+                width: 125,
+                centered: true
+              },
+              
               {
                 field: "overdueBalance",
                 label: "Balance",
-                searchable: true
-              },
-              {
-                field: "propertyName",
-                label: "Property",
-                searchable: true
+                searchable: true,
+                width: 125,
+                centered: true
               }
 
 
