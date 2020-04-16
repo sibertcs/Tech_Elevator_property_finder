@@ -85,6 +85,7 @@ export default {
     getPaymentHistory() {
         this.showNewPaymentForm = false;
         this.showPaymentHistory = true;
+        this.getCurrentLease();
     },
     getRentCycles() {
         this.showNewPaymentForm = false;
