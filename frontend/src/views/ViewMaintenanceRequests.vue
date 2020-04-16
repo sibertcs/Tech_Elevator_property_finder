@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h1>This is all the Uncompleted Maintenance Requests</h1>
+  <h1 class="title">This is all the Uncompleted Maintenance Requests</h1>
   <div class="tile is-ancestor">
 <div class="tile is-4 is-vertical" v-for="request in assignedUncompletedRequests" :key="request.RequestId">
   <div class="tile">
@@ -38,6 +38,7 @@
   </div>
 </div>
   </div>  
+  <h1 class="title"> completed requests </h1>
     <b-table :data="assignedCompletedRequests" :columns="columns">
     </b-table>  
 </div>
