@@ -191,11 +191,11 @@ INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VA
 INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (8, '2020-04-15', 0, '2020-05-15', 'Paid');
 
 
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (3, 10, 'My toilet is clogged.', 1, '2019-10-15', 2, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (8, 11, 'My bedroom door will not close all the way.', 3, '2020-02-15', 2, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (9, 12, 'There are ants coming in through the bedroom window.', 2, '2020-03-03', 3, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (13, 13, 'Lock on main door is broken.', 1, '2020-03-08', 3, true);
-INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (14, 14, 'My toilet is clogged.', 1, '2020-04-01', 4, true);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (3, 10, 'My toilet is clogged.', 1, '2019-10-15', 2, false);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (8, 11, 'My bedroom door will not close all the way.', 3, '2020-02-15', 2, false);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (9, 12, 'There are ants coming in through the bedroom window.', 2, '2020-03-03', 3, false;
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (13, 13, 'Lock on main door is broken.', 1, '2020-03-08', 3, false);
+INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (14, 14, 'My toilet is clogged.', 1, '2020-04-01', 4, false);
 INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (20, 15, 'Kitchen sink is clogged.', 1, '2020-04-07', 4, false);
 INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (24, 16, 'Air conditioning not working', 2, '2020-04-08', 4, false);
 
