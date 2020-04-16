@@ -1,5 +1,5 @@
 <template>
-  <div class="container is-fluid">
+  <div>
       
     <div id="forms">
         <form id="search">
@@ -10,9 +10,11 @@
                 </p>
             </b-field>
         </form>
-        <form id="filters">
+        <br>
+        <form>
+            <div id="filters">
                 <b-field label="Bed Count" label-position="inside">
-                    <b-select @input="filter" id="filterBr" v-model="brFilter">
+                    <b-select id="filterBr" v-model="brFilter">
                         <option value=""></option>
                         <option value="1">1 Br</option>
                         <option value="2">2 Br</option>
@@ -21,7 +23,7 @@
                     </b-select>
                 </b-field>
                 <b-field label="Max Rent" label-position="inside">
-                    <b-select @input="filter" id="filterBr" v-model="upperRentFilter">
+                    <b-select id="filterBr" v-model="upperRentFilter">
                         <option value=""></option>
                         <option value="500">$500/mo</option>
                         <option value="750">$750/mo</option>
@@ -31,7 +33,7 @@
                     </b-select>
                 </b-field>
                 <b-field label="Neighborhood" label-position="inside">
-                    <b-select @input="filter" id="filterLocation" v-model="locationFilter">
+                    <b-select @change.prevent="filter" id="filterLocation" v-model="locationFilter">
                         <option value=""></option>
                         <option>Downtown</option>
                         <option>East Side</option>
@@ -40,7 +42,8 @@
                         <option>NKY</option>
                     </b-select>
                 </b-field>
-                <!-- <b-button @click.prevent="filter" type="is-primary" expanded>Filter</b-button> -->
+                </div>
+                <b-button @click.prevent="filter" type="is-primary" expanded>Filter</b-button>
         </form>
     </div>
     <div id="properties">
@@ -55,52 +58,48 @@
                         </b-icon>
                     </a>
                 </div>
-                    <div class="card-content">
-                        <div class="tile is-ancestor">
-  <div class="tile is-4 is-parent">
-    <div class="tile is-child">
-         <img v-if="property.photoPath.includes('http')" :src="property.photoPath">
-                        <img v-if="property.photoPath.includes('http') === false" class="property-img is-cover" :src="require('@/assets/images/properties/' + property.photoPath)">
-    </div>
-   
-  </div>
-  <div class="tile is-vertical is-parent">
-    <div class=" detailContainter tile is-child box has-background-white-ter">
-        <div>
-        <i class="fas fa-map-marker-alt fa-2x"></i>
-        </div>
-
-     <div class="">
-                            <p><strong>Neighborhood:</strong> {{property.location}}</p>
-                            <p><strong>City:</strong> {{property.city}}</p>
-                            <p><strong>State:</strong> {{property.state}}</p>
+                <div class="card-content">
+                    <div class="columns">
+                        <div class="column is-two-thirds">  
+                            <img v-if="property.photoPath.includes('http')" :src="property.photoPath">
+                        <img v-if="property.photoPath.includes('http') === false" class="property-img" :src="require('@/assets/images/properties/' + property.photoPath)">
                         </div>
-                        <div><i class="far fa-building fa-2x"></i></div>
+                        <div class="column">
+                             <p>Neighborhood: {{property.location}}</p>
+                            <p>City: {{property.city}}</p>
+                            <p>State: {{property.state}}</p>
+                        </div>
+                        <div class="column">Auto</div>
+</div>
+                    <div class="content">
+                        <img v-if="property.photoPath.includes('http')" :src="property.photoPath">
+                        <img v-if="property.photoPath.includes('http') === false" class="property-img" :src="require('@/assets/images/properties/' + property.photoPath)">
+
+                        <div class="">
+                            <p>Neighborhood: {{property.location}}</p>
+                            <p>City: {{property.city}}</p>
+                            <p>State: {{property.state}}</p>
+                        </div>
                         <div>
-                                  <p><strong>Units:</strong></p>
+                            <p>Units:</p>
                             <ul v-if="property.units.length > 0">
                                 <li v-for="unit in property.units" :key="unit.unitId">
                                     <span :class="'available-' + unit.available">#{{unit.unitNumber}}: ({{unit.bedCount}} Bed/ {{unit.bathCount}} Bath) for ${{unit.price}}/mo</span>
                                 </li>
                             </ul>
                         </div>
-    </div>
-     <div class="tile is-child box has-background-white-ter">
-      <p><strong>Features:</strong></p>
+        
+                    <div>
+                    <p>Features</p>
                     <ul class="featureList">
                         <li v-for="feature in property.features" :key="feature.featureId"> {{feature.featureName}}</li>
                         </ul>
-    </div>
-  </div>
-</div>
-                    </div>         
+                
+                    </div>
+                    </div>
+                </div>
                 <footer class="card-footer">
-<<<<<<< Updated upstream
-                    <p class="card-footer-item">Schedule a Tour</p>
-=======
->>>>>>> Stashed changes
-                     <b-button type="is-primary" expanded v-if="property.streetAddress !== property.propertyName"> <i class="fas fa-angle-double-right"></i>Apply to {{property.propertyName}} @ {{property.streetAddress}} </b-button>
-                   <b-button type="is-primary" expanded v-if="property.streetAddress === property.propertyName" > <i class="fas fa-angle-double-right"></i>Apply to {{property.streetAddress}}</b-button>
+                    <p class="card-footer-item">Do Something!</p>
                 </footer>
            </b-collapse> 
         </div>    
@@ -184,34 +183,27 @@ export default {
 </script>
 
 <style scoped>
-i {
-    padding-right: 10px;
-}
     #forms {
+        width: 25%;
+    }
+    #search {
         width: 100%;
-        display: flex;
-        justify-content: center;
     }
     #filters {
-        margin-left: 10px;
-        display: flex
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
     }
-    /* #properties {
+    #properties {
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
-    } */
-    /* #properties div {
-        width: 100%;
-    } */
-   .property-img {
-         object-fit: cover;
-<<<<<<< Updated upstream
     }
-    img {
-        width: 75%;
-=======
->>>>>>> Stashed changes
+    #properties div {
+        width: 100%;
+    }
+    .property-img {
+        width: 25%;
     }
     li {
         list-style: none;
@@ -225,30 +217,14 @@ i {
     .content {
         display: flex;
         flex-direction: row;
-<<<<<<< Updated upstream
-        justify-content: space-between;
-=======
         justify-content: flex-start;
-
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     }
 .featureList {
-     -moz-column-count: 3;
+     -moz-column-count: 4;
     -moz-column-gap: 20px;
     -webkit-column-count: auto;
     -webkit-column-gap: 20px;
-    column-count: 3;
+    column-count: 4;
     column-gap: 20px;
 }
-.detailContainter {
-            display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-}
-
-
 </style>
