@@ -21,10 +21,6 @@
                 <b-icon pack="fas" icon="dollar-sign" size="is-small"></b-icon>
                 {{ props.row.amountPaid}}.00
               </div>
-              <!-- <b-icon pack="fas"
-                            icon="apple"
-                            size="is-large">
-              </b-icon>-->
             </span>
           </b-table-column>
         </template>

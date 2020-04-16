@@ -16,6 +16,7 @@
                 <b-field label="Bed Count" label-position="inside">
                     <b-select @input="filter" id="filterBr" v-model="brFilter">
                         <option value=""></option>
+                        <option value="0">Studio</option>
                         <option value="1">1 Br</option>
                         <option value="2">2 Br</option>
                         <option value="3">3 Br</option>
