@@ -152,7 +152,7 @@ public class JdbcPropertyDao implements PropertyDao {
         int rows = jdbcTemplate.update(sql, property.getStreetAddress(), property.getCity(), property.getState(),
                             property.getZipCode(), property.getPropertyName(), property.getPhotoPath(), property.getLocation(),
                             property.getPropertyId());
-        sql = "DELETE FROM unit WHERE property_id = ?;";
+        sql = "DELETE FROM unit WHERE property_id = ? AND is_available = true;";
         jdbcTemplate.update(sql, property.getPropertyId());
         addUnitsByProperty(property.getPropertyId(), property.getUnits());
 

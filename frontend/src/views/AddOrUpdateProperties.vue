@@ -77,6 +77,7 @@
               <b-button type="submit is-success" @click.prevent="addUnit">Add Unit</b-button>
             </b-field>
             <div class="features">
+              <span class="control-label">Features</span>
               <b-checkbox v-model="currentProperty.features" v-for="feature in features" :native-value="feature" :key="feature.featureId" type="radio">{{feature.featureName}}</b-checkbox>
             </div>
         </form>
@@ -188,6 +189,11 @@ export default {
     }
   },
   methods: {
+    toast(m){
+      this.$buefy.toast.open({
+        message: m,
+        type: 'is-success'})
+     },
     selectExistingProp() {
       this.existingProps.forEach((p) => {
         if(p.propertyId == this.updatePropId) {
@@ -216,9 +222,31 @@ export default {
           .then(() => {
             console.log('New Property and Units created!');
             this.loadProperties();
+            this.currentProperty = {
+              landlordId: this.user.id,
+              streetAddress: '',
+              city: 'Cincinnati',
+              state: 'Ohio',
+              zipCode: '45208',
+              propertyName: '',
+              photoPath: '',
+              location: '',
+              units: [],
+              features: []
+            };
+            this.newUnit= {
+              unitId: 1000,
+              unitNumber: '',
+              bedCount: '',
+              bathCount: '',
+              price: '',
+              sqft: '',
+              available: true
+            };
+            this.toast('Property Added!');
           })
       } else {
-        return fetch("http://localhost:8080/api/propertiesupdate", {
+        return fetch("http://localhost:8080/api/properties/update", {
           method: 'PUT',
           headers: {
             Authorization: 'Bearer ' + auth.getToken(),
@@ -230,6 +258,29 @@ export default {
           .then(() => {
             console.log('Updated');
             this.loadProperties();
+            this.currentProperty = {
+              landlordId: this.user.id,
+              streetAddress: '',
+              city: 'Cincinnati',
+              state: 'Ohio',
+              zipCode: '45208',
+              propertyName: '',
+              photoPath: '',
+              location: '',
+              units: [],
+              features: []
+            };
+            this.newUnit= {
+              unitId: 1000,
+              unitNumber: '',
+              bedCount: '',
+              bathCount: '',
+              price: '',
+              sqft: '',
+              available: true
+            };
+            this.updatePropId = '';
+            this.toast('Property Updated!');
           })
       }
     },
@@ -307,5 +358,11 @@ export default {
       margin-top: 1em;
       margin-bottom: 1.5rem;
       line-height: 1.125;
+  }
+  .features {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 </style>

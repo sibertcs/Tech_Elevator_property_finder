@@ -241,14 +241,13 @@ export default {
     column-gap: 20px;
 }
 .detailContainter {
-            display: flex;
+        display: flex;
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
 }
-/* button {
-    margin-left: 20px;
-    margin-right: 20px;
-} */
+#properties div {
+    margin-bottom: 25px;
+}
 
 </style>
