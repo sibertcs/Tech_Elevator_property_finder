@@ -41,7 +41,7 @@ CREATE TABLE property (
 
 CREATE TABLE unit ( 
   unit_id serial PRIMARY KEY, 
-  unit_number varchar(10) NOT NULL, 
+  unit_number varchar(20) NOT NULL, 
   property_id integer NOT NULL, 
   bed_count integer NOT NULL, 
   bath_count decimal NOT NULL, 

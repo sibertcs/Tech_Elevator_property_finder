@@ -95,7 +95,7 @@ export default {
           }
         })
         .then(responseData => {
-          this.maintenanceRequest.requestUserId = responseData[0].unitId;
+          this.maintenanceRequest.requestUserId = id;
           this.maintenanceRequest.unitId = responseData[0].unitId;
           this.userUnitNumber = responseData[0].unitNumber;
           console.log(responseData[0].unitId);

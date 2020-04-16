@@ -3,7 +3,7 @@
     <h1 class="title">Your Lease Details:</h1>
        <b-table :data="leasesForUser">
         <template slot-scope="props">
-          <b-table-column field="status" label="Status" width="125" searchable="true">{{ props.row.status }}</b-table-column>
+          <b-table-column field="status" label="Status" width="125" :searchable="true">{{ props.row.status }}</b-table-column>
           <b-table-column field="propertyName" label="Property Name" width="125">{{ props.row.propertyName }}</b-table-column>
           <b-table-column field="propertyAddress" label="Property Address" width="125">{{ props.row.propertyAddress }}</b-table-column>
           <b-table-column field="unitNumber" label="Unit #" width="125">{{ props.row.unitNumber }}</b-table-column>
