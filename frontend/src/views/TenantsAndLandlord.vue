@@ -13,7 +13,7 @@
       </select> -->
       <b-table :data="leases">
         <template slot-scope="props">
-          <b-table-column field="propertyName" label="Property Name" width="125" searchable="true">{{ props.row.propertyName }}</b-table-column>
+          <b-table-column field="propertyName" label="Property Name" width="125" :searchable="true">{{ props.row.propertyName }}</b-table-column>
           <b-table-column field="unitNumber" label="Unit #" width="125">{{ props.row.unitNumber }}</b-table-column>
           <b-table-column field="renterName" label="Renter Name" width="125">{{ props.row.renterName }}</b-table-column>
           <b-table-column field="renterEmail" label="Renter Email" width="125">{{ props.row.renterEmail }}</b-table-column>

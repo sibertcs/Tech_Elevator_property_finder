@@ -69,6 +69,7 @@ CREATE TABLE lease (
   user_id integer NOT NULL,
   unit_id integer NOT NULL,
   signed_date date NOT NULL,
+  start_date date NOT NULL,
   rent_length integer NOT NULL,
   rent_amount decimal NOT NULL,
   late_fee decimal NOT NULL,
@@ -171,14 +172,24 @@ INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft,
 INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('7B', 10, 1, 1, 1099, 705, false);
 INSERT INTO unit (unit_number, property_id, bed_count, bath_count, price, sq_ft, is_available) VALUES ('7D', 10, 1, 1, 1099, 705, true);
 
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (10, 3, '2019-09-15', 3, 525, 10, 'Active');
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (11, 8, '2019-12-15', 12, 475, 5, 'Active');
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (12, 9, '2020-01-20', 12, 1429, 5, 'Active');
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (13, 13, '2020-01-28', 24, 2145, 2, 'Active');
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (14, 14, '2019-09-15', 3, 525, 10, 'Active');
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (15, 20, '2019-12-15', 12, 475, 5, 'Active');
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (16, 24, '2020-01-20', 12, 1429, 5, 'Active');
-INSERT INTO lease (user_id, unit_id, signed_date, rent_length, rent_amount, late_fee, status) VALUES (17, 25, '2020-01-28', 24, 2145, 2, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, start_date, rent_length, rent_amount, late_fee, status) VALUES (10, 3, '2020-04-15', '2020-04-15', 3, 525, 10, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, start_date, rent_length, rent_amount, late_fee, status) VALUES (11, 8, '2019-12-15', '2019-12-15', 12, 475, 5, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, start_date, rent_length, rent_amount, late_fee, status) VALUES (12, 9, '2020-04-15', '2020-04-15', 12, 1429, 5, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, start_date, rent_length, rent_amount, late_fee, status) VALUES (13, 13, '2020-01-28', '2020-01-28', 24, 2145, 2, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, start_date, rent_length, rent_amount, late_fee, status) VALUES (14, 14, '2019-09-15', '2019-09-15', 3, 525, 10, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, start_date, rent_length, rent_amount, late_fee, status) VALUES (15, 20, '2019-12-15', '2019-12-15', 12, 475, 5, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, start_date, rent_length, rent_amount, late_fee, status) VALUES (16, 24, '2020-01-20', '2020-01-20', 12, 1429, 5, 'Active');
+INSERT INTO lease (user_id, unit_id, signed_date, start_date, rent_length, rent_amount, late_fee, status) VALUES (17, 25, '2020-04-15', '2020-04-15', 24, 2145, 2, 'Active');
+
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (1, '2020-04-15', 0, '2020-05-15', 'Paid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (2, '2020-04-15', 400, '2020-05-15', 'Unpaid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (3, '2020-04-15', 0, '2020-05-15', 'Paid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (4, '2020-04-15', 950, '2020-05-15', 'Unpaid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (5, '2020-04-15', 0, '2020-05-15', 'Paid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (6, '2020-04-15', 750, '2020-05-15', 'Unpaid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (7, '2020-04-15', 0, '2020-05-15', 'Paid');
+INSERT INTO rent_cycle (lease_id, start_date, balance, due_date, rent_status) VALUES (8, '2020-04-15', 0, '2020-05-15', 'Paid');
+
 
 INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (3, 10, 'My toilet is clogged.', 1, '2019-10-15', 2, true);
 INSERT INTO maintenance_request (unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed) VALUES (8, 11, 'My bedroom door will not close all the way.', 3, '2020-02-15', 2, true);
