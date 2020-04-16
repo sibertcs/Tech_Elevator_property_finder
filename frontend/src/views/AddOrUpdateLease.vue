@@ -143,7 +143,7 @@
         <template slot-scope="props">
           <b-table-column field="propertyName" label="Property Name" width="125" searchable="true">{{ props.row.propertyName }}</b-table-column>
           <b-table-column field="unitNumber" label="Unit #" width="125">{{ props.row.unitNumber }}</b-table-column>
-          <b-table-column field="status" label="Status" width="125">{{ props.row.renterName }}</b-table-column>
+          <b-table-column field="status" label="Status" width="125">{{ props.row.status }}</b-table-column>
           <b-table-column field="signedDate" label="Renter Email" width="125">{{ props.row.renterEmail }}</b-table-column>
           <b-table-column field="rentLength" label="Rent Status" width="125">{{ props.row.currentRentStatus }}</b-table-column>
 
