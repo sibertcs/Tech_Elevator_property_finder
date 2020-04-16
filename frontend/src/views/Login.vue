@@ -7,7 +7,8 @@
         <div class="alert alert-success" role="alert" v-if="this.$route.query.registration">
           Thank you for registering, please sign in.
         </div>
-        <div class="credentials">
+        <br>
+        <div v-if="showLogIn" class="credentials">
           <b-field>
             <b-input
               type="text"
@@ -45,6 +46,9 @@ export default {
   name: 'login',
   components: {
     BrowseProperties
+  },
+  props: {
+    showLogIn: Boolean
   },
   data() {
     return {

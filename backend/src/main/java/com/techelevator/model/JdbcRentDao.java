@@ -78,10 +78,16 @@ public class JdbcRentDao implements RentDao{
             rcBalance = rc.getBalance().subtract(payment.getAmountPaid());
             if(rcBalance.compareTo(zero) == -1) {
                 //they overpaid and have money to put towards credit
+                rc.setRentStatus("Paid");
+                updateRentCycle(rc);
                 payment.setAmountPaid(rcBalance.abs());
                 rcBalance = zero;
             } else {
                 //they underpaid or paid rent balance exactly
+                if(rcBalance.compareTo(zero) == 0) {
+                    rc.setRentStatus("Paid");
+                    updateRentCycle(rc);
+                }
                 payment.setAmountPaid(zero);
             }
         } 

@@ -61,8 +61,8 @@
                 <div class="card-content">
                     
                     <div class="content">
-                        <img v-if="property.photoPath.includes('http')" :src="property.photoPath">
-                        <img v-if="property.photoPath.includes('http') === false" class="property-img" :src="require('@/assets/images/properties/' + property.photoPath)">
+                        <img id="propPic" v-if="property.photoPath.includes('http')" :src="property.photoPath">
+                        <img id="propPic" v-if="property.photoPath.includes('http') === false" class="property-img" :src="require('@/assets/images/properties/' + property.photoPath)">
 
                         <div class="">
                             <p>Neighborhood: {{property.location}}</p>
@@ -216,4 +216,5 @@ export default {
     column-count: 4;
     column-gap: 20px;
 }
+
 </style>

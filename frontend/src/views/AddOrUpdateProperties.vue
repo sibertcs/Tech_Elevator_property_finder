@@ -119,9 +119,9 @@
                 <td>{{unit.bedCount}} bed</td>
                 <td>{{unit.bathCount}} bath</td>
                 <td>${{unit.price}}</td>
-                <td>{{unit.sqFt}} sqft</td>
+                <td>{{unit.sqft}} sqft</td>
                 <td>
-                <b-button type="is-danger" v-if="unit.available" @click.prevent="removeUnit(unit.unitId)">Delete Unit</b-button>
+                  <b-button type="is-danger" v-if="unit.available" @click.prevent="removeUnit(unit.unitId)">Delete Unit</b-button>
                 </td>
                 </tr>
             </table>
@@ -176,7 +176,7 @@ export default {
         bedCount: '',
         bathCount: '',
         price: '',
-        sqFt: '',
+        sqft: '',
         available: true
       },
       existingProps: {}
