@@ -10,7 +10,7 @@ public class Unit {
     private int bedCount;
     private double bathCount;
     private BigDecimal price;
-    private int sqft;
+    private int sqFt;
     private boolean isAvailable;
 
     public int getUnitId() {
@@ -26,11 +26,11 @@ public class Unit {
     }
 
     public int getSqFt() {
-        return sqft;
+        return sqFt;
     }
 
-    public void setSqFt(int sqft) {
-        this.sqft = sqft;
+    public void setSqFt(int sqFt) {
+        this.sqFt = sqFt;
     }
 
     public BigDecimal getPrice() {

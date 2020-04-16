@@ -61,7 +61,7 @@
                 <td>{{unit.bedCount}} bed</td>
                 <td>{{unit.bathCount}} bath</td>
                 <td>${{unit.price}}</td>
-                <td>{{unit.sqft}} sqft</td>
+                <td>{{unit.sqFt}} sqft</td>
                 <td>
                 <b-button type="is-danger" v-if="unit.available" @click.prevent="removeUnit(unit.unitId)">Delete Unit</b-button>
                 </td>
@@ -72,7 +72,7 @@
               <b-input type="text" placeholder="Bed Count" v-model="newUnit.bedCount"></b-input>
               <b-input type="text" placeholder="Bath Count" v-model="newUnit.bathCount"></b-input>
               <b-input type="text" placeholder="Rent $" v-model="newUnit.price"></b-input>
-              <b-input type="text" placeholder="SqFt" v-model="newUnit.sqft"></b-input>
+              <b-input type="text" placeholder="SqFt" v-model="newUnit.sqFt"></b-input>
               <b-button type="submit is-success" @click.prevent="addUnit">Add Unit</b-button>
             </b-field>
             <br/>
@@ -137,7 +137,7 @@
                 <b-input type="text" placeholder="Bed Count" v-model="newUnit.bedCount"></b-input>
                 <b-input type="text" placeholder="Bath Count" v-model="newUnit.bathCount"></b-input>
                 <b-input type="text" placeholder="Rent $" v-model="newUnit.price"></b-input>
-                <b-input type="text" placeholder="SqFt" v-model="newUnit.sqft"></b-input>
+                <b-input type="text" placeholder="SqFt" v-model="newUnit.sqFt"></b-input>
                 <b-button type="submit is-success" @click.prevent="addUnit">Add Unit</b-button>
                 </b-field>
             </div>
@@ -183,7 +183,7 @@ export default {
         bedCount: '',
         bathCount: '',
         price: '',
-        sqft: '',
+        sqFt: '',
         available: true
       },
       features: [],
@@ -242,7 +242,7 @@ export default {
               bedCount: '',
               bathCount: '',
               price: '',
-              sqft: '',
+              sqFt: '',
               available: true
             };
             this.toast('Property Added!');
@@ -278,7 +278,7 @@ export default {
               bedCount: '',
               bathCount: '',
               price: '',
-              sqft: '',
+              sqFt: '',
               available: true
             };
             this.updatePropId = '';
