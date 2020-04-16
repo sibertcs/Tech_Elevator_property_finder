@@ -7,7 +7,6 @@
         <div class="alert alert-success" role="alert" v-if="this.$route.query.registration">
           Thank you for registering, please sign in.
         </div>
-        <br>
         <div v-if="showLogIn" class="credentials">
           <b-field>
             <b-input
