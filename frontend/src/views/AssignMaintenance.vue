@@ -1,46 +1,46 @@
 <template>
-<div>
+    <div>
+        <br/>
+        <h1 class="title">Active Maintenance Requests</h1>
+        <div class="tile is-ancestor">
+            
+            <div class="tile is-4 is-vertical" v-for="request in assignedUncompletedRequests" :key="request.requestId">
+                <div class="tile">
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="subtitle">
+                                {{ request.propertyName }}
+                                <br/>{{request.streetAddress }}
+                                <br/>Unit #: {{ request.unitNumber }}
+                            </p>
+                            <p v-if="request.priority === 3">Low Priority</p>
+                            <p v-if="request.priority === 2">Medium Priority</p>
+                            <p v-if="request.priority === 1" style="font-weight: bold; color: red;">High Priority</p>
+                            <p>Submitted on {{ request.dateRequested}}</p>
+                            <br/>
+                            <p style="font-weight: bold;">{{ request.requestDesc }}</p>
+                            <br/>
+                            <form>
+                            <p>Assign or Update Status: </p>
+                            <select v-model="request.assignedUserId">
+                                <option v-for="user in allMaintenanceUsers" :key="user.id" :value="user.id">{{ user.firstName }}</option>
+                            </select>
+                            <select v-model="request.completed">
+                                <option value="true">Completed</option>
+                                <option value="false">Incomplete</option>
+                            </select>
+                            <button type="button" @click="editRequest(request)">Update</button>
+                            </form>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <h1 class="title">Maintenance Workers</h1>
+        <b-table :data="allMaintenanceUsers" :columns="columns"></b-table>
 
-      <div class="tile is-ancestor">
-        
-  <div class="tile is-4 is-vertical" v-for="request in assignedUncompletedRequests" :key="request.requestId">
-    <div class="tile">
-    <div class="tile is-parent">
-    <article class="tile is-child box">
-      <p class="title">Request Id: {{ request.propertyName }}</p>
-      <p class="subtitle">Unit id: {{ request.streetAddress }}</p>
-      <div class="content">
-        <p> unit #: {{ request.unitNumber }} </p>  
-        <p>priority level: {{ request.priority }}</p>
-        <p v-if="request.priority === 1"> priority level: Low</p>
-      <p v-if="request.priority === 2"> priority level: Medium</p>
-      <p v-if="request.priority === 3"> priority level: High</p>
-        <p>{{ request.dateRequested}}</p>
-        <p>{{ request.requestDesc }}</p>
-      <form>
-      <p>
-        <label>Assign Maintenance Employee: </label>
-        <br>
-                <select v-model="request.assignedUserId">
-        <option v-for="user in allMaintenanceUsers" :key="user.id" :value="user.id">{{ user.firstName }}</option>
-         </select>
-      <select v-model="request.completed">
-        <option value="true">Completed</option>
-        <option value="false">Incomplete</option>
-         </select>
-         <button type="button" @click="editRequest(request)">Update</button>
-      </p>
-      </form>
-      </div>
-    </article>
-  </div>
-  </div>
-  </div>
-  </div>
-   
-      <b-table :data="allMaintenanceUsers" :columns="columns">
-      </b-table>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -72,24 +72,20 @@ export default {
      },
      columns: [
        {
-         field: "id",
-         label: "employee Id"
-       },
-       {
          field: "firstName",
-         label: "first name"
+         label: "First Name"
        },
        {
          field: "lastName",
-         label: "last name"
+         label: "Last Name"
        },
        {
          field: "numberOfAssignedRequests",
-         label: "number of requests"
+         label: "# of Requests"
        },
        {
          field: "phoneNumber",
-         label: "Phone #"
+         label: "Phone Number"
        }
      ],
       assignmentErrors: true,
@@ -164,9 +160,12 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .is-ancestor{
   flex-wrap: wrap;
+}
+.bold {
+    font-weight: bold;
 }
 
 </style>
