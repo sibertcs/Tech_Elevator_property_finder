@@ -1,7 +1,6 @@
 <template>
     <div class="container is-fluid" id="addOrUpdateLease">
         <div class="content">
-            <p>You are logged in as {{user.sub}} as a {{user.rol}} and has the id of {{user.id}}.</p>
             <h1 class="title"> Lease Management Console</h1>
             
             <section class="form">
