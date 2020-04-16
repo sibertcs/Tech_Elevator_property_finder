@@ -76,7 +76,7 @@ public class JdbcMaintenanceRequestDao implements MaintenanceRequestDao {
 
     @Override
     public List<MaintenanceRequest> getAllUncompletedRequestsByEmployeeId(int employeeId){
-        String sql = "SELECT request_id, unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed, unit_number, property_name, street_address, city, state, property.zip_code "
+        String sql = "SELECT request_id,  maintenance_request.unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed, unit_number, property_name, street_address, city, state, property.zip_code "
         + "FROM maintenance_request "
         + "JOIN unit ON maintenance_request.unit_id = unit.unit_id "
         + "JOIN property ON unit.property_id = property.property_id "

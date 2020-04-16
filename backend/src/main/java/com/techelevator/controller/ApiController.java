@@ -271,7 +271,7 @@ public class ApiController {
 
     @GetMapping("/maintenance/uncompleted/{employeeId}")
     public List<MaintenanceRequest> getAllUncompletedRequestsByEmployeeId(@PathVariable int employeeId){
-        return maintReqDao.getAllCompletedRequestsByEmployeeId(employeeId);
+        return maintReqDao.getAllUncompletedRequestsByEmployeeId(employeeId);
     }
    
 

@@ -304,4 +304,6 @@ UPDATE rent_cycle SET rent_status = 'Overdue' WHERE rent_cycle_id = 1 AND due_da
 
 UPDATE lease SET overdue_balance = 2145 WHERE lease_id = 4;
 
+SELECT request_id, maintenance_request.unit_id, request_user_id, request_desc, priority, date_requested, assigned_user_id, is_completed, unit_number, property_name, street_address, city, state, property.zip_code 
+
 SELECT feature_name FROM feature JOIN property_feature ON property_feature.feature_id = feature.feature_id JOIN property ON property_feature.property_id = property.property_id WHERE property.property_id = 3
