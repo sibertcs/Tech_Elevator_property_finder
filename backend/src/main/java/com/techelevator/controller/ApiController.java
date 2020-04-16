@@ -252,11 +252,11 @@ public class ApiController {
     //works in postman
     @PutMapping("/Landlord/assignMaintenance")
     public void updateRequest(@RequestBody MaintenanceRequest request){
-        maintReqDao.updateRequest(request);
+        maintReqDao.updateRequestMaint(request);
     }
     @PutMapping("/maintenance/requests")
     public void updateRequestMaint(@RequestBody MaintenanceRequest request){
-        maintReqDao.updateRequest(request);
+        maintReqDao.updateRequestMaint(request);
     }
     //works in postman
     @GetMapping("/Landlord/assignMaintenance")
