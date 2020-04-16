@@ -1,13 +1,10 @@
 <template>
   <div class="container is-fluid">
-    <h2 class="title">Lease(s)</h2>
-    <ul>
-      <li v-for="lease in leasesForUser" :key="lease.leaseId">
-        <p>{{lease.propertyName}} @ {{lease.propertyAddress}}</p>
-        <p>Unit # {{lease.unitNumber}}</p>
-        <p>{{lease.status}}: Lease #{{lease.leaseId}} was signed on {{lease.signedDate}} and the rent was ${{lease.rentAmount}}/month.</p>
-      </li>
-    </ul>
+    <h2>Lease(s)</h2>
+      <b-table
+        :data="leasesForUser"
+        :columns="columns">
+      </b-table>
   </div>
 </template>
 
@@ -20,7 +17,45 @@ export default {
   },
   data() {
     return {
-      leasesForUser: []
+      leasesForUser: [],
+      columns: [
+                {
+                    field: 'status',
+                    label: 'Lease Status',
+                    width: '100',
+                    searchable: true,
+                },
+                {
+                    field: 'propertyName',
+                    label: 'Property Name',
+                    width: '100',
+                    searchable: true,
+                },
+                {
+                    field: 'propertyAddress',
+                    label: 'Address',
+                    width: '100',
+                    searchable: true,
+                },
+                {
+                    field: 'unitNumber',
+                    label: 'Unit #',
+                    width: '100',
+                    searchable: true,
+                },
+                {
+                    field: 'signedDate',
+                    label: 'Signed On',
+                    width: '100',
+                    searchable: true,
+                },
+                {
+                    field: 'rentAmount',
+                    label: 'Rent/Month',
+                    width: '100',
+                    searchable: true,
+                }
+            ]
     }
   },
   methods: {

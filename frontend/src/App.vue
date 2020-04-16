@@ -67,7 +67,7 @@
                 </a>
               </router-link>
               <router-link v-if="!loggedIn" to="/login">
-                <a class="button is-light">Log in</a>
+                <a @click="showLogIn = !showLogIn" class="button is-light">Log in</a>
               </router-link>
               <div id="hello" v-if="loggedIn" to="/login">Hello, {{ user.fnm }}! </div>
               <router-link v-if="loggedIn" to="/login">
@@ -79,7 +79,7 @@
       </b-navbar>
     </div>
     <div id="loginForm">
-      <router-view :user="user" @user-logout="logout" @user-login="login" />
+      <router-view :showLogIn="showLogIn" :user="user" @user-logout="logout" @user-login="login" />
     </div>
   </div>
   
@@ -94,7 +94,8 @@ export default {
     return {
       user: auth.getUser(),
       loggedIn: auth.getUser() != null,
-      roleName: ''
+      roleName: '',
+      showLogIn: false
     };
   },
   methods: {
@@ -108,11 +109,9 @@ export default {
       this.refreshRoleName();
     },
     refreshRoleName() {
-        this.roleName = this.user.rol.charAt(0).toUpperCase().concat(this.user.rol.substring(1));
+        let role = this.user.rol;
+        this.roleName = role.charAt(0).toUpperCase().concat(role.substring(1));
     }
-  },
-  created() {
-      this.refreshRoleName();
   }
 };
 </script>

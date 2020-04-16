@@ -246,9 +246,9 @@ export default {
         justify-content: space-around;
         align-items: center;
 }
-button {
+/* button {
     margin-left: 20px;
     margin-right: 20px;
-}
+} */
 
 </style>
