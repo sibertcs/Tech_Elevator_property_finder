@@ -13,6 +13,7 @@ import AddOrUpdateLease from './views/AddOrUpdateLease.vue';
 import AssignMaintenance from './views/AssignMaintenance';
 import AddOrUpdateProperties from './views/AddOrUpdateProperties.vue';
 import viewUsers from './views/ViewUsers.vue';
+import AboutUs from './views/AboutUs.vue';
 
 Vue.use(Router)
 
@@ -38,6 +39,14 @@ const router = new Router({
             component: Home,
             meta: {
                 requiresAuth: true
+            }
+        },
+        {
+            path: "/about",
+            name: "about",
+            component: AboutUs,
+            meta: {
+                requiresAuth: false
             }
         },
         {

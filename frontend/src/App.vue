@@ -4,7 +4,7 @@
       <b-navbar fixed-top navbar-breakpoint="700px">
         <template slot="brand">
           <b-navbar-item tag="router-link" :to="{ path: '/' }">
-     <img class="logo"
+     <img 
                     src="@/assets/images/adobe-logo.png"
                     alt="Lightweight UI components for Vue.js based on Bulma"
             >
@@ -15,7 +15,9 @@
             <router-link to="/">Home</router-link>
           </b-navbar-item>
 
-          <b-navbar-item href="#">About Us</b-navbar-item>
+          <b-navbar-item href="#">
+            <router-link to="/about">About Us</router-link>
+          </b-navbar-item>
           <div class=navDiv v-if="loggedIn">
             <b-navbar-dropdown :label="`${roleName} Menu`" v-if="user != undefined">
               <div v-if="user != undefined && (user.rol=== 'renter' || user.rol==='admin')">
@@ -136,6 +138,7 @@ export default {
 .navbar {
    box-shadow: 0px 1px 3px lightgrey;
 }
+
 </style>
 
 
